@@ -20,7 +20,7 @@ func MD5(ts: String) -> String {
     }.joined()
 }
 
-enum RequestError: Error {
+enum MarvelRequestError: Error {
     case urlError(error: URLError)
     case parsingError(error: DecodingError)
 }

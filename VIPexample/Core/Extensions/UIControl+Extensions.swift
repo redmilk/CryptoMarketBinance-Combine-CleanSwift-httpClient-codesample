@@ -1,8 +1,8 @@
 //
-//  Publisher+Extensions.swift
-//  VIPexample
+//  UIControl+Extensions.swift
+//  ReactiveMovies
 //
-//  Created by Admin on 10.05.2021.
+//  Created by Danyl Timofeyev on 23.04.2021.
 //
 
 import Combine
@@ -19,7 +19,6 @@ extension ControlWithPublisher {
         return ControlPublisher(control: self, for: event)
     }
 }
-
 
 struct ControlPublisher<T: UIControl>: Publisher {
     typealias Output = T
