@@ -11,11 +11,23 @@ import Combine
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate, BinanceServiceProvidable {
 
+    var bag = Set<AnyCancellable>()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        
+        binanceService.loadOrderBookTicker(symbol: nil)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .failure(let error):
+                    Logger.log(error)
+                case .finished:
+                    break
+                }
+            }, receiveValue: { orderBook in
+                
+            })
+            .store(in: &bag)
         
         return true
     }

@@ -38,6 +38,7 @@ final class HTTPClient: HTTPClientType {
                 urlSession.dataTaskPublisher(for: urlRequest).mapError { $0 }
                     .flatMap ({ data, response -> AnyPublisher<Data, Error> in
                         Logger.log(data)
+                        #warning("parse server error data in custom codable model")
                         guard let httpResponse = response as? HTTPURLResponse else { return .fail(RequestError.nilResponse(urlRequest)) }
                         guard  200..<300 ~= httpResponse.statusCode else {
                             Logger.log(data)

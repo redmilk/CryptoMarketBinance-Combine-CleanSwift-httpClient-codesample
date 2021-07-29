@@ -70,6 +70,25 @@
 		790A1F0D26B2080900969231 /* BinanceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790A1F0C26B2080900969231 /* BinanceService.swift */; };
 		790A1F0E26B2080900969231 /* BinanceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790A1F0C26B2080900969231 /* BinanceService.swift */; };
 		790A1F0F26B2080900969231 /* BinanceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790A1F0C26B2080900969231 /* BinanceService.swift */; };
+		790A1F1726B2118A00969231 /* OrderBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790A1F1626B2118A00969231 /* OrderBook.swift */; };
+		790A1F1826B2118A00969231 /* OrderBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790A1F1626B2118A00969231 /* OrderBook.swift */; };
+		790A1F1926B2118A00969231 /* OrderBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790A1F1626B2118A00969231 /* OrderBook.swift */; };
+		790A1F1E26B212E200969231 /* RecentTrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790A1F1D26B212E200969231 /* RecentTrade.swift */; };
+		790A1F1F26B212E200969231 /* RecentTrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790A1F1D26B212E200969231 /* RecentTrade.swift */; };
+		790A1F2026B212E200969231 /* RecentTrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790A1F1D26B212E200969231 /* RecentTrade.swift */; };
+		79A12FB826B2235A0068CFDF /* Candlestick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A12FB726B2235A0068CFDF /* Candlestick.swift */; };
+		79A12FBD26B226950068CFDF /* AveragePrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A12FBC26B226950068CFDF /* AveragePrice.swift */; };
+		79A12FBE26B226950068CFDF /* AveragePrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A12FBC26B226950068CFDF /* AveragePrice.swift */; };
+		79A12FBF26B226950068CFDF /* AveragePrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A12FBC26B226950068CFDF /* AveragePrice.swift */; };
+		79A12FC426B2281A0068CFDF /* PriceChange24h.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A12FC326B2281A0068CFDF /* PriceChange24h.swift */; };
+		79A12FC526B2281A0068CFDF /* PriceChange24h.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A12FC326B2281A0068CFDF /* PriceChange24h.swift */; };
+		79A12FC626B2281A0068CFDF /* PriceChange24h.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A12FC326B2281A0068CFDF /* PriceChange24h.swift */; };
+		79A12FCB26B22A070068CFDF /* Price.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A12FCA26B22A070068CFDF /* Price.swift */; };
+		79A12FCC26B22A070068CFDF /* Price.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A12FCA26B22A070068CFDF /* Price.swift */; };
+		79A12FCD26B22A070068CFDF /* Price.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A12FCA26B22A070068CFDF /* Price.swift */; };
+		79A12FD226B22FAC0068CFDF /* OrderBookTicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A12FD126B22FAC0068CFDF /* OrderBookTicker.swift */; };
+		79A12FD326B22FAC0068CFDF /* OrderBookTicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A12FD126B22FAC0068CFDF /* OrderBookTicker.swift */; };
+		79A12FD426B22FAC0068CFDF /* OrderBookTicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A12FD126B22FAC0068CFDF /* OrderBookTicker.swift */; };
 		840D68052648D63700F8C01A /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D68032648D63700F8C01A /* ContentViewController.swift */; };
 		840D68062648D63700F8C01A /* ContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 840D68042648D63700F8C01A /* ContentViewController.xib */; };
 		840D68082648D6C200F8C01A /* ContentCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D68072648D6C200F8C01A /* ContentCoordinator.swift */; };
@@ -139,6 +158,13 @@
 		790A1EC826B1FF5500969231 /* ApplicationFlowCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationFlowCoordinator.swift; sourceTree = "<group>"; };
 		790A1F0126B2070C00969231 /* Ping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ping.swift; sourceTree = "<group>"; };
 		790A1F0C26B2080900969231 /* BinanceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinanceService.swift; sourceTree = "<group>"; };
+		790A1F1626B2118A00969231 /* OrderBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderBook.swift; sourceTree = "<group>"; };
+		790A1F1D26B212E200969231 /* RecentTrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentTrade.swift; sourceTree = "<group>"; };
+		79A12FB726B2235A0068CFDF /* Candlestick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Candlestick.swift; sourceTree = "<group>"; };
+		79A12FBC26B226950068CFDF /* AveragePrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AveragePrice.swift; sourceTree = "<group>"; };
+		79A12FC326B2281A0068CFDF /* PriceChange24h.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceChange24h.swift; sourceTree = "<group>"; };
+		79A12FCA26B22A070068CFDF /* Price.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Price.swift; sourceTree = "<group>"; };
+		79A12FD126B22FAC0068CFDF /* OrderBookTicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderBookTicker.swift; sourceTree = "<group>"; };
 		840D68032648D63700F8C01A /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		840D68042648D63700F8C01A /* ContentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContentViewController.xib; sourceTree = "<group>"; };
 		840D68072648D6C200F8C01A /* ContentCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentCoordinator.swift; sourceTree = "<group>"; };
@@ -289,6 +315,13 @@
 			isa = PBXGroup;
 			children = (
 				790A1F0126B2070C00969231 /* Ping.swift */,
+				790A1F1626B2118A00969231 /* OrderBook.swift */,
+				790A1F1D26B212E200969231 /* RecentTrade.swift */,
+				79A12FB726B2235A0068CFDF /* Candlestick.swift */,
+				79A12FBC26B226950068CFDF /* AveragePrice.swift */,
+				79A12FC326B2281A0068CFDF /* PriceChange24h.swift */,
+				79A12FCA26B22A070068CFDF /* Price.swift */,
+				79A12FD126B22FAC0068CFDF /* OrderBookTicker.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -571,23 +604,30 @@
 				790A1EC926B1FF5500969231 /* ApplicationFlowCoordinator.swift in Sources */,
 				840D68082648D6C200F8C01A /* ContentCoordinator.swift in Sources */,
 				84C3B2F3264894120080FFB0 /* AppDelegate.swift in Sources */,
+				79A12FBD26B226950068CFDF /* AveragePrice.swift in Sources */,
 				84C3B325264894860080FFB0 /* AuthInteractor.swift in Sources */,
 				790A1EB626B1FEC000969231 /* UIView+Extensions.swift in Sources */,
 				840D68052648D63700F8C01A /* ContentViewController.swift in Sources */,
 				840D680F2648D98600F8C01A /* Coordinatable.swift in Sources */,
 				790A1EBF26B1FEC000969231 /* Collection+Extensions.swift in Sources */,
+				79A12FD226B22FAC0068CFDF /* OrderBookTicker.swift in Sources */,
 				790A1E7026B1FC9B00969231 /* ImageLoader.swift in Sources */,
+				79A12FCB26B22A070068CFDF /* Price.swift in Sources */,
 				840D680D2648D97300F8C01A /* ModuleLayersBindable.swift in Sources */,
 				790A1E8526B1FC9B00969231 /* HTTPClient.swift in Sources */,
 				790A1E7C26B1FC9B00969231 /* RequestBuilder.swift in Sources */,
 				84CDFC4126495E4800BDB150 /* ApiModels.swift in Sources */,
+				79A12FB826B2235A0068CFDF /* Candlestick.swift in Sources */,
 				84C3B2F5264894120080FFB0 /* SceneDelegate.swift in Sources */,
 				84C3B32B2648A8D20080FFB0 /* AuthConfigurator.swift in Sources */,
+				790A1F1E26B212E200969231 /* RecentTrade.swift in Sources */,
+				790A1F1726B2118A00969231 /* OrderBook.swift in Sources */,
 				790A1E7626B1FC9B00969231 /* AuthTokens.swift in Sources */,
 				790A1E6A26B1FC9B00969231 /* RequestError.swift in Sources */,
 				840D680A2648D71E00F8C01A /* ContentConfigurator.swift in Sources */,
 				790A1E7326B1FC9B00969231 /* ImageCacher.swift in Sources */,
 				790A1E5326B1FC4700969231 /* ServicesContainer.swift in Sources */,
+				79A12FC426B2281A0068CFDF /* PriceChange24h.swift in Sources */,
 				790A1EA126B1FEB000969231 /* Logger.swift in Sources */,
 				840D68112648DA6B00F8C01A /* ContentInteractor.swift in Sources */,
 				84C3B327264894910080FFB0 /* AuthPresenter.swift in Sources */,
@@ -609,13 +649,19 @@
 				790A1EB426B1FEC000969231 /* UIViewController+Extensions.swift in Sources */,
 				790A1E8626B1FC9B00969231 /* HTTPClient.swift in Sources */,
 				790A1E5426B1FC4700969231 /* ServicesContainer.swift in Sources */,
+				79A12FBE26B226950068CFDF /* AveragePrice.swift in Sources */,
+				79A12FC526B2281A0068CFDF /* PriceChange24h.swift in Sources */,
+				790A1F1F26B212E200969231 /* RecentTrade.swift in Sources */,
 				790A1EBA26B1FEC000969231 /* UIControl+Extensions.swift in Sources */,
 				790A1E7126B1FC9B00969231 /* ImageLoader.swift in Sources */,
+				79A12FCC26B22A070068CFDF /* Price.swift in Sources */,
+				790A1F1826B2118A00969231 /* OrderBook.swift in Sources */,
 				790A1EA226B1FEB000969231 /* Logger.swift in Sources */,
 				790A1E8026B1FC9B00969231 /* Publisher+Extensions.swift in Sources */,
 				790A1E8326B1FC9B00969231 /* Authenticator.swift in Sources */,
 				84C3B30A264894140080FFB0 /* VIPexampleTests.swift in Sources */,
 				790A1EB726B1FEC000969231 /* UIView+Extensions.swift in Sources */,
+				79A12FD326B22FAC0068CFDF /* OrderBookTicker.swift in Sources */,
 				790A1E7D26B1FC9B00969231 /* RequestBuilder.swift in Sources */,
 				790A1E7426B1FC9B00969231 /* ImageCacher.swift in Sources */,
 				790A1E7A26B1FC9B00969231 /* RequestParametersAdapter.swift in Sources */,
@@ -638,13 +684,19 @@
 				790A1EB526B1FEC000969231 /* UIViewController+Extensions.swift in Sources */,
 				790A1E8726B1FC9B00969231 /* HTTPClient.swift in Sources */,
 				790A1E5526B1FC4700969231 /* ServicesContainer.swift in Sources */,
+				79A12FBF26B226950068CFDF /* AveragePrice.swift in Sources */,
+				79A12FC626B2281A0068CFDF /* PriceChange24h.swift in Sources */,
+				790A1F2026B212E200969231 /* RecentTrade.swift in Sources */,
 				790A1EBB26B1FEC000969231 /* UIControl+Extensions.swift in Sources */,
 				790A1E7226B1FC9B00969231 /* ImageLoader.swift in Sources */,
+				79A12FCD26B22A070068CFDF /* Price.swift in Sources */,
+				790A1F1926B2118A00969231 /* OrderBook.swift in Sources */,
 				790A1EA326B1FEB000969231 /* Logger.swift in Sources */,
 				790A1E8126B1FC9B00969231 /* Publisher+Extensions.swift in Sources */,
 				790A1E8426B1FC9B00969231 /* Authenticator.swift in Sources */,
 				84C3B315264894140080FFB0 /* VIPexampleUITests.swift in Sources */,
 				790A1EB826B1FEC000969231 /* UIView+Extensions.swift in Sources */,
+				79A12FD426B22FAC0068CFDF /* OrderBookTicker.swift in Sources */,
 				790A1E7E26B1FC9B00969231 /* RequestBuilder.swift in Sources */,
 				790A1E7526B1FC9B00969231 /* ImageCacher.swift in Sources */,
 				790A1E7B26B1FC9B00969231 /* RequestParametersAdapter.swift in Sources */,
