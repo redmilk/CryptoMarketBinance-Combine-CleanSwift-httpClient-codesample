@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BinanceServiceProvidable 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        binanceService.loadOrderBookTicker(symbol: nil)
+        binanceService.loadPrice(symbol: nil)
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .failure(let error):

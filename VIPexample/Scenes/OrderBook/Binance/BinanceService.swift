@@ -24,7 +24,7 @@ final class BinanceService {
             .eraseToAnyPublisher()
     }
     
-    func loadPrice(symbol: String?) -> AnyPublisher<PriceResponse, Error> {
+    func loadPrice(symbol: String?) -> AnyPublisher<ItemOrArray<Price>, Error> {
         binanceApi.loadPrice(symbol: symbol)
     }
     

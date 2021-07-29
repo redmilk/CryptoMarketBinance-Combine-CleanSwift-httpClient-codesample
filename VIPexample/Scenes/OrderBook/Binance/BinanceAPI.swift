@@ -35,7 +35,7 @@ protocol BinanceApiType {
     func loadCandlesticks(symbol: String, interval: String, startTime: Int64?, endTime: Int64?, limit: Int?) -> AnyPublisher<[[Candlestick]], Error>
     func loadAveragePrice(symbol: String) -> AnyPublisher<AveragePrice, Error>
     func loadPriceChangeBy24Hours(symbol: String) -> AnyPublisher<PriceChange24h, Error>
-    func loadPrice(symbol: String?) -> AnyPublisher<PriceResponse, Error>
+    func loadPrice(symbol: String?) -> AnyPublisher<ItemOrArray<Price>, Error>
     func loadOrderBookTicker(symbol: String?) -> AnyPublisher<OrderBookTickerResponse, Error>
 }
 
@@ -157,7 +157,7 @@ struct BinanceApi: BinanceApiType {
     }
     
     /// if symbol is nil all symbols will return
-    func loadPrice(symbol: String?) -> AnyPublisher<PriceResponse, Error> {
+    func loadPrice(symbol: String?) -> AnyPublisher<ItemOrArray<Price>, Error> {
         let headers = RequestHeaderAdapter()
         let params = RequestParametersAdapter(query: [Param("symbol", symbol)])
         var requestBuilder = RequestBuilder(
