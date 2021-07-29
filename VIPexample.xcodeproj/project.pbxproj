@@ -89,6 +89,9 @@
 		79A12FD226B22FAC0068CFDF /* OrderBookTicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A12FD126B22FAC0068CFDF /* OrderBookTicker.swift */; };
 		79A12FD326B22FAC0068CFDF /* OrderBookTicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A12FD126B22FAC0068CFDF /* OrderBookTicker.swift */; };
 		79A12FD426B22FAC0068CFDF /* OrderBookTicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A12FD126B22FAC0068CFDF /* OrderBookTicker.swift */; };
+		79A1309726B25F6D0068CFDF /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A1309626B25F6D0068CFDF /* HelperFunctions.swift */; };
+		79A1309826B25F6D0068CFDF /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A1309626B25F6D0068CFDF /* HelperFunctions.swift */; };
+		79A1309926B25F6D0068CFDF /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A1309626B25F6D0068CFDF /* HelperFunctions.swift */; };
 		840D68052648D63700F8C01A /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D68032648D63700F8C01A /* ContentViewController.swift */; };
 		840D68062648D63700F8C01A /* ContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 840D68042648D63700F8C01A /* ContentViewController.xib */; };
 		840D68082648D6C200F8C01A /* ContentCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D68072648D6C200F8C01A /* ContentCoordinator.swift */; };
@@ -165,6 +168,7 @@
 		79A12FC326B2281A0068CFDF /* PriceChange24h.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceChange24h.swift; sourceTree = "<group>"; };
 		79A12FCA26B22A070068CFDF /* Price.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Price.swift; sourceTree = "<group>"; };
 		79A12FD126B22FAC0068CFDF /* OrderBookTicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderBookTicker.swift; sourceTree = "<group>"; };
+		79A1309626B25F6D0068CFDF /* HelperFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFunctions.swift; sourceTree = "<group>"; };
 		840D68032648D63700F8C01A /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		840D68042648D63700F8C01A /* ContentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContentViewController.xib; sourceTree = "<group>"; };
 		840D68072648D6C200F8C01A /* ContentCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentCoordinator.swift; sourceTree = "<group>"; };
@@ -228,7 +232,7 @@
 		790A1E3C26B1F80500969231 /* OrderBook */ = {
 			isa = PBXGroup;
 			children = (
-				790A1E4726B1F9E400969231 /* BinanceAPI */,
+				790A1E4726B1F9E400969231 /* Binance */,
 			);
 			path = OrderBook;
 			sourceTree = "<group>";
@@ -236,6 +240,7 @@
 		790A1E4626B1F99A00969231 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				79A1309526B25F440068CFDF /* Utils */,
 				84CDFC3D264949FD00BDB150 /* MarvelAPI */,
 				840D680B2648D94500F8C01A /* Protocols */,
 				790A1ED226B1FF5800969231 /* FlowCoordinator */,
@@ -247,14 +252,14 @@
 			path = Core;
 			sourceTree = "<group>";
 		};
-		790A1E4726B1F9E400969231 /* BinanceAPI */ = {
+		790A1E4726B1F9E400969231 /* Binance */ = {
 			isa = PBXGroup;
 			children = (
 				790A1F0026B206F300969231 /* DTO */,
 				790A1E4826B1FA5A00969231 /* BinanceAPI.swift */,
 				790A1F0C26B2080900969231 /* BinanceService.swift */,
 			);
-			path = BinanceAPI;
+			path = Binance;
 			sourceTree = "<group>";
 		};
 		790A1E5926B1FC9A00969231 /* Networking */ = {
@@ -324,6 +329,14 @@
 				79A12FD126B22FAC0068CFDF /* OrderBookTicker.swift */,
 			);
 			path = DTO;
+			sourceTree = "<group>";
+		};
+		79A1309526B25F440068CFDF /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				79A1309626B25F6D0068CFDF /* HelperFunctions.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		840D68012648D5C000F8C01A /* Content */ = {
@@ -606,6 +619,7 @@
 				84C3B2F3264894120080FFB0 /* AppDelegate.swift in Sources */,
 				79A12FBD26B226950068CFDF /* AveragePrice.swift in Sources */,
 				84C3B325264894860080FFB0 /* AuthInteractor.swift in Sources */,
+				79A1309726B25F6D0068CFDF /* HelperFunctions.swift in Sources */,
 				790A1EB626B1FEC000969231 /* UIView+Extensions.swift in Sources */,
 				840D68052648D63700F8C01A /* ContentViewController.swift in Sources */,
 				840D680F2648D98600F8C01A /* Coordinatable.swift in Sources */,
@@ -645,6 +659,7 @@
 				790A1ECA26B1FF5500969231 /* ApplicationFlowCoordinator.swift in Sources */,
 				790A1EC026B1FEC000969231 /* Collection+Extensions.swift in Sources */,
 				790A1F0E26B2080900969231 /* BinanceService.swift in Sources */,
+				79A1309826B25F6D0068CFDF /* HelperFunctions.swift in Sources */,
 				790A1E7726B1FC9B00969231 /* AuthTokens.swift in Sources */,
 				790A1EB426B1FEC000969231 /* UIViewController+Extensions.swift in Sources */,
 				790A1E8626B1FC9B00969231 /* HTTPClient.swift in Sources */,
@@ -680,6 +695,7 @@
 				790A1ECB26B1FF5500969231 /* ApplicationFlowCoordinator.swift in Sources */,
 				790A1EC126B1FEC100969231 /* Collection+Extensions.swift in Sources */,
 				790A1F0F26B2080900969231 /* BinanceService.swift in Sources */,
+				79A1309926B25F6D0068CFDF /* HelperFunctions.swift in Sources */,
 				790A1E7826B1FC9B00969231 /* AuthTokens.swift in Sources */,
 				790A1EB526B1FEC000969231 /* UIViewController+Extensions.swift in Sources */,
 				790A1E8726B1FC9B00969231 /* HTTPClient.swift in Sources */,
