@@ -244,6 +244,7 @@
 		790A1E4626B1F99A00969231 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				790A1E5226B1FC4700969231 /* ServicesContainer.swift */,
 				79A1309526B25F440068CFDF /* Utils */,
 				84CDFC3D264949FD00BDB150 /* MarvelAPI */,
 				840D680B2648D94500F8C01A /* Protocols */,
@@ -251,7 +252,6 @@
 				790A1EAD26B1FEC000969231 /* Extensions */,
 				790A1E9E26B1FEB000969231 /* Debug */,
 				790A1E5926B1FC9A00969231 /* Networking */,
-				790A1E5226B1FC4700969231 /* ServicesContainer.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";

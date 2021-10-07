@@ -16,9 +16,7 @@ protocol HTTPClientType {
 final class HTTPClient: HTTPClientType {
     private let urlSession: URLSession
     private var isAuthorizationRequired: Bool
-    private lazy var authenticator: Authenticator = {
-        return Authenticator()
-    }()
+    private lazy var authenticator = Authenticator()
     
     init(session: URLSession = URLSession(configuration: .ephemeral),
          isAuthorizationRequired: Bool
