@@ -269,14 +269,14 @@
 		790A1E5926B1FC9A00969231 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				790A1E6526B1FC9A00969231 /* HTTPClient.swift */,
+				790A1E6426B1FC9A00969231 /* Authenticator.swift */,
 				79FB9B6926B2BD1000F36ED7 /* CodableUtils */,
 				790A1E5D26B1FC9A00969231 /* ImageCacherLoader */,
 				790A1E6026B1FC9A00969231 /* AuthTokens.swift */,
 				790A1E6126B1FC9A00969231 /* RequestParametersAdapter.swift */,
 				790A1E6226B1FC9A00969231 /* RequestBuilder.swift */,
 				790A1E6326B1FC9A00969231 /* Publisher+Extensions.swift */,
-				790A1E6426B1FC9A00969231 /* Authenticator.swift */,
-				790A1E6526B1FC9A00969231 /* HTTPClient.swift */,
 				790A1E6626B1FC9A00969231 /* RequestHeaderAdapter.swift */,
 				790A1E5A26B1FC9A00969231 /* RequestError.swift */,
 			);

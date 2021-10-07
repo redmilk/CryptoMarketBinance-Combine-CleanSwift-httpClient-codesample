@@ -1,27 +1,23 @@
 //
-//  Authenticator.swift
-//  Clawee
+//  ServicesContainer.swift
+//  VIPexample
 //
-//  Created by Danyl Timofeyev on 07.05.2021.
-//  Copyright © 2021 Noisy Miner. All rights reserved.
+//  Created by Danyl Timofeyev on 28.07.2021.
 //
 
 import Combine
 import Foundation
 
-// MARK: - Authenticator
 /** Handling 4 cases:
  - Valid token exists, return valid token
  - Don't have any token, user need to Sign In, throw `RequestError.signInRequired`
  - Token refreshing is in progress, share the result to other requests
  - Begin token refreshing with refresh token */
 final class Authenticator {
-    #warning("Store this model in keychain, UserDefaults is wrong place for storing both user tokens")
     private var authTokens: AuthTokens? = AuthTokens(
         accessToken: "access-token-asdjfhkash3",
         tokenExpirationDate: Date(),
         refreshToken: "Prefs.refreshToken")
-    /// this publisher is shared among all calls that requests a token refresh, performs on serial queue
     private var refreshPublisher: AnyPublisher<AuthTokens?, Error>?
     private let queue = DispatchQueue(label: "authenticator-token-refreshing-serial-queue")
     private var subscriptions = Set<AnyCancellable>()
@@ -31,7 +27,7 @@ final class Authenticator {
         isAuthorizationRequred: Bool,
         shouldValidateToken: Bool
     ) -> AnyPublisher<AuthTokens?, Error> {
-        return queue.sync { [unowned self] in
+        queue.sync { [unowned self] in
             /// whether request authorization header required
             guard isAuthorizationRequred else { return .just(nil) }
             /// token validation isn't required, just return current token

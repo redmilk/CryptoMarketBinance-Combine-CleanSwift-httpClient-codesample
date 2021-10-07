@@ -1,8 +1,8 @@
 //
-//  ConfiguratorType.swift
+//  ServicesContainer.swift
 //  VIPexample
 //
-//  Created by Admin on 10.05.2021.
+//  Created by Danyl Timofeyev on 28.07.2021.
 //
 
 import UIKit.UIViewController

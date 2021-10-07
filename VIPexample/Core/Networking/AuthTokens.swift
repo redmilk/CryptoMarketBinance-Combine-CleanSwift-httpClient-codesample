@@ -1,9 +1,8 @@
 //
-//  AuthTokens.swift
-//  Clawee
+//  ServicesContainer.swift
+//  VIPexample
 //
-//  Created by Danyl Timofeyev on 07.05.2021.
-//  Copyright © 2021 Noisy Miner. All rights reserved.
+//  Created by Danyl Timofeyev on 28.07.2021.
 //
 
 import Foundation
