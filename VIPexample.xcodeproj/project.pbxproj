@@ -247,7 +247,7 @@
 				790A1E5226B1FC4700969231 /* ServicesContainer.swift */,
 				79A1309526B25F440068CFDF /* Utils */,
 				84CDFC3D264949FD00BDB150 /* MarvelAPI */,
-				840D680B2648D94500F8C01A /* Protocols */,
+				840D680B2648D94500F8C01A /* CleanSwiftComponents */,
 				790A1ED226B1FF5800969231 /* FlowCoordinator */,
 				790A1EAD26B1FEC000969231 /* Extensions */,
 				790A1E9E26B1FEB000969231 /* Debug */,
@@ -376,7 +376,7 @@
 			path = Scenes;
 			sourceTree = "<group>";
 		};
-		840D680B2648D94500F8C01A /* Protocols */ = {
+		840D680B2648D94500F8C01A /* CleanSwiftComponents */ = {
 			isa = PBXGroup;
 			children = (
 				840D680C2648D97300F8C01A /* ModuleLayersBindable.swift */,
@@ -385,7 +385,7 @@
 				840D68162648DCAC00F8C01A /* SceneInteractable.swift */,
 				840D680E2648D98600F8C01A /* Coordinatable.swift */,
 			);
-			path = Protocols;
+			path = CleanSwiftComponents;
 			sourceTree = "<group>";
 		};
 		84C3B2E6264894120080FFB0 = {
