@@ -11,13 +11,4 @@ struct ContentConfigurator: ModuleLayersBindable {
     let interactor: ContentInteractor
     let presenter: ContentPresenter
     let controller: ContentViewController
-    
-    init(interactor: ContentInteractor,
-         presenter: ContentPresenter,
-         controller: ContentViewController
-    ) {
-        self.interactor = interactor
-        self.presenter = presenter
-        self.controller = controller
-    }
 }

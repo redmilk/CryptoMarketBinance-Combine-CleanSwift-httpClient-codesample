@@ -72,11 +72,11 @@ final class MarvelService {
                     .eraseToAnyPublisher()
             })
             .compactMap { $0 }
-            .sink(receiveCompletion: { [unowned self] completion in
+            .sink(receiveCompletion: { [weak self] completion in
                 //requestMurvel()
-            }, receiveValue: { [unowned self] char in
-                murvels.send([char])
-                offset += 1
+            }, receiveValue: { [weak self] char in
+                self?.murvels.send([char])
+                self?.offset += 1
             })
             .store(in: &subscriptions)
     }

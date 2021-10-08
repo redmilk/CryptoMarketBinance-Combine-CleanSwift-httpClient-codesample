@@ -12,18 +12,13 @@ import Combine
 final class ContentCoordinator: Coordinatable {
     
     private var window: UIWindow
-    private var configurator: ContentConfigurator?
-    private let showAuth = PassthroughSubject<Void, Never>()
-    
+    private var configurator: ContentConfigurator!
+        
     init(window: UIWindow) {
         self.window = window
     }
     deinit {
         Logger.log("ContentCoordinator", type: .lifecycle)
-    }
-    
-    var showAuthPublisher: AnyPublisher<Void, Never> {
-        showAuth.first().eraseToAnyPublisher()
     }
     
     func start() {
@@ -48,6 +43,7 @@ final class ContentCoordinator: Coordinatable {
     func end() {
         /// nil the configurator to avoid memory leak
         configurator = nil
-        showAuth.send(())
+        let authCoordinator = AuthCoordinator(window: window)
+        authCoordinator.start()
     }
 }

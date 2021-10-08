@@ -8,20 +8,8 @@
 import Foundation
 import UIKit.UIViewController
 
-final class AuthConfigurator: ModuleLayersBindable {
-    
-    var interactor: AuthInteractor
-    var presenter: AuthPresenter
-    var controller: AuthViewController
-    
-    required init(interactor: AuthInteractor,
-                  presenter: AuthPresenter,
-                  controller: AuthViewController) {
-        self.interactor = interactor
-        self.presenter = presenter
-        self.controller = controller
-    }
-    deinit {
-        Logger.log("AuthConfigurator", type: .lifecycle)
-    }
+struct AuthConfigurator: ModuleLayersBindable {
+    let interactor: AuthInteractor
+    let presenter: AuthPresenter
+    let controller: AuthViewController
 }

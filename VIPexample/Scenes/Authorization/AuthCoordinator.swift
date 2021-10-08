@@ -36,7 +36,7 @@ final class AuthCoordinator: Coordinatable, AuthCoordinatorType {
             controller: controller
         )
         var subscriptions = Set<AnyCancellable>()
-        configurator.bindModuleLayers(controller: controller, subscriptions: &subscriptions)
+        configurator?.bindModuleLayers(controller: controller, subscriptions: &subscriptions)
 
         navigationController = UINavigationController(rootViewController: controller)
         window.rootViewController = navigationController
@@ -44,20 +44,14 @@ final class AuthCoordinator: Coordinatable, AuthCoordinatorType {
     }
     
     func showContent() {
+        end()
         let coordinator = ContentCoordinator(window: window)
         coordinator.start()
-        coordinator.showAuthPublisher
-            .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { [weak self] _ in
-                self?.start()
-            })
-            .store(in: &subscriptions)
     }
     
     func end() {
+        /// nil the configurator to avoid memory leak
+        configurator = nil
         window.rootViewController = nil
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
-            self?.start()
-        }
     }
 }
