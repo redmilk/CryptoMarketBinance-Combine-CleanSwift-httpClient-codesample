@@ -7,7 +7,7 @@
 
 import Combine
 
-final class ContentInteractor: SceneInteractable {
+struct ContentInteractor: SceneInteractable {
     enum Response {
         case closePressed
         case character(MurvelResult?)
@@ -26,7 +26,7 @@ final class ContentInteractor: SceneInteractable {
             .subscribe(outputToPresenter)
             .store(in: &subscriptions)
         
-        inputFromVC.sink(receiveValue: { [unowned self] action in
+        inputFromVC.sink(receiveValue: { [self] action in
             switch action {
             case .willDisplayCellAtIndex(let index, let maxCount):
                 if maxCount - 5 == index {
@@ -38,10 +38,9 @@ final class ContentInteractor: SceneInteractable {
         })
         .store(in: &subscriptions)
         
-        inputFromVC
-            .filter { $0 == .loadCharacters }
-            .handleEvents(receiveOutput: { [unowned self] _ in marvelService.requestMurvel() })
-            .flatMap({ [unowned self] action -> AnyPublisher<Response, Never> in
+        inputFromVC.filter { $0 == .loadCharacters }
+            .handleEvents(receiveOutput: { [self] _ in marvelService.requestMurvel() })
+            .flatMap({ [self] action -> AnyPublisher<Response, Never> in
                 marvelService.murvels.flatMap({ chars -> AnyPublisher<MurvelResult, Never> in
                         Publishers.Sequence(sequence: chars)
                             .setFailureType(to: Never.self)
@@ -52,8 +51,5 @@ final class ContentInteractor: SceneInteractable {
             })
             .subscribe(outputToPresenter)
             .store(in: &subscriptions)
-    }
-    deinit {
-        Logger.log("ContentInteractor", type: .lifecycle)
     }
 }

@@ -19,7 +19,8 @@ protocol ModuleLayersBindable {
     
     init(interactor: Interactor, presenter: Presenter, controller: ViewController)
     
-    // MARK: - ViewController, Presenter, Interactor layers input and output binding
+    // MARK: - ViewController + Presenter + Interactor layers INPUT and OUTPUT binding
+    
     func bindModuleLayers(controller: ViewController, subscriptions: inout Set<AnyCancellable>)
 }
 

@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol Coordinatable {
+protocol Coordinatable: class {
     func start()
     func end()
 }

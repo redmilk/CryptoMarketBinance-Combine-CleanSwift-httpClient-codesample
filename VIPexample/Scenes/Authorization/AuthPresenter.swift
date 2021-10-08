@@ -9,7 +9,7 @@ import Combine
 import Foundation
 
 final class AuthPresenter: ScenePresentable {
-    // MARK: - ScenePresentable implementation
+
     let inputFromInteractor = PassthroughSubject<AuthInteractor.Response, Never>()
     let outputToViewController = PassthroughSubject<AuthViewController.State, Never>()
     

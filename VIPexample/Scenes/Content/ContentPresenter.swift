@@ -7,20 +7,19 @@
 
 import Combine
 
-final class ContentPresenter: ScenePresentable {
+struct ContentPresenter: ScenePresentable {
     
-    // MARK: ScenePresentable implementation
     let inputFromInteractor = PassthroughSubject<ContentInteractor.Response, Never>()
     let outputToViewController = PassthroughSubject<ContentViewController.State, Never>()
 
     private let coordinator: Coordinatable
     private var subscriptions = Set<AnyCancellable>()
     
-    required init(coordinator: Coordinatable) {
+    init(coordinator: Coordinatable) {
         self.coordinator = coordinator
         
         inputFromInteractor
-            .sink(receiveValue: { [unowned self] interactorResponse in
+            .sink(receiveValue: { [self] interactorResponse in
                 switch interactorResponse {
                 case .closePressed: coordinator.end()
                 case .character(let character):
@@ -29,8 +28,5 @@ final class ContentPresenter: ScenePresentable {
                 }
             })
             .store(in: &subscriptions)
-    }
-    deinit {
-        Logger.log("ContentPresenter", type: .lifecycle)
     }
 }

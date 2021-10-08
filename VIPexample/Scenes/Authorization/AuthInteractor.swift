@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-final class AuthInteractor: SceneInteractable {
+struct AuthInteractor: SceneInteractable {
     enum Response {
         case validatationResult(Bool)
         case signInRequestResult(Swift.Result<String, Error>)
@@ -22,7 +22,7 @@ final class AuthInteractor: SceneInteractable {
     private var subscriptions = Set<AnyCancellable>()
     
     init() {
-        inputFromController.map { [unowned self] action in
+        inputFromController.map { [self] action in
             switch action {
             case .loginPressed:
                 return .showContent
@@ -35,9 +35,6 @@ final class AuthInteractor: SceneInteractable {
         }
         .subscribe(outputToPresenter)
         .store(in: &subscriptions)
-    }
-    deinit {
-        Logger.log("AuthInteractor", type: .lifecycle)
     }
     
     private func validateCredentials(username: String, password: String) -> Bool {
