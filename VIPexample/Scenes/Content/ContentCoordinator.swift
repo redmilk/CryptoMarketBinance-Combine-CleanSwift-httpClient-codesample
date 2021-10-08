@@ -12,11 +12,14 @@ import Combine
 final class ContentCoordinator: Coordinatable {
     
     private var window: UIWindow
-    private var configurator: ContentConfigurator!
+    private var configurator: ContentConfigurator?
     private let showAuth = PassthroughSubject<Void, Never>()
     
     init(window: UIWindow) {
         self.window = window
+    }
+    deinit {
+        Logger.log("ContentCoordinator", type: .lifecycle)
     }
     
     var showAuthPublisher: AnyPublisher<Void, Never> {
@@ -33,7 +36,7 @@ final class ContentCoordinator: Coordinatable {
             controller: controller
         )
         var subscriptions = Set<AnyCancellable>()
-        configurator.bindModuleLayers(controller: controller, subscriptions: &subscriptions)
+        configurator?.bindModuleLayers(controller: controller, subscriptions: &subscriptions)
         
         let navigation = UINavigationController(rootViewController: controller)
         navigation.hidesBarsOnSwipe = true
@@ -43,6 +46,8 @@ final class ContentCoordinator: Coordinatable {
     }
     
     func end() {
+        /// nil the configurator to avoid memory leak
+        configurator = nil
         showAuth.send(())
     }
 }

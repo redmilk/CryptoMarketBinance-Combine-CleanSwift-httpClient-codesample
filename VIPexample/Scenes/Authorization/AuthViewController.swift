@@ -47,6 +47,9 @@ final class AuthViewController: UIViewController, ViewInputableOutputable {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    deinit {
+        Logger.log("AuthViewController", type: .lifecycle)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

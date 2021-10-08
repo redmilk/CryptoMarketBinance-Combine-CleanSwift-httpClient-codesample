@@ -36,6 +36,9 @@ final class AuthInteractor: SceneInteractable {
         .subscribe(outputToPresenter)
         .store(in: &subscriptions)
     }
+    deinit {
+        Logger.log("AuthInteractor", type: .lifecycle)
+    }
     
     private func validateCredentials(username: String, password: String) -> Bool {
         return username.count > 3 && password.count > 3

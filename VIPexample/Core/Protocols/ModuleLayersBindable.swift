@@ -8,7 +8,7 @@
 import UIKit.UIViewController
 import Combine
 
-protocol ModuleLayersBindable: AnyObject {
+protocol ModuleLayersBindable {
     associatedtype Interactor: SceneInteractable
     associatedtype Presenter: ScenePresentable
     associatedtype ViewController: ViewInputableOutputable

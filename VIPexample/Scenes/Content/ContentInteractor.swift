@@ -53,4 +53,7 @@ final class ContentInteractor: SceneInteractable {
             .subscribe(outputToPresenter)
             .store(in: &subscriptions)
     }
+    deinit {
+        Logger.log("ContentInteractor", type: .lifecycle)
+    }
 }

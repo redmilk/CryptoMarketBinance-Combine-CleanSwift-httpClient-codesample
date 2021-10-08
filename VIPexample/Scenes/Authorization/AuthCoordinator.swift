@@ -22,6 +22,9 @@ final class AuthCoordinator: Coordinatable, AuthCoordinatorType {
     init(window: UIWindow) {
         self.window = window
     }
+    deinit {
+        Logger.log("AuthCoordinator", type: .lifecycle)
+    }
     
     func start() {
         let controller = AuthViewController()

@@ -7,14 +7,15 @@
 
 import UIKit.UIViewController
 
-final class ContentConfigurator: ModuleLayersBindable {
-    var interactor: ContentInteractor
-    var presenter: ContentPresenter
-    var controller: ContentViewController
+struct ContentConfigurator: ModuleLayersBindable {
+    let interactor: ContentInteractor
+    let presenter: ContentPresenter
+    let controller: ContentViewController
     
-    required init(interactor: ContentInteractor,
-                  presenter: ContentPresenter,
-                  controller: ContentViewController) {
+    init(interactor: ContentInteractor,
+         presenter: ContentPresenter,
+         controller: ContentViewController
+    ) {
         self.interactor = interactor
         self.presenter = presenter
         self.controller = controller

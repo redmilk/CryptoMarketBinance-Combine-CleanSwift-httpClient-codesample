@@ -21,4 +21,7 @@ final class AuthConfigurator: ModuleLayersBindable {
         self.presenter = presenter
         self.controller = controller
     }
+    deinit {
+        Logger.log("AuthConfigurator", type: .lifecycle)
+    }
 }

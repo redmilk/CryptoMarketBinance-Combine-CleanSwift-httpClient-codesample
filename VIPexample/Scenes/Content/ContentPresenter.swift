@@ -30,4 +30,7 @@ final class ContentPresenter: ScenePresentable {
             })
             .store(in: &subscriptions)
     }
+    deinit {
+        Logger.log("ContentPresenter", type: .lifecycle)
+    }
 }

@@ -41,7 +41,7 @@ final class ContentViewController: UIViewController, ViewInputableOutputable {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    private var subscriptions: Set<AnyCancellable>!
+    private var subscriptions = Set<AnyCancellable>()
     private lazy var dataSource = makeDataSource()
     private let searchController = UISearchController(searchResultsController: nil)
     
@@ -50,6 +50,9 @@ final class ContentViewController: UIViewController, ViewInputableOutputable {
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    deinit {
+        Logger.log("ContentViewController", type: .lifecycle)
     }
     
     override func viewDidLoad() {

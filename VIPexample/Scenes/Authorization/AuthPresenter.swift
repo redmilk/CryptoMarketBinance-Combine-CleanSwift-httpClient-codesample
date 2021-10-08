@@ -43,4 +43,7 @@ final class AuthPresenter: ScenePresentable {
             .subscribe(outputToViewController)
             .store(in: &subscriptions)
     }
+    deinit {
+        Logger.log("AuthPresenter", type: .lifecycle)
+    }
 }
