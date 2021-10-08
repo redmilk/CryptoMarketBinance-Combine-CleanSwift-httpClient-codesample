@@ -17,12 +17,10 @@ struct ContentInteractor: InteractorType {
     let outputToPresenter = PassthroughSubject<Response, Never>()
     
     private let marvelService = MarvelService()
-    private let bag: Set<AnyCancellable>
+    private var bag = Set<AnyCancellable>()
     
-    init(bag: inout Set<AnyCancellable>) {
-        self.bag = bag
+    init() {
         let inputFromVC = inputFromController.share()
-        
         inputFromVC.filter({ $0 == .closePressed })
             .map { _ in .closePressed }
             .subscribe(outputToPresenter)

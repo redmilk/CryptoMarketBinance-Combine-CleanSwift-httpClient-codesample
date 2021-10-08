@@ -24,7 +24,7 @@ final class ContentCoordinator: CoordinatorType {
     func start() {
         var bag = Set<AnyCancellable>()
         let controller = ContentViewController()
-        let interactor = ContentInteractor(bag: &bag)
+        let interactor = ContentInteractor()
         let presenter = ContentPresenter(coordinator: self)
         configurator = ContentConfigurator(
             interactor: interactor,
