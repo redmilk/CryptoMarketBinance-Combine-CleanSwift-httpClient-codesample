@@ -7,7 +7,7 @@
 
 import Combine
 
-protocol SceneInteractable {
+protocol InteractorType {
     associatedtype ViewControllerAction
     associatedtype PresenterResponse
     

@@ -7,12 +7,12 @@
 
 import Combine
 
-protocol ViewInputableOutputable: AnyObject {
+protocol ViewControllerType: AnyObject {
     associatedtype ViewControllerState
     associatedtype ViewControllerAction
     
     var inputFromPresenter: PassthroughSubject<ViewControllerState, Never> { get }
     var outputToInteractor: PassthroughSubject<ViewControllerAction, Never> { get }
     
-    func storeSubscriptions(_ subscriptions: Set<AnyCancellable>)
+    func storeSubscriptions(_ bag: inout Set<AnyCancellable>)
 }

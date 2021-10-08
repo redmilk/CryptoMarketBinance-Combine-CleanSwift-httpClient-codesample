@@ -8,10 +8,10 @@
 import UIKit.UIViewController
 import Combine
 
-protocol ModuleLayersBindable {
-    associatedtype Interactor: SceneInteractable
-    associatedtype Presenter: ScenePresentable
-    associatedtype ViewController: ViewInputableOutputable
+protocol ModuleLayersBinderType {
+    associatedtype Interactor: InteractorType
+    associatedtype Presenter: PresenterType
+    associatedtype ViewController: ViewControllerType
     
     var interactor: Interactor { get }
     var presenter: Presenter { get }
@@ -19,30 +19,30 @@ protocol ModuleLayersBindable {
     
     init(interactor: Interactor, presenter: Presenter, controller: ViewController)
     
-    // MARK: - ViewController + Presenter + Interactor layers INPUT and OUTPUT binding
-    
-    func bindModuleLayers(controller: ViewController, subscriptions: inout Set<AnyCancellable>)
+    /// ViewController + Presenter + Interactor layers INPUT and OUTPUT binding
+    /// call in coordinator start()
+    func bindModuleLayers(controller: ViewController, bag: inout Set<AnyCancellable>)
 }
 
-extension ModuleLayersBindable where
+extension ModuleLayersBinderType where
     ViewController.ViewControllerAction == Interactor.ViewControllerAction,
     Interactor.PresenterResponse == Presenter.InteractorResponse,
     Presenter.ViewControllerState == ViewController.ViewControllerState {
     
-    func bindModuleLayers(controller: ViewController, subscriptions: inout Set<AnyCancellable>) {
+    func bindModuleLayers(controller: ViewController, bag: inout Set<AnyCancellable>) {
         controller.outputToInteractor
             .subscribe(interactor.inputFromController)
-            .store(in: &subscriptions)
+            .store(in: &bag)
         
         interactor.outputToPresenter
             .subscribe(presenter.inputFromInteractor)
-            .store(in: &subscriptions)
+            .store(in: &bag)
         
         presenter.outputToViewController
             .receive(on: DispatchQueue.main)
             .subscribe(controller.inputFromPresenter)
-            .store(in: &subscriptions)
+            .store(in: &bag)
         
-        controller.storeSubscriptions(subscriptions)
+        controller.storeSubscriptions(&bag)
     }
 }

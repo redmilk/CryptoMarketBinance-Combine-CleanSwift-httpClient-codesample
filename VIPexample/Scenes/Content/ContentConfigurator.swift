@@ -7,7 +7,7 @@
 
 import UIKit.UIViewController
 
-struct ContentConfigurator: ModuleLayersBindable {
+struct ContentConfigurator: ModuleLayersBinderType {
     let interactor: ContentInteractor
     let presenter: ContentPresenter
     let controller: ContentViewController

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit.UIViewController
 
-struct AuthConfigurator: ModuleLayersBindable {
+struct AuthConfigurator: ModuleLayersBinderType {
     let interactor: AuthInteractor
     let presenter: AuthPresenter
     let controller: AuthViewController

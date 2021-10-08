@@ -7,15 +7,15 @@
 
 import Combine
 
-struct ContentPresenter: ScenePresentable {
+struct ContentPresenter: PresenterType {
     
     let inputFromInteractor = PassthroughSubject<ContentInteractor.Response, Never>()
     let outputToViewController = PassthroughSubject<ContentViewController.State, Never>()
 
-    private let coordinator: Coordinatable
-    private var subscriptions = Set<AnyCancellable>()
+    private let coordinator: CoordinatorType
+    private var bag = Set<AnyCancellable>()
     
-    init(coordinator: Coordinatable) {
+    init(coordinator: CoordinatorType) {
         self.coordinator = coordinator
         
         inputFromInteractor
@@ -27,6 +27,6 @@ struct ContentPresenter: ScenePresentable {
                     outputToViewController.send(.character(character))
                 }
             })
-            .store(in: &subscriptions)
+            .store(in: &bag)
     }
 }

@@ -7,7 +7,7 @@
 
 import Combine
 
-struct ContentInteractor: SceneInteractable {
+struct ContentInteractor: InteractorType {
     enum Response {
         case closePressed
         case character(MurvelResult?)
@@ -17,14 +17,16 @@ struct ContentInteractor: SceneInteractable {
     let outputToPresenter = PassthroughSubject<Response, Never>()
     
     private let marvelService = MarvelService()
-    private var subscriptions = Set<AnyCancellable>()
+    private let bag: Set<AnyCancellable>
     
-    init() {
+    init(bag: inout Set<AnyCancellable>) {
+        self.bag = bag
         let inputFromVC = inputFromController.share()
+        
         inputFromVC.filter({ $0 == .closePressed })
             .map { _ in .closePressed }
             .subscribe(outputToPresenter)
-            .store(in: &subscriptions)
+            .store(in: &bag)
         
         inputFromVC.sink(receiveValue: { [self] action in
             switch action {
@@ -36,7 +38,7 @@ struct ContentInteractor: SceneInteractable {
             case _: break
             }
         })
-        .store(in: &subscriptions)
+        .store(in: &bag)
         
         inputFromVC.filter { $0 == .loadCharacters }
             .handleEvents(receiveOutput: { [self] _ in marvelService.requestMurvel() })
@@ -50,6 +52,6 @@ struct ContentInteractor: SceneInteractable {
                     .eraseToAnyPublisher()
             })
             .subscribe(outputToPresenter)
-            .store(in: &subscriptions)
+            .store(in: &bag)
     }
 }

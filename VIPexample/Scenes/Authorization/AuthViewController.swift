@@ -25,7 +25,7 @@ extension AuthViewController {
 
 // MARK: - AuthViewController
 
-final class AuthViewController: UIViewController, ViewInputableOutputable {
+final class AuthViewController: UIViewController, ViewControllerType {
     
     // MARK: - ViewInputableOutputable implementation
     
@@ -39,7 +39,8 @@ final class AuthViewController: UIViewController, ViewInputableOutputable {
     @IBOutlet private weak var loginButton: UIButton!
     @IBOutlet private weak var messageLabel: UILabel!
     @IBOutlet private weak var removeRootButton: UIButton!
-    private var subscriptions: Set<AnyCancellable>!
+    
+    private var bag: Set<AnyCancellable>!
     
     init() {
         super.init(nibName: String(describing: AuthViewController.self), bundle: nil)
@@ -57,8 +58,8 @@ final class AuthViewController: UIViewController, ViewInputableOutputable {
         dispatchActionsForInteractor()
     }
     
-    func storeSubscriptions(_ subscriptions: Set<AnyCancellable>) {
-        self.subscriptions = subscriptions
+    func storeSubscriptions(_ bag: inout Set<AnyCancellable>) {
+        self.bag = bag
     }
 }
 
@@ -83,7 +84,7 @@ private extension AuthViewController {
         
         Publishers.Merge3(credentialsAction, removeRootAction, loginPressedAction)
             .subscribe(outputToInteractor)
-            .store(in: &subscriptions)
+            .store(in: &bag)
     }
     
     /// Presenter output handler
@@ -105,6 +106,6 @@ private extension AuthViewController {
                 case .idle: break
                 }
             })
-            .store(in: &subscriptions)
+            .store(in: &bag)
     }
 }

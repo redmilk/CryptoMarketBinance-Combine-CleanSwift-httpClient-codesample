@@ -9,11 +9,11 @@ import Foundation
 import UIKit.UIViewController
 import Combine
 
-final class ContentCoordinator: Coordinatable {
+final class ContentCoordinator: CoordinatorType {
     
     private var window: UIWindow
     private var configurator: ContentConfigurator!
-        
+
     init(window: UIWindow) {
         self.window = window
     }
@@ -22,16 +22,16 @@ final class ContentCoordinator: Coordinatable {
     }
     
     func start() {
+        var bag = Set<AnyCancellable>()
         let controller = ContentViewController()
-        let interactor = ContentInteractor()
+        let interactor = ContentInteractor(bag: &bag)
         let presenter = ContentPresenter(coordinator: self)
         configurator = ContentConfigurator(
             interactor: interactor,
             presenter: presenter,
             controller: controller
         )
-        var subscriptions = Set<AnyCancellable>()
-        configurator?.bindModuleLayers(controller: controller, subscriptions: &subscriptions)
+        configurator?.bindModuleLayers(controller: controller, bag: &bag)
         
         let navigation = UINavigationController(rootViewController: controller)
         navigation.hidesBarsOnSwipe = true

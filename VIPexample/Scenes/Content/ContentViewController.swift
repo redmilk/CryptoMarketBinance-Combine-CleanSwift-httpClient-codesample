@@ -32,7 +32,7 @@ typealias DataSource = UICollectionViewDiffableDataSource<Section, MurvelResult>
 typealias Snapshot = NSDiffableDataSourceSnapshot<Section, MurvelResult>
 
 
-final class ContentViewController: UIViewController, ViewInputableOutputable {
+final class ContentViewController: UIViewController, ViewControllerType {
     
     // MARK: - ViewInputableOutputable implementation
     
@@ -41,7 +41,7 @@ final class ContentViewController: UIViewController, ViewInputableOutputable {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    private var subscriptions = Set<AnyCancellable>()
+    private var bag: Set<AnyCancellable>!
     private lazy var dataSource = makeDataSource()
     private let searchController = UISearchController(searchResultsController: nil)
     
@@ -65,14 +65,14 @@ final class ContentViewController: UIViewController, ViewInputableOutputable {
             case .idle: break
             }
         })
-        .store(in: &subscriptions)
+        .store(in: &bag)
         
         configureView()
         outputToInteractor.send(.loadCharacters)
     }
     
-    func storeSubscriptions(_ subscriptions: Set<AnyCancellable>) {
-        self.subscriptions = subscriptions
+    func storeSubscriptions(_ bag: inout Set<AnyCancellable>) {
+        self.bag = bag
     }
     
     @objc func closePressed() {
@@ -86,8 +86,8 @@ extension ContentViewController: UICollectionViewDelegate {
         willDisplay cell: UICollectionViewCell,
         forItemAt indexPath: IndexPath
     ) {
-        outputToInteractor.send(
-            .willDisplayCellAtIndex(index: indexPath.row, total: collectionView.numberOfItems(inSection: 0)))
+        let action = Action.willDisplayCellAtIndex(index: indexPath.row, total: collectionView.numberOfItems(inSection: 0))
+        outputToInteractor.send(action)
     }
 }
 

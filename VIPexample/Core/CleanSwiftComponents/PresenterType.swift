@@ -7,7 +7,7 @@
 
 import Combine
 
-protocol ScenePresentable {
+protocol PresenterType {
     associatedtype InteractorResponse
     associatedtype ViewControllerState
     associatedtype Coordinator

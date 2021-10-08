@@ -8,15 +8,15 @@
 import Combine
 import Foundation
 
-final class AuthPresenter: ScenePresentable {
-
+final class AuthPresenter: PresenterType {
+    
     let inputFromInteractor = PassthroughSubject<AuthInteractor.Response, Never>()
     let outputToViewController = PassthroughSubject<AuthViewController.State, Never>()
     
-    private let coordinator: Coordinatable & AuthCoordinatorType
-    private var subscriptions = Set<AnyCancellable>()
+    private let coordinator: CoordinatorType & AuthCoordinatorType
+    private var bag = Set<AnyCancellable>()
     
-    init(coordinator: Coordinatable & AuthCoordinatorType) {
+    init(coordinator: CoordinatorType & AuthCoordinatorType) {
         self.coordinator = coordinator
         
         inputFromInteractor
@@ -41,7 +41,7 @@ final class AuthPresenter: ScenePresentable {
                 }
             }
             .subscribe(outputToViewController)
-            .store(in: &subscriptions)
+            .store(in: &bag)
     }
     deinit {
         Logger.log("AuthPresenter", type: .lifecycle)

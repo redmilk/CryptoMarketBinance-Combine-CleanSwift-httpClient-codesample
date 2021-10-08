@@ -13,11 +13,10 @@ protocol AuthCoordinatorType {
     func showContent()
 }
 
-final class AuthCoordinator: Coordinatable, AuthCoordinatorType {
+final class AuthCoordinator: CoordinatorType, AuthCoordinatorType {
     private let window: UIWindow
     private var navigationController: UINavigationController!
     private var configurator: AuthConfigurator!
-    private var subscriptions = Set<AnyCancellable>()
     
     init(window: UIWindow) {
         self.window = window
@@ -27,6 +26,7 @@ final class AuthCoordinator: Coordinatable, AuthCoordinatorType {
     }
     
     func start() {
+        var bag = Set<AnyCancellable>()
         let controller = AuthViewController()
         let interactor = AuthInteractor()
         let presenter = AuthPresenter(coordinator: self)
@@ -35,8 +35,7 @@ final class AuthCoordinator: Coordinatable, AuthCoordinatorType {
             presenter: presenter,
             controller: controller
         )
-        var subscriptions = Set<AnyCancellable>()
-        configurator?.bindModuleLayers(controller: controller, subscriptions: &subscriptions)
+        configurator?.bindModuleLayers(controller: controller, bag: &bag)
 
         navigationController = UINavigationController(rootViewController: controller)
         window.rootViewController = navigationController
