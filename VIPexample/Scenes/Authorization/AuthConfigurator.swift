@@ -2,7 +2,7 @@
 //  Configurator.swift
 //  VIPexample
 //
-//  Created by Admin on 10.05.2021.
+//  Created by Danyl Timofeyev on 10.05.2021.
 //
 
 import Foundation

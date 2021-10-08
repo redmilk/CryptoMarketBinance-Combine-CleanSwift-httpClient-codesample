@@ -381,9 +381,9 @@
 			children = (
 				840D680C2648D97300F8C01A /* ModuleLayersBindable.swift */,
 				840D68182648E33500F8C01A /* ViewInputableOutputable.swift */,
-				840D680E2648D98600F8C01A /* Coordinatable.swift */,
 				840D68142648DBC500F8C01A /* ScenePresentable.swift */,
 				840D68162648DCAC00F8C01A /* SceneInteractable.swift */,
+				840D680E2648D98600F8C01A /* Coordinatable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";

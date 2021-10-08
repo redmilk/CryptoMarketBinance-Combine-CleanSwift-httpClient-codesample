@@ -24,7 +24,9 @@ protocol ModuleLayersBindable: AnyObject {
 }
 
 extension ModuleLayersBindable where
-    ViewController.ViewControllerAction == Interactor.ViewControllerAction, Interactor.PresenterResponse == Presenter.InteractorResponse, Presenter.ViewControllerState == ViewController.ViewControllerState {
+    ViewController.ViewControllerAction == Interactor.ViewControllerAction,
+    Interactor.PresenterResponse == Presenter.InteractorResponse,
+    Presenter.ViewControllerState == ViewController.ViewControllerState {
     
     func bindModuleLayers(controller: ViewController, subscriptions: inout Set<AnyCancellable>) {
         controller.outputToInteractor
