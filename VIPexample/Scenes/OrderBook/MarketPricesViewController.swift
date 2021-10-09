@@ -15,8 +15,9 @@ import Combine
 extension MarketPricesViewController {
     enum State {
         case updateMainText(String)
-        case updateSocketStatus(String)
-        case showError(Error)
+        case updateSocketStatus(String, shouldClean: Bool)
+        case failure(errorMessage: String)
+        case clear
     }
     enum Action {
         case configureSockets([String])
@@ -42,9 +43,7 @@ final class MarketPricesViewController: UIViewController, ViewControllerType {
     @IBOutlet weak var newStreamButton: UIButton!
     @IBOutlet weak var removeStreamButton: UIButton!
     @IBOutlet weak var reconnectButton: UIButton!
-    
-    // MARK: - View Input-Output implementation
-    
+        
     let inputFromPresenter = PassthroughSubject<State, Never>()
     let outputToInteractor = PassthroughSubject<Action, Never>()
 
@@ -59,8 +58,8 @@ final class MarketPricesViewController: UIViewController, ViewControllerType {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        subscribePresenterOutput()
         dispatchActionsForInteractor()
+        subscribePresenterOutput()
     }
     
     func storeSubscriptions(_ bag: inout Set<AnyCancellable>) {
@@ -68,50 +67,52 @@ final class MarketPricesViewController: UIViewController, ViewControllerType {
     }
 }
 
-// MARK: - Internal
+// MARK: - ViewController Input-Output
 
 private extension MarketPricesViewController {
     
-    /// ViewController output
-    
     func dispatchActionsForInteractor() {
         /// Sending actions to Interactor
-        let configure = configureButton.publisher(for: .touchUpInside).map { _ in Action.configureSockets(["!ticker@arr"]) }
+        let configure = configureButton.publisher(for: .touchUpInside)
+            .compactMap { [weak self] _ in self?.updateStreamTextField.text?.components(separatedBy: [" "]).filter { !$0.isEmpty } }
+            .print("999")
+            .map { Action.configureSockets($0) }
         let connect = connectButton.publisher(for: .touchUpInside).map { _ in Action.connect }
         let disconnect = disconnectButton.publisher(for: .touchUpInside).map { _ in Action.disconnect }
         let reconnect = reconnectButton.publisher(for: .touchUpInside).map { _ in Action.reconnect }
-        let textFieldValues = updateStreamTextField.publisher(for: .editingDidEnd)
-            .compactMap { tf in tf.text }
-            .map { $0.components(separatedBy: [" "]) }
+        let textFieldValues = updateStreamTextField.publisher(for: .editingChanged)
+            .debounce(for: .seconds(1), scheduler: DispatchQueue.main)
+            .compactMap { $0.text?.components(separatedBy: [" "]).filter { !$0.isEmpty } }
         let newStreamAdd = newStreamButton.publisher(for: .touchUpInside)
             .combineLatest(textFieldValues)
-            .filter { !$0.1.isEmpty }
             .map { Action.addStream($0.1) }
         let removeStream = removeStreamButton.publisher(for: .touchUpInside)
             .combineLatest(textFieldValues)
-            .filter { !$0.1.isEmpty }
             .map { Action.removeStream($0.1) }
-        
         Publishers.Merge6(configure, connect, disconnect, reconnect, newStreamAdd, removeStream)
             .sink(receiveValue: { [weak self] in self?.outputToInteractor.send($0) })
             .store(in: &bag)
     }
-    
-    /// ViewController input
+        
     func subscribePresenterOutput() {
         /// Recieve Presenter's output
-        inputFromPresenter.receive(on: DispatchQueue.main)
+        inputFromPresenter
+            .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] state in
                 switch state {
                 case .updateMainText(let text):
-                    self?.mainTextView.text = text
-                    Logger.log(text, type: .sockets)
-                case .updateSocketStatus(let socketStatus):
+                    print(text)
+                    self?.mainTextView.text += "\n" + text
+                    let range = NSMakeRange(self?.mainTextView.text.count ?? 0 - 1, 0)
+                    self?.mainTextView.scrollRangeToVisible(range)
+                case .updateSocketStatus(let socketStatus, let shouldClean):
                     self?.debugTextView.text = socketStatus
-                    Logger.log(socketStatus)
-                case .showError(let error):
-                    Logger.log(error)
-                    self?.debugTextView.text = error.localizedDescription
+                    shouldClean ? self?.mainTextView.text = nil : ()
+                    Logger.log(socketStatus, type: .sockets)
+                case .failure(let error):
+                    self?.debugTextView.text = error
+                case .clear:
+                    self?.mainTextView.text = nil
                 }
             })
             .store(in: &bag)

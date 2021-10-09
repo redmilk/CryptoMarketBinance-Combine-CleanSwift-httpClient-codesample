@@ -11,20 +11,21 @@ fileprivate let wsBase = "wss://stream.binance.com:9443"
 
 struct BinanceEndpointAssembler {
     
-    func resolveEndpointBasedOnStreamsCount(_ streams: [String]) -> URL {
+    func resolveEndpointBasedOnStreamsCount(_ streams: [String]) -> URL? {
+        guard let firstElement = streams.first else { return nil }
         return streams.count > 1 ?
             self.getCombinedStreamsEndpoint(withStreamNames: streams) :
-            self.getSingleStreamEndpoint(withStreamName: streams.first!)
+            self.getSingleStreamEndpoint(withStreamName: firstElement)
     }
     
-    private func getSingleStreamEndpoint(withStreamName stream: String) -> URL {
-        return URL(string: wsBase + "/ws/" + stream)!
+    private func getSingleStreamEndpoint(withStreamName stream: String) -> URL? {
+        URL(string: wsBase + "/ws/" + stream)
     }
     
-    private func getCombinedStreamsEndpoint(withStreamNames streams: [String]) -> URL {
-        var urlComponents = URLComponents(string: wsBase + "/stream")!
+    private func getCombinedStreamsEndpoint(withStreamNames streams: [String]) -> URL? {
+        var urlComponents = URLComponents(string: wsBase + "/stream")
         let joined = streams.joined(separator: "/")
-        urlComponents.queryItems = [URLQueryItem(name: "streams", value: joined)]
-        return URL(string: urlComponents.url!.absoluteString)!
+        urlComponents?.queryItems = [URLQueryItem(name: "streams", value: joined)]
+        return URL(string: urlComponents?.url?.absoluteString ?? "")
     }
 }

@@ -39,7 +39,7 @@ final class WebSocketClient: NSObject, WebSocketConnectionType { /// NSObject fo
     private lazy var sessionDelegateQueue: OperationQueue = {
         let queue = OperationQueue()
         queue.maxConcurrentOperationCount = 1
-        queue.qualityOfService = .userInitiated
+        queue.qualityOfService = .utility
         return queue
     }()
     
@@ -53,8 +53,7 @@ final class WebSocketClient: NSObject, WebSocketConnectionType { /// NSObject fo
     }
     
     func connect() {
-        
-        //webSocketTask.resume()
+        webSocketTask.resume()
     }
     
     func disconnect() {

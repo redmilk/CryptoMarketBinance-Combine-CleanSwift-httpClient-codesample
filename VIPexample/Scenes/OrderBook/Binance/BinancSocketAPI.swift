@@ -25,7 +25,7 @@ extension BinanceSocketApi {
     enum SocketResponse {
         case connected
         case disconnected
-        case error(Error)
+        case error(BinanceServiceError)
         case message(String)
     }
     enum StreamUpdateMethod: String {
@@ -51,7 +51,6 @@ final class BinanceSocketApi: BinanceSocketApiType {
     
     init() {
         dispatchSocketResponse()
-        //socketClient.connect()
     }
     
     func updateStreams(
@@ -65,18 +64,26 @@ final class BinanceSocketApi: BinanceSocketApiType {
         )
         let jsonQuery = try! JSONEncoder().encode(request)
         let requestString = String(data: jsonQuery, encoding: .utf8)!
+        currentStreamSettings = Set(streams)
         socketClient.send(text: requestString)
     }
     
     func configure(withSingleOrMultipleStreams streams: [String]) {
-        let url = endpointAssambler.resolveEndpointBasedOnStreamsCount(streams)
+        guard let url = endpointAssambler.resolveEndpointBasedOnStreamsCount(streams) else {
+            streamResponsePipe.send(.error(BinanceServiceError.emptyStreamNames(description: "There is not any stream symbol inside parameters array")))
+            return
+        }
+        currentStreamSettings = Set(streams)
         socketClient.configure(withURL: url)
     }
     
     func reconnect() {
-        socketClient.disconnect()
+        guard let url = endpointAssambler.resolveEndpointBasedOnStreamsCount(Array(currentStreamSettings)) else {
+            streamResponsePipe.send(.error(BinanceServiceError.emptyStreamNames(description: "There is not any stream symbol inside parameters array")))
+            return
+        }
+        socketClient.configure(withURL: url)
         socketClient.connect()
-        updateStreams(updateType: .subscribe, forStreams: Array(currentStreamSettings))
     }
     
     func connect() {
@@ -114,7 +121,7 @@ private extension BinanceSocketApi {
                 case .onDisconnected:
                     self?.streamResponsePipe.send(.disconnected)
                 case .onError(let error):
-                    self?.streamResponsePipe.send(.error(error))
+                    self?.streamResponsePipe.send(.error(BinanceServiceError.websocketClient(error: error)))
                 case .onTextMessage(let text):
                     self?.streamResponsePipe.send(.message(text))
                 case .onDataMessage(_):

@@ -13,10 +13,8 @@ import UIKit
 protocol ControlWithPublisher: UIControl { }
 extension UIControl: ControlWithPublisher { }
 extension ControlWithPublisher {
-    func publisher(
-        for event: UIControl.Event = .primaryActionTriggered
-    ) -> ControlPublisher<Self> {
-        return ControlPublisher(control: self, for: event)
+    func publisher(for event: UIControl.Event = .primaryActionTriggered) -> ControlPublisher<Self> {
+        ControlPublisher(control: self, for: event)
     }
 }
 

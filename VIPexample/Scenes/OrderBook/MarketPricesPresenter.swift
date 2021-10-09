@@ -30,14 +30,26 @@ private extension MarketPricesPresenter {
     
     mutating func bindInput() {
         inputFromInteractor
-            .map { interactorResponse in
+            .map { [self] interactorResponse in
                 switch interactorResponse {
-                case .socketResponseText(let text): return .updateMainText(text)
-                case .socketResponseStatusMessage(let status): return .updateMainText(status)
-                case .socketResponseFail(let error): return .showError(error)
+                case .socketResponseText(let text):
+                    return .updateMainText(text)
+                case .socketResponseStatusMessage(let status, let shouldClean):
+                    return .updateSocketStatus(status, shouldClean: shouldClean)
+                case .socketResponseFail(let error):
+                    return .failure(errorMessage: extractErrorMessage(fromError: error))
                 }
             }
             .subscribe(outputToViewController)
             .store(in: &bag)
+    }
+    
+    func extractErrorMessage(fromError error: BinanceServiceError) -> String {
+        switch error {
+        case .emptyStreamNames(let message):
+            return message
+        case .websocketClient(let socketInternalError):
+            return (socketInternalError as NSError).localizedDescription
+        }
     }
 }

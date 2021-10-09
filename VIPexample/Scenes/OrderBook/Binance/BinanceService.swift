@@ -8,7 +8,10 @@
 import Foundation
 import Combine
 
-enum BinanceServiceError: Error { }
+enum BinanceServiceError: Error {
+    case emptyStreamNames(description: String)
+    case websocketClient(error: Error)
+}
 
 final class BinanceService {
     private let binanceRequestApi: BinanceRequestApiType
