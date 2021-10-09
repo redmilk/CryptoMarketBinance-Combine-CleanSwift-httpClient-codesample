@@ -26,7 +26,7 @@ extension BinanceSocketApi {
         case connected
         case disconnected
         case error(BinanceServiceError)
-        case message(String)
+        case text(String)
     }
     enum StreamUpdateMethod: String {
         case subscribe = "SUBSCRIBE"
@@ -123,7 +123,7 @@ private extension BinanceSocketApi {
                 case .onError(let error):
                     self?.streamResponsePipe.send(.error(BinanceServiceError.websocketClient(error: error)))
                 case .onTextMessage(let text):
-                    self?.streamResponsePipe.send(.message(text))
+                    self?.streamResponsePipe.send(.text(text))
                 case .onDataMessage(_):
                     fatalError("did not expect to recieve Data")
                 }

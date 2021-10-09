@@ -32,8 +32,8 @@ private extension MarketPricesPresenter {
         inputFromInteractor
             .map { [self] interactorResponse in
                 switch interactorResponse {
-                case .socketResponseText(let text):
-                    return .updateMainText(text)
+                case .socketResponseModel(let model):
+                    return .recievedResponseModel(model)
                 case .socketResponseStatusMessage(let status, let shouldClean):
                     return .updateSocketStatus(status, shouldClean: shouldClean)
                 case .socketResponseFail(let error):

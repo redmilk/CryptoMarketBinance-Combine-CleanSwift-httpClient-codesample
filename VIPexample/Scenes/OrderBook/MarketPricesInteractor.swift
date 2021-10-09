@@ -8,7 +8,7 @@ import Combine
 struct MarketPricesInteractor: InteractorType, BinanceServiceProvidable {
     
     enum Response {
-        case socketResponseText(String)
+        case socketResponseModel(SymbolTickerDTO)
         case socketResponseStatusMessage(String, shouldClean: Bool)
         case socketResponseFail(BinanceServiceError)
     }
@@ -29,7 +29,6 @@ struct MarketPricesInteractor: InteractorType, BinanceServiceProvidable {
 private extension MarketPricesInteractor {
     mutating func bindInput() {
         inputFromController
-            .print("✅")
             .sink { [self] action in
             switch action {
             case .configureSockets(let initialStreams): binanceService.configure(withSingleOrMultipleStreams: initialStreams)
@@ -45,15 +44,23 @@ private extension MarketPricesInteractor {
     
     mutating func listenToSocketClientResponse() {
         binanceService.subscribeSocketResponse()
-            .map { socketResult in
+            .map { [self] socketResult in
                 switch socketResult {
                 case .connected: return Response.socketResponseStatusMessage("Connected", shouldClean: false)
                 case .disconnected: return Response.socketResponseStatusMessage("Disconnected", shouldClean: true)
                 case .error(let error): return Response.socketResponseFail(error)
-                case .message(let message): return Response.socketResponseText(message)
+                case .text(let textResponse):
+                    let decoded = decodeSocketResponse(textResponse)
+                    return Response.socketResponseModel(decoded)
                 }
             }
             .sink(receiveValue: { [self] in outputToPresenter.send($0) })
             .store(in: &bag)
+    }
+    
+    func decodeSocketResponse(_ response: String) -> SymbolTickerDTO {
+        let data = Data(response.utf8)
+        let model = try! JSONDecoder().decode(SymbolTickerDTO.self, from: data)
+        return model
     }
 }

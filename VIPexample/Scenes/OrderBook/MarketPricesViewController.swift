@@ -14,7 +14,7 @@ import Combine
 
 extension MarketPricesViewController {
     enum State {
-        case updateMainText(String)
+        case recievedResponseModel(SymbolTickerDTO)
         case updateSocketStatus(String, shouldClean: Bool)
         case failure(errorMessage: String)
         case clear
@@ -62,6 +62,11 @@ final class MarketPricesViewController: UIViewController, ViewControllerType {
         subscribePresenterOutput()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
     func storeSubscriptions(_ bag: inout Set<AnyCancellable>) {
         self.bag = bag
     }
@@ -75,7 +80,6 @@ private extension MarketPricesViewController {
         /// Sending actions to Interactor
         let configure = configureButton.publisher(for: .touchUpInside)
             .compactMap { [weak self] _ in self?.updateStreamTextField.text?.components(separatedBy: [" "]).filter { !$0.isEmpty } }
-            .print("999")
             .map { Action.configureSockets($0) }
         let connect = connectButton.publisher(for: .touchUpInside).map { _ in Action.connect }
         let disconnect = disconnectButton.publisher(for: .touchUpInside).map { _ in Action.disconnect }
@@ -100,17 +104,17 @@ private extension MarketPricesViewController {
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] state in
                 switch state {
-                case .updateMainText(let text):
-                    print(text)
-                    self?.mainTextView.text += "\n" + text
+                case .recievedResponseModel(let model):
+                    print(model.symbol + " " + model.priceChangePercent + "%")
+                    self?.mainTextView.text += "\n" + model.symbol + " " + model.lastPriceFormatted
                     let range = NSMakeRange(self?.mainTextView.text.count ?? 0 - 1, 0)
                     self?.mainTextView.scrollRangeToVisible(range)
                 case .updateSocketStatus(let socketStatus, let shouldClean):
                     self?.debugTextView.text = socketStatus
                     shouldClean ? self?.mainTextView.text = nil : ()
                     Logger.log(socketStatus, type: .sockets)
-                case .failure(let error):
-                    self?.debugTextView.text = error
+                case .failure(let errorMessage):
+                    self?.debugTextView.text = errorMessage
                 case .clear:
                     self?.mainTextView.text = nil
                 }
