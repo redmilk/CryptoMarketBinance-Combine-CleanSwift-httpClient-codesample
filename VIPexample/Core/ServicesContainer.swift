@@ -24,8 +24,9 @@ final class ServicesContainer {
     }()
     
     lazy var binanceService: BinanceService = {
-        let binanceApi = BinanceApi(httpClient: httpClient)
-        return BinanceService(binanceApi: binanceApi)
+        let binanceRequestApi = BinanceApi(httpClient: httpClient)
+        let binanceSocketApi = BinanceSocketApi()
+        return BinanceService(binanceRequestApi: binanceRequestApi, binanceSocketApi: binanceSocketApi)
     }()
     
     lazy var imageLoader = ImageLoader(cache: imageCacher)

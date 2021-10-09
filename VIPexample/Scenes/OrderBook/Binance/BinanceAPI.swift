@@ -24,7 +24,7 @@ fileprivate enum Endpoints {
     static var baseUrl: URL { URL(string: baseUrls.first!)! }
 }
 
-protocol BinanceApiType {
+protocol BinanceRequestApiType {
     init(httpClient: HTTPClientType)
     func checkPing() -> AnyPublisher<Ping, Error>
     func loadOrderBook(symbol: String, limit: Int) -> AnyPublisher<OrderBook, Error>
@@ -37,7 +37,7 @@ protocol BinanceApiType {
     func loadOrderBookTicker(symbol: String?) -> AnyPublisher<OrderBookTickerResponse, Error>
 }
 
-struct BinanceApi: BinanceApiType {
+struct BinanceApi: BinanceRequestApiType {
     private let httpClient: HTTPClientType
     
     init(httpClient: HTTPClientType) {

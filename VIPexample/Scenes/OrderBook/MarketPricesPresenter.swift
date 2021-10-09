@@ -20,7 +20,7 @@ struct MarketPricesPresenter: PresenterType {
     
     init(coordinator: CoordinatorType) {
         self.coordinator = coordinator
-        bindInputOutput()
+        bindInput()
     }
 }
 
@@ -28,11 +28,13 @@ struct MarketPricesPresenter: PresenterType {
 
 private extension MarketPricesPresenter {
     
-    mutating func bindInputOutput() {
+    mutating func bindInput() {
         inputFromInteractor
             .map { interactorResponse in
                 switch interactorResponse {
-                case .dummy: return MarketPricesViewController.State.dummy
+                case .socketResponseText(let text): return .updateMainText(text)
+                case .socketResponseStatusMessage(let status): return .updateMainText(status)
+                case .socketResponseFail(let error): return .showError(error)
                 }
             }
             .subscribe(outputToViewController)

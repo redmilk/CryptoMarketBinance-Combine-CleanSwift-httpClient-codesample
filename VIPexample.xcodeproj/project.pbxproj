@@ -87,7 +87,7 @@
 		7951B8A32711207900C321B7 /* WSBinanceQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7951B8A22711207900C321B7 /* WSBinanceQuery.swift */; };
 		7951B8A8271124BB00C321B7 /* WSAllMarketTicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7951B8A7271124BB00C321B7 /* WSAllMarketTicker.swift */; };
 		7951B8AD27112A0500C321B7 /* DateTimeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7951B8AC27112A0500C321B7 /* DateTimeHelper.swift */; };
-		7951B8F3271134E900C321B7 /* BinanceWebSocketAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7951B8F2271134E900C321B7 /* BinanceWebSocketAPI.swift */; };
+		7951B8F3271134E900C321B7 /* BinancSocketAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7951B8F2271134E900C321B7 /* BinancSocketAPI.swift */; };
 		7951B8FB2711364700C321B7 /* BinanceEndpointHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7951B8FA2711364700C321B7 /* BinanceEndpointHelper.swift */; };
 		79A12FB826B2235A0068CFDF /* Candlestick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A12FB726B2235A0068CFDF /* Candlestick.swift */; };
 		79A12FBD26B226950068CFDF /* AveragePrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A12FBC26B226950068CFDF /* AveragePrice.swift */; };
@@ -190,7 +190,7 @@
 		7951B8A22711207900C321B7 /* WSBinanceQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSBinanceQuery.swift; sourceTree = "<group>"; };
 		7951B8A7271124BB00C321B7 /* WSAllMarketTicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSAllMarketTicker.swift; sourceTree = "<group>"; };
 		7951B8AC27112A0500C321B7 /* DateTimeHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimeHelper.swift; sourceTree = "<group>"; };
-		7951B8F2271134E900C321B7 /* BinanceWebSocketAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinanceWebSocketAPI.swift; sourceTree = "<group>"; };
+		7951B8F2271134E900C321B7 /* BinancSocketAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinancSocketAPI.swift; sourceTree = "<group>"; };
 		7951B8FA2711364700C321B7 /* BinanceEndpointHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinanceEndpointHelper.swift; sourceTree = "<group>"; };
 		79A12FB726B2235A0068CFDF /* Candlestick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Candlestick.swift; sourceTree = "<group>"; };
 		79A12FBC26B226950068CFDF /* AveragePrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AveragePrice.swift; sourceTree = "<group>"; };
@@ -292,10 +292,10 @@
 			isa = PBXGroup;
 			children = (
 				7951B89C27111E4600C321B7 /* SocketsDTO */,
-				790A1F0026B206F300969231 /* HttpDTO */,
-				790A1E4826B1FA5A00969231 /* BinanceAPI.swift */,
-				7951B8F2271134E900C321B7 /* BinanceWebSocketAPI.swift */,
+				790A1F0026B206F300969231 /* RequestDTO */,
 				790A1F0C26B2080900969231 /* BinanceService.swift */,
+				790A1E4826B1FA5A00969231 /* BinanceAPI.swift */,
+				7951B8F2271134E900C321B7 /* BinancSocketAPI.swift */,
 				7951B8FA2711364700C321B7 /* BinanceEndpointHelper.swift */,
 			);
 			path = Binance;
@@ -357,7 +357,7 @@
 			path = FlowCoordinator;
 			sourceTree = "<group>";
 		};
-		790A1F0026B206F300969231 /* HttpDTO */ = {
+		790A1F0026B206F300969231 /* RequestDTO */ = {
 			isa = PBXGroup;
 			children = (
 				790A1F0126B2070C00969231 /* Ping.swift */,
@@ -369,7 +369,7 @@
 				79A12FCA26B22A070068CFDF /* Price.swift */,
 				79A12FD126B22FAC0068CFDF /* OrderBookTicker.swift */,
 			);
-			path = HttpDTO;
+			path = RequestDTO;
 			sourceTree = "<group>";
 		};
 		7951B89C27111E4600C321B7 /* SocketsDTO */ = {
@@ -664,7 +664,7 @@
 				790A1E7926B1FC9B00969231 /* RequestParametersAdapter.swift in Sources */,
 				7951B8A32711207900C321B7 /* WSBinanceQuery.swift in Sources */,
 				840D68152648DBC500F8C01A /* PresenterType.swift in Sources */,
-				7951B8F3271134E900C321B7 /* BinanceWebSocketAPI.swift in Sources */,
+				7951B8F3271134E900C321B7 /* BinancSocketAPI.swift in Sources */,
 				790A1F0226B2070C00969231 /* Ping.swift in Sources */,
 				840D68172648DCAC00F8C01A /* InteractorType.swift in Sources */,
 				7951B88927110B0B00C321B7 /* MarketPricesCoordinator.swift in Sources */,

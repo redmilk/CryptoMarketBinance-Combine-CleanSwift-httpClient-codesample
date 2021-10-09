@@ -8,9 +8,8 @@
 import Foundation
 import Combine
 
-protocol WebSocketConnection {
-    var transmitter: PassthroughSubject<WebSocketResult, Never> { get }
-    
+protocol WebSocketConnectionType {
+    var transmitter: AnyPublisher<WebSocketResult, Never> { get }
     func configure(withURL url: URL)
     func send(text: String)
     func send(data: Data)
@@ -19,19 +18,22 @@ protocol WebSocketConnection {
 }
 
 enum WebSocketResult {
-    case onConnected(connection: WebSocketConnection)
-    case onDisconnected(connection: WebSocketConnection, error: Error?)
-    case onError(connection: WebSocketConnection, error: Error)
-    case onTextMessage(connection: WebSocketConnection, text: String)
-    case onDataMessage(connection: WebSocketConnection, data: Data)
+    case onConnected
+    case onDisconnected
+    case onError(error: Error)
+    case onTextMessage(text: String)
+    case onDataMessage(data: Data)
 }
 
 // MARK: - WebSocketClient
 
-final class WebSocketClient: NSObject, WebSocketConnection { /// NSObject for URLSessionDelegate
-    /// ws response spawner
-    var transmitter = PassthroughSubject<WebSocketResult, Never>()
+final class WebSocketClient: NSObject, WebSocketConnectionType { /// NSObject for URLSessionDelegate
+    /// response spawner
+    var transmitter: AnyPublisher<WebSocketResult, Never> {
+        transmitterPipe.eraseToAnyPublisher()
+    }
     
+    private let transmitterPipe = PassthroughSubject<WebSocketResult, Never>()
     private var webSocketTask: URLSessionWebSocketTask!
     private lazy var urlSession = URLSession(configuration: .ephemeral, delegate: self, delegateQueue: sessionDelegateQueue)
     private lazy var sessionDelegateQueue: OperationQueue = {
@@ -47,11 +49,12 @@ final class WebSocketClient: NSObject, WebSocketConnection { /// NSObject for UR
     
     func configure(withURL url: URL) {
         webSocketTask = urlSession.webSocketTask(with: url)
+        listen()
     }
     
     func connect() {
-        webSocketTask.resume()
-        listen()
+        
+        //webSocketTask.resume()
     }
     
     func disconnect() {
@@ -60,31 +63,30 @@ final class WebSocketClient: NSObject, WebSocketConnection { /// NSObject for UR
     
     func send(text: String) {
         webSocketTask.send(URLSessionWebSocketTask.Message.string(text)) { [weak self] error in
-            guard let self = self, let error = error else { return }
-            self.transmitter.send(.onError(connection: self, error: error))
+            guard let error = error else { return }
+            self?.transmitterPipe.send(.onError(error: error))
         }
     }
     
     func send(data: Data) {
         webSocketTask.send(URLSessionWebSocketTask.Message.data(data)) { [weak self] error in
-            guard let self = self, let error = error else { return }
-            self.transmitter.send(.onError(connection: self, error: error))
+            guard let error = error else { return }
+            self?.transmitterPipe.send(.onError(error: error))
         }
     }
     
     private func listen()  {
         webSocketTask.receive { [weak self] result in
-            guard let self = self else { return }
             switch result {
             case .failure(let error):
-                self.transmitter.send(.onError(connection: self, error: error))
+                self?.transmitterPipe.send(.onError(error: error))
             case .success(let message):
                 switch message {
-                case .string(let text): self.transmitter.send(.onTextMessage(connection: self, text: text))
-                case .data(let data): self.transmitter.send(.onDataMessage(connection: self, data: data))
+                case .string(let text): self?.transmitterPipe.send(.onTextMessage(text: text))
+                case .data(let data): self?.transmitterPipe.send(.onDataMessage(data: data))
                 @unknown default: fatalError()
                 }
-                self.listen()
+                self?.listen()
             }
         }
     }
@@ -97,7 +99,7 @@ extension WebSocketClient: URLSessionWebSocketDelegate {
                     webSocketTask: URLSessionWebSocketTask,
                     didOpenWithProtocol protocol: String?
     ) {
-        transmitter.send(.onConnected(connection: self))
+        transmitterPipe.send(.onConnected)
     }
     
     func urlSession(_ session: URLSession,
@@ -105,6 +107,6 @@ extension WebSocketClient: URLSessionWebSocketDelegate {
                     didCloseWith closeCode: URLSessionWebSocketTask.CloseCode,
                     reason: Data?
     ) {
-        transmitter.send(.onDisconnected(connection: self, error: nil))
+        transmitterPipe.send(.onDisconnected)
     }
 }
