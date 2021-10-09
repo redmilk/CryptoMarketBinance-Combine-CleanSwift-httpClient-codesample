@@ -13,7 +13,7 @@ enum BinanceServiceError: Error { }
 final class BinanceService {
     private let binanceApi: BinanceApiType
     private var bag = Set<AnyCancellable>()
-    
+
     init(binanceApi: BinanceApiType) {
         self.binanceApi = binanceApi
     }

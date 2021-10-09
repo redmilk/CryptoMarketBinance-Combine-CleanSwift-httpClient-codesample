@@ -28,7 +28,6 @@ final class ServicesContainer {
         return BinanceService(binanceApi: binanceApi)
     }()
     
-    lazy var webSocket = WebSocketClient()
     lazy var imageLoader = ImageLoader(cache: imageCacher)
 }
 
@@ -44,12 +43,6 @@ extension BinanceServiceProvidable {
 protocol ImageLoaderProvidable { }
 extension ImageLoaderProvidable {
     var imageLoader: ImageLoader { services.imageLoader }
-}
-
-/// WebSockets
-protocol WebSocketClientProvidable { }
-extension WebSocketClient {
-    var webSocket: WebSocketClient { services.webSocket }
 }
 
 // MARK: - if you want to include all services to object

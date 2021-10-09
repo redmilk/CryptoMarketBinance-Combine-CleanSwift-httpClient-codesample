@@ -10,12 +10,10 @@ import Combine
 
 fileprivate let baseUrls = ["https://api.binance.com", "https://api1.binance.com", "https://api2.binance.com", "https://api3.binance.com"]
 
-
-/// Request endpoints
+/// HTTP request endpoints
 fileprivate enum Endpoints {
     static let ping = "/api/v3/ping"
     static let priceTicker = "/api/v3/ticker/price"
-    /// Best price/qty on the order book for a symbol or symbols
     static let bookTicker = "/api/v3/ticker/bookTicker"
     static let orderBook = "/api/v3/depth"
     static let recentTrades = "/api/v3/trades"
