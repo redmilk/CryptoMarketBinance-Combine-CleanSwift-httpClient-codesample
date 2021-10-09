@@ -104,9 +104,11 @@ private extension MarketPricesViewController {
             .sink(receiveValue: { [weak self] state in
                 switch state {
                 case .updateMainText(let text):
-                    self?.mainTextView.text += text
+                    self?.mainTextView.text = text
+                    Logger.log(text, type: .sockets)
                 case .updateSocketStatus(let socketStatus):
                     self?.debugTextView.text = socketStatus
+                    Logger.log(socketStatus)
                 case .showError(let error):
                     Logger.log(error)
                     self?.debugTextView.text = error.localizedDescription

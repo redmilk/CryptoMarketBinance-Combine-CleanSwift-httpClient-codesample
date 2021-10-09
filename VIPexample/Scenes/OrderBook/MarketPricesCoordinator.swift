@@ -35,7 +35,6 @@ final class MarketPricesCoordinator: CoordinatorType, MarketPricesCoordinatorTyp
         configurator?.bindModuleLayers(controller: controller, bag: &bag)
 
         navigationController = UINavigationController(rootViewController: controller)
-        navigationController.
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
     }

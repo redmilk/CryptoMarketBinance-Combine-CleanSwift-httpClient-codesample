@@ -51,7 +51,7 @@ final class BinanceSocketApi: BinanceSocketApiType {
     
     init() {
         dispatchSocketResponse()
-        socketClient.connect()
+        //socketClient.connect()
     }
     
     func updateStreams(

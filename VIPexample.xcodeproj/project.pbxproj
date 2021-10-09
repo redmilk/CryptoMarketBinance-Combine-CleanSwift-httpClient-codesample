@@ -294,8 +294,8 @@
 				7951B89C27111E4600C321B7 /* SocketsDTO */,
 				790A1F0026B206F300969231 /* RequestDTO */,
 				790A1F0C26B2080900969231 /* BinanceService.swift */,
-				790A1E4826B1FA5A00969231 /* BinanceAPI.swift */,
 				7951B8F2271134E900C321B7 /* BinancSocketAPI.swift */,
+				790A1E4826B1FA5A00969231 /* BinanceAPI.swift */,
 				7951B8FA2711364700C321B7 /* BinanceEndpointHelper.swift */,
 			);
 			path = Binance;
