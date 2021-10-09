@@ -8,7 +8,7 @@ import Combine
 struct MarketPricesInteractor: InteractorType, BinanceServiceProvidable {
     
     enum Response {
-        case socketResponseModel(SymbolTickerDTO)
+        case socketResponseModel(CommonSymbolTickerType?)
         case socketResponseStatusMessage(String, shouldClean: Bool)
         case socketResponseFail(BinanceServiceError)
     }
@@ -58,9 +58,15 @@ private extension MarketPricesInteractor {
             .store(in: &bag)
     }
     
-    func decodeSocketResponse(_ response: String) -> SymbolTickerDTO {
+    func decodeSocketResponse(_ response: String) -> CommonSymbolTickerType? {
+        Logger.log(response, type: .responses)
         let data = Data(response.utf8)
-        let model = try! JSONDecoder().decode(SymbolTickerDTO.self, from: data)
-        return model
+        do {
+            let model = try JSONDecoder().decode(CommonSymbolTickerType.self, from: data)
+            return model
+        } catch {
+            Logger.log((error as NSError).localizedDescription)
+        }
+        return nil
     }
 }

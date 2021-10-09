@@ -12,6 +12,7 @@ fileprivate let baseUrls = ["https://api.binance.com", "https://api1.binance.com
 
 /// HTTP request endpoints
 fileprivate enum Endpoints {
+    static let exchangeInfo = "/api/v3/exchangeInfo"
     static let ping = "/api/v3/ping"
     static let priceTicker = "/api/v3/ticker/price"
     static let bookTicker = "/api/v3/ticker/bookTicker"
@@ -26,6 +27,7 @@ fileprivate enum Endpoints {
 
 protocol BinanceRequestApiType {
     init(httpClient: HTTPClientType)
+    func loadExchangeInfo() -> AnyPublisher<ExchangeInfo, Error>
     func checkPing() -> AnyPublisher<Ping, Error>
     func loadOrderBook(symbol: String, limit: Int) -> AnyPublisher<OrderBook, Error>
     func loadRecentTrades(symbol: String, limit: Int) -> AnyPublisher<[RecentTrade], Error>
@@ -42,6 +44,17 @@ struct BinanceApi: BinanceRequestApiType {
     
     init(httpClient: HTTPClientType) {
         self.httpClient = httpClient
+    }
+    
+    func loadExchangeInfo() -> AnyPublisher<ExchangeInfo, Error> {
+        let headers = RequestHeaderAdapter()
+        var requestBuilder = RequestBuilder(
+            baseUrl: Endpoints.baseUrl,
+            pathComponent: Endpoints.exchangeInfo,
+            adapters: [headers],
+            method: .get
+        )
+        return httpClient.request(with: requestBuilder.request)
     }
     
     func checkPing() -> AnyPublisher<Ping, Error> {

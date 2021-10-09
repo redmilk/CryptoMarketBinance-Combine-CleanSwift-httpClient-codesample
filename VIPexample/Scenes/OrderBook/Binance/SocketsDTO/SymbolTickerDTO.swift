@@ -7,8 +7,17 @@
 
 import Foundation
 
-// MARK: - SymbolTickerDTO
-struct SymbolTickerDTO: Codable {
+struct SymbolTickerDTO: Decodable {
+    let stream: String
+    let data: SymbolTickerNestedDTO
+    
+    enum CodingKeys: String, CodingKey {
+        case stream = "stream"
+        case data = "data"
+    }
+}
+
+struct SymbolTickerNestedDTO: Decodable {
     let eventType: String
     let eventTime: Int
     let symbol: String
@@ -32,8 +41,8 @@ struct SymbolTickerDTO: Codable {
     let lastTradeId: Int
     let totalNumberOfTrades: Int
     private let lastPrice: String
-    var lastPriceFormatted: String {
-        let double = Double(lastPrice)!
+    var lastPriceFormatted: String? {  /// Refactor
+        guard let double = Double(lastPrice ?? "") else { return nil }
         return double.removeZerosFromEnd(maxZerosCount: 4)
     }
 

@@ -13,7 +13,7 @@ enum RequestError: Error, LocalizedError, Equatable {
     case nilResponse(URLRequest)
     case api(Int, URLRequest)
     case network(String, URLError)
-    case parsing(String, Error)
+    case parsing(String, Error?)
     case timeout(URLRequest)
     case unknown(Error)
     

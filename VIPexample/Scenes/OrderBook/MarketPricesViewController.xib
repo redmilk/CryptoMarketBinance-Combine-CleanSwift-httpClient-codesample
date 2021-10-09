@@ -29,7 +29,7 @@
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="eHw-dA-j56">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="884"/>
                     <subviews>
-                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sEj-wg-3G4">
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sEj-wg-3G4">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="774"/>
                             <color key="backgroundColor" systemColor="labelColor"/>
                             <color key="textColor" red="0.75406885150000003" green="0.75408679249999999" blue="0.75407713649999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -71,7 +71,7 @@
                                         </button>
                                     </subviews>
                                 </stackView>
-                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" text="btcusdt@ticker ethusdt@ticker adausdt@ticker" borderStyle="bezel" placeholder="Stream name" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="MQ1-jx-nSy">
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" text="btcusdt@ticker" borderStyle="bezel" placeholder="Stream name" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="MQ1-jx-nSy">
                                     <rect key="frame" x="138" y="0.0" width="138" height="40"/>
                                     <color key="backgroundColor" red="0.12984204290000001" green="0.12984612579999999" blue="0.12984395030000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="textColor" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

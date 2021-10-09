@@ -14,7 +14,7 @@ import Combine
 
 extension MarketPricesViewController {
     enum State {
-        case recievedResponseModel(SymbolTickerDTO)
+        case recievedResponseModel(CommonSymbolTickerType?)
         case updateSocketStatus(String, shouldClean: Bool)
         case failure(errorMessage: String)
         case clear
@@ -105,8 +105,15 @@ private extension MarketPricesViewController {
             .sink(receiveValue: { [weak self] state in
                 switch state {
                 case .recievedResponseModel(let model):
-                    print(model.symbol + " " + model.priceChangePercent + "%")
-                    self?.mainTextView.text += "\n" + model.symbol + " " + model.lastPriceFormatted
+                    guard let model = model else { return }
+                    switch model {
+                    case .singleSymbol(let singleSymbolModel):
+                        print((singleSymbolModel.symbol ?? "") + " " + (singleSymbolModel.priceChangePercent ?? "") + "%")
+                        self?.mainTextView.text += "\t" + (singleSymbolModel.symbol ?? "") + " " + (singleSymbolModel.lastPriceFormatted ?? "")
+                    case .multipleSymbols(let multipleSymbolModel):
+                        print((multipleSymbolModel.data.symbol ?? "") + " " + (multipleSymbolModel.data.priceChangePercent ?? "") + "%")
+                        self?.mainTextView.text += "\t" + (multipleSymbolModel.data.symbol ?? "") + " " + (multipleSymbolModel.data.lastPriceFormatted ?? "")
+                    }
                     let range = NSMakeRange(self?.mainTextView.text.count ?? 0 - 1, 0)
                     self?.mainTextView.scrollRangeToVisible(range)
                 case .updateSocketStatus(let socketStatus, let shouldClean):
