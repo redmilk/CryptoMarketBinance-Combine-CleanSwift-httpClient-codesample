@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-final class AuthPresenter: PresenterType {
+struct AuthPresenter: PresenterType {
     
     let inputFromInteractor = PassthroughSubject<AuthInteractor.Response, Never>()
     let outputToViewController = PassthroughSubject<AuthViewController.State, Never>()
@@ -42,8 +42,5 @@ final class AuthPresenter: PresenterType {
             }
             .subscribe(outputToViewController)
             .store(in: &bag)
-    }
-    deinit {
-        Logger.log("AuthPresenter", type: .lifecycle)
     }
 }

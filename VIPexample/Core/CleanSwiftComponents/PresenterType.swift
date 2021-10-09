@@ -10,9 +10,9 @@ import Combine
 protocol PresenterType {
     associatedtype InteractorResponse
     associatedtype ViewControllerState
-    associatedtype Coordinator
+    associatedtype CoordinatorType
     
-    init(coordinator: Coordinator)
+    init(coordinator: CoordinatorType)
     
     var inputFromInteractor: PassthroughSubject<InteractorResponse, Never> { get }
     var outputToViewController: PassthroughSubject<ViewControllerState, Never> { get }
