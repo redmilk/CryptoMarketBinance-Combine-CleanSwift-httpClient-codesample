@@ -9,25 +9,46 @@ import UIKit
 import Combine
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate, BinanceServiceProvidable {
+class AppDelegate: UIResponder, UIApplicationDelegate, AllServicesProvidable {
 
     var bag = Set<AnyCancellable>()
+    let queue = DispatchQueue(label: "Ticker", qos: .userInitiated)
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-//        binanceService.loadPrice(symbol: nil)
-//            .sink(receiveCompletion: { completion in
-//                switch completion {
-//                case .failure(let error):
-//                    Logger.log(error)
-//                case .finished:
-//                    break
-//                }
-//            }, receiveValue: { orderBook in
-//                
-//            })
-//            .store(in: &bag)
-//        
+        allServices.webSocket.configure(withURL: URL(string: "wss://stream.binance.com:9443/stream")!) ///BTC@aggTrade
+        
+        let msgModel = WSBinanceQuery(method: "SUBSCRIBE", params: ["!miniTicker@arr"], id: 1)
+        let jsonQuery = try! JSONEncoder().encode(msgModel)
+        let textQuery = String(data: jsonQuery, encoding: .utf8)!
+        
+        allServices.webSocket.connect()
+        allServices.webSocket.send(text: textQuery)
+
+        allServices.webSocket.transmitter
+            .receive(on: queue)
+            .sink(receiveValue: { result in
+                switch result {
+                case .onConnected(let connection):
+                    Logger.log("Connected", type: .sockets)
+                case .onDisconnected(let connection, let error):
+                    Logger.log("Disconnected", type: .sockets)
+                    Logger.log(error)
+                case .onError(let connection, let error):
+                    Logger.log(error)
+                case .onTextMessage(let connection, let text):
+                    let data = Data(text.utf8)
+                    if let model = try? JSONDecoder().decode(WSAllMarketTicker.self, from: data) {
+                        model.data.forEach { print(DateTimeHelper.convertIntervalToDateString($0.eventTime)) }
+                    }
+                case .onDataMessage(let connection, let data):
+                    Logger.log(data)
+                default:
+                    fatalError("unexpected behaviour")
+                }
+            })
+            .store(in: &bag)
+        
         return true
     }
 

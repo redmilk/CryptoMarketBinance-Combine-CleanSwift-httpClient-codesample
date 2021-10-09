@@ -28,12 +28,8 @@ final class ServicesContainer {
         return BinanceService(binanceApi: binanceApi)
     }()
     
-    lazy var webSocket: WebSocketClient = {
-        let ws = WebSocketClient()
-        return ws
-    }()
-    
-    lazy var imageLoader: ImageLoader = { ImageLoader(cache: imageCacher) }()
+    lazy var webSocket = WebSocketClient()
+    lazy var imageLoader = ImageLoader(cache: imageCacher)
 }
 
 // MARK: - add specific service dependency to object

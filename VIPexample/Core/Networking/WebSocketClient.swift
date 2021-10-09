@@ -22,12 +22,14 @@ enum WebSocketResult {
     case onConnected(connection: WebSocketConnection)
     case onDisconnected(connection: WebSocketConnection, error: Error?)
     case onError(connection: WebSocketConnection, error: Error)
-    case onMessage(connection: WebSocketConnection, text: String)
-    case onMessage(connection: WebSocketConnection, data: Data)
+    case onTextMessage(connection: WebSocketConnection, text: String)
+    case onDataMessage(connection: WebSocketConnection, data: Data)
 }
 
-/// NSObject needed for URLSessionDelegate
-final class WebSocketClient: NSObject, WebSocketConnection {
+// MARK: - WebSocketClient
+
+final class WebSocketClient: NSObject, WebSocketConnection { /// NSObject for URLSessionDelegate
+    /// ws response spawner
     var transmitter = PassthroughSubject<WebSocketResult, Never>()
     
     private var webSocketTask: URLSessionWebSocketTask!
@@ -56,23 +58,6 @@ final class WebSocketClient: NSObject, WebSocketConnection {
         webSocketTask.cancel(with: .goingAway, reason: nil)
     }
     
-    func listen()  {
-        webSocketTask.receive { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .failure(let error):
-                self.transmitter.send(.onError(connection: self, error: error))
-            case .success(let message):
-                switch message {
-                case .string(let text): self.transmitter.send(.onMessage(connection: self, text: text))
-                case .data(let data): self.transmitter.send(.onMessage(connection: self, data: data))
-                @unknown default: fatalError()
-                }
-                self.listen()
-            }
-        }
-    }
-    
     func send(text: String) {
         webSocketTask.send(URLSessionWebSocketTask.Message.string(text)) { [weak self] error in
             guard let self = self, let error = error else { return }
@@ -84,6 +69,23 @@ final class WebSocketClient: NSObject, WebSocketConnection {
         webSocketTask.send(URLSessionWebSocketTask.Message.data(data)) { [weak self] error in
             guard let self = self, let error = error else { return }
             self.transmitter.send(.onError(connection: self, error: error))
+        }
+    }
+    
+    private func listen()  {
+        webSocketTask.receive { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .failure(let error):
+                self.transmitter.send(.onError(connection: self, error: error))
+            case .success(let message):
+                switch message {
+                case .string(let text): self.transmitter.send(.onTextMessage(connection: self, text: text))
+                case .data(let data): self.transmitter.send(.onDataMessage(connection: self, data: data))
+                @unknown default: fatalError()
+                }
+                self.listen()
+            }
         }
     }
 }
