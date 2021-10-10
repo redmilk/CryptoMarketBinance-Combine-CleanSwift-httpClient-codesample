@@ -10,7 +10,7 @@ import Foundation
 // MARK: - ExchangeInfo
 struct ExchangeInfo: Codable {
     let timezone: String
-    let symbols: [Symbol]
+    let symbols: [SymbolData]
     let serverTime: Int
     let rateLimits: [RateLimit]
     let exchangeFilters: [JSONAny]
@@ -25,7 +25,7 @@ struct RateLimit: Codable {
 }
 
 // MARK: - Symbol
-struct Symbol: Codable {
+struct SymbolData: Codable {
     let quoteOrderQtyMarketAllowed: Bool
     let quoteAsset: QuoteAsset
     let isSpotTradingAllowed: Bool

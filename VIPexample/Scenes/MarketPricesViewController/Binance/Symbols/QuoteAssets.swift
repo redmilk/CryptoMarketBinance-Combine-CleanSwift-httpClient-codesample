@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum QuoteAsset: String {
+enum QuoteAssetType: String {
     case BIDR
     case BKRW
     case BNB

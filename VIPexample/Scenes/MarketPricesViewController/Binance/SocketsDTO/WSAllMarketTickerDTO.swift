@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - WSAllMarketTicker
-struct WSAllMarketTicker: Codable {
+struct WSAllMarketTickerDTO: Codable {
     let stream: String
     let data: [Datum]
 }
@@ -18,12 +18,18 @@ struct Datum: Codable {
     let eventTime: Int
     let eventType: String
     let symbol: String
-    let close: String
+    //let close: String
     let open: String
     let highest: String
     let lowest: String
     let volume: String
     let quantity: String
+    
+    private let close: String
+    var closeFormatted: String {  /// Refactor
+        guard let double = Double(close) else { return "" }
+        return double.removeZerosFromEnd(maxZerosCount: 4)
+    }
 
     enum CodingKeys: String, CodingKey {
         case eventType = "e"

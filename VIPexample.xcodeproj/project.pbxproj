@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -85,7 +85,7 @@
 		7951B89827110FFC00C321B7 /* WebSocketClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7951B89727110FFC00C321B7 /* WebSocketClient.swift */; };
 		7951B89E27111E6A00C321B7 /* WSAggTrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7951B89D27111E6A00C321B7 /* WSAggTrade.swift */; };
 		7951B8A32711207900C321B7 /* WSBinanceQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7951B8A22711207900C321B7 /* WSBinanceQuery.swift */; };
-		7951B8A8271124BB00C321B7 /* WSAllMarketTicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7951B8A7271124BB00C321B7 /* WSAllMarketTicker.swift */; };
+		7951B8A8271124BB00C321B7 /* WSAllMarketTickerDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7951B8A7271124BB00C321B7 /* WSAllMarketTickerDTO.swift */; };
 		7951B8AD27112A0500C321B7 /* DateTimeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7951B8AC27112A0500C321B7 /* DateTimeHelper.swift */; };
 		7951B8F3271134E900C321B7 /* BinancSocketAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7951B8F2271134E900C321B7 /* BinancSocketAPI.swift */; };
 		7951B8FB2711364700C321B7 /* BinanceEndpointHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7951B8FA2711364700C321B7 /* BinanceEndpointHelper.swift */; };
@@ -96,6 +96,8 @@
 		79653A8C27125231006B3B7C /* BaseAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79653A8B27125231006B3B7C /* BaseAssets.swift */; };
 		79653A98271252E7006B3B7C /* QuoteAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79653A97271252E7006B3B7C /* QuoteAssets.swift */; };
 		79653A9D27125327006B3B7C /* SymbolPairs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79653A9C27125327006B3B7C /* SymbolPairs.swift */; };
+		79653AA327125731006B3B7C /* Magnetic in Frameworks */ = {isa = PBXBuildFile; productRef = 79653AA227125731006B3B7C /* Magnetic */; };
+		79653AAF27125A4C006B3B7C /* BubbleChartExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79653AAE27125A4C006B3B7C /* BubbleChartExtensions.swift */; };
 		79A12FB826B2235A0068CFDF /* Candlestick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A12FB726B2235A0068CFDF /* Candlestick.swift */; };
 		79A12FBD26B226950068CFDF /* AveragePrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A12FBC26B226950068CFDF /* AveragePrice.swift */; };
 		79A12FBE26B226950068CFDF /* AveragePrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A12FBC26B226950068CFDF /* AveragePrice.swift */; };
@@ -197,7 +199,7 @@
 		7951B89727110FFC00C321B7 /* WebSocketClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketClient.swift; sourceTree = "<group>"; };
 		7951B89D27111E6A00C321B7 /* WSAggTrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSAggTrade.swift; sourceTree = "<group>"; };
 		7951B8A22711207900C321B7 /* WSBinanceQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSBinanceQuery.swift; sourceTree = "<group>"; };
-		7951B8A7271124BB00C321B7 /* WSAllMarketTicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSAllMarketTicker.swift; sourceTree = "<group>"; };
+		7951B8A7271124BB00C321B7 /* WSAllMarketTickerDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSAllMarketTickerDTO.swift; sourceTree = "<group>"; };
 		7951B8AC27112A0500C321B7 /* DateTimeHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimeHelper.swift; sourceTree = "<group>"; };
 		7951B8F2271134E900C321B7 /* BinancSocketAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinancSocketAPI.swift; sourceTree = "<group>"; };
 		7951B8FA2711364700C321B7 /* BinanceEndpointHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinanceEndpointHelper.swift; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 		79653A8B27125231006B3B7C /* BaseAssets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAssets.swift; sourceTree = "<group>"; };
 		79653A97271252E7006B3B7C /* QuoteAssets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteAssets.swift; sourceTree = "<group>"; };
 		79653A9C27125327006B3B7C /* SymbolPairs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolPairs.swift; sourceTree = "<group>"; };
+		79653AAE27125A4C006B3B7C /* BubbleChartExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleChartExtensions.swift; sourceTree = "<group>"; };
 		79A12FB726B2235A0068CFDF /* Candlestick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Candlestick.swift; sourceTree = "<group>"; };
 		79A12FBC26B226950068CFDF /* AveragePrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AveragePrice.swift; sourceTree = "<group>"; };
 		79A12FC326B2281A0068CFDF /* PriceChange24h.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceChange24h.swift; sourceTree = "<group>"; };
@@ -257,6 +260,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79653AA327125731006B3B7C /* Magnetic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -277,9 +281,10 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		790A1E3C26B1F80500969231 /* OrderBook */ = {
+		790A1E3C26B1F80500969231 /* MarketPricesViewController */ = {
 			isa = PBXGroup;
 			children = (
+				79653AAA2712579A006B3B7C /* BubblesView */,
 				7951B88527110B0B00C321B7 /* MarketPricesViewController.swift */,
 				7951B88627110B0B00C321B7 /* MarketPricesInteractor.swift */,
 				7951B88427110B0B00C321B7 /* MarketPricesPresenter.swift */,
@@ -288,7 +293,7 @@
 				7951B88827110B0B00C321B7 /* MarketPricesViewController.xib */,
 				790A1E4726B1F9E400969231 /* Binance */,
 			);
-			path = OrderBook;
+			path = MarketPricesViewController;
 			sourceTree = "<group>";
 		};
 		790A1E4626B1F99A00969231 /* Core */ = {
@@ -366,6 +371,7 @@
 				790A1EB126B1FEC000969231 /* Publisher+Extensions.swift */,
 				790A1EB226B1FEC000969231 /* Collection+Extensions.swift */,
 				79E89F99271207F600BF800B /* Number+Extensions.swift */,
+				79653AAE27125A4C006B3B7C /* BubbleChartExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -399,7 +405,7 @@
 			children = (
 				7951B89D27111E6A00C321B7 /* WSAggTrade.swift */,
 				7951B8A22711207900C321B7 /* WSBinanceQuery.swift */,
-				7951B8A7271124BB00C321B7 /* WSAllMarketTicker.swift */,
+				7951B8A7271124BB00C321B7 /* WSAllMarketTickerDTO.swift */,
 				79E89F942711FF6D00BF800B /* SymbolTickerDTO.swift */,
 				79653A742712303F006B3B7C /* CommonSymbolTickerType.swift */,
 			);
@@ -414,6 +420,13 @@
 				79653A9C27125327006B3B7C /* SymbolPairs.swift */,
 			);
 			path = Symbols;
+			sourceTree = "<group>";
+		};
+		79653AAA2712579A006B3B7C /* BubblesView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = BubblesView;
 			sourceTree = "<group>";
 		};
 		79A1309526B25F440068CFDF /* Utils */ = {
@@ -451,7 +464,7 @@
 		840D68022648D5F600F8C01A /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				790A1E3C26B1F80500969231 /* OrderBook */,
+				790A1E3C26B1F80500969231 /* MarketPricesViewController */,
 				840D68012648D5C000F8C01A /* Content */,
 				84C3B322264894350080FFB0 /* Authorization */,
 			);
@@ -577,6 +590,9 @@
 			dependencies = (
 			);
 			name = VIPexample;
+			packageProductDependencies = (
+				79653AA227125731006B3B7C /* Magnetic */,
+			);
 			productName = VIPexample;
 			productReference = 84C3B2EF264894120080FFB0 /* VIPexample.app */;
 			productType = "com.apple.product-type.application";
@@ -648,6 +664,9 @@
 				Base,
 			);
 			mainGroup = 84C3B2E6264894120080FFB0;
+			packageReferences = (
+				79653AA127125731006B3B7C /* XCRemoteSwiftPackageReference "Magnetic" */,
+			);
 			productRefGroup = 84C3B2F0264894120080FFB0 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -722,6 +741,7 @@
 				790A1E8226B1FC9B00969231 /* Authenticator.swift in Sources */,
 				790A1EC926B1FF5500969231 /* ApplicationFlowCoordinator.swift in Sources */,
 				7951B88D27110B0B00C321B7 /* MarketPricesConfigurator.swift in Sources */,
+				79653AAF27125A4C006B3B7C /* BubbleChartExtensions.swift in Sources */,
 				7951B88B27110B0B00C321B7 /* MarketPricesViewController.swift in Sources */,
 				840D68082648D6C200F8C01A /* ContentCoordinator.swift in Sources */,
 				7951B88A27110B0B00C321B7 /* MarketPricesPresenter.swift in Sources */,
@@ -733,7 +753,7 @@
 				840D68052648D63700F8C01A /* ContentViewController.swift in Sources */,
 				840D680F2648D98600F8C01A /* CoordinatorType.swift in Sources */,
 				7951B89827110FFC00C321B7 /* WebSocketClient.swift in Sources */,
-				7951B8A8271124BB00C321B7 /* WSAllMarketTicker.swift in Sources */,
+				7951B8A8271124BB00C321B7 /* WSAllMarketTickerDTO.swift in Sources */,
 				7951B8FB2711364700C321B7 /* BinanceEndpointHelper.swift in Sources */,
 				790A1EBF26B1FEC000969231 /* Collection+Extensions.swift in Sources */,
 				79A12FD226B22FAC0068CFDF /* OrderBookTicker.swift in Sources */,
@@ -1145,6 +1165,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		79653AA127125731006B3B7C /* XCRemoteSwiftPackageReference "Magnetic" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/efremidze/Magnetic";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.2.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		79653AA227125731006B3B7C /* Magnetic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 79653AA127125731006B3B7C /* XCRemoteSwiftPackageReference "Magnetic" */;
+			productName = Magnetic;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 84C3B2E7264894120080FFB0 /* Project object */;
 }

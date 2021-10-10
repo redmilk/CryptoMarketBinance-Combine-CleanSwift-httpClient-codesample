@@ -13,6 +13,7 @@
                 <outlet property="connectButton" destination="y1c-Zo-DBV" id="bcN-1B-nWC"/>
                 <outlet property="debugTextView" destination="9R3-hm-3Ey" id="OBe-ya-8jq"/>
                 <outlet property="disconnectButton" destination="l2U-3X-6yj" id="5mM-WS-i1p"/>
+                <outlet property="magneticView" destination="RHq-No-8mO" id="qd4-PA-ChX"/>
                 <outlet property="mainTextView" destination="sEj-wg-3G4" id="Gvm-6D-REO"/>
                 <outlet property="newStreamButton" destination="qaZ-Aa-0q2" id="zms-1z-zzl"/>
                 <outlet property="reconnectButton" destination="Fui-mR-Acw" id="z8A-I7-yar"/>
@@ -71,7 +72,7 @@
                                         </button>
                                     </subviews>
                                 </stackView>
-                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" text="btcusdt@ticker" borderStyle="bezel" placeholder="Stream name" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="MQ1-jx-nSy">
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" text="!miniTicker@arr" borderStyle="bezel" placeholder="Stream name" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="MQ1-jx-nSy">
                                     <rect key="frame" x="138" y="0.0" width="138" height="40"/>
                                     <color key="backgroundColor" red="0.12984204290000001" green="0.12984612579999999" blue="0.12984395030000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="textColor" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -105,11 +106,19 @@
                         </stackView>
                     </subviews>
                 </stackView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RHq-No-8mO" customClass="MagneticView" customModule="Magnetic">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="796"/>
+                    <color key="backgroundColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="0.29517234051165803" colorSpace="custom" customColorSpace="sRGB"/>
+                </view>
             </subviews>
             <color key="backgroundColor" systemColor="labelColor"/>
             <constraints>
+                <constraint firstItem="RHq-No-8mO" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="2pd-yj-zX0"/>
                 <constraint firstItem="eHw-dA-j56" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="63G-Eq-5da"/>
+                <constraint firstAttribute="trailing" secondItem="RHq-No-8mO" secondAttribute="trailing" id="9fC-F1-kKl"/>
+                <constraint firstItem="RHq-No-8mO" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="fYn-YX-2BV"/>
                 <constraint firstItem="eHw-dA-j56" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="lPY-nt-m8C"/>
+                <constraint firstAttribute="bottom" secondItem="RHq-No-8mO" secondAttribute="bottom" constant="100" id="og8-OM-PMc"/>
                 <constraint firstAttribute="trailing" secondItem="eHw-dA-j56" secondAttribute="trailing" id="uXp-3T-JEg"/>
                 <constraint firstAttribute="bottom" secondItem="eHw-dA-j56" secondAttribute="bottom" constant="12" id="vlq-e0-QI3"/>
             </constraints>

@@ -41,8 +41,8 @@ struct SymbolTickerNestedDTO: Decodable {
     let lastTradeId: Int
     let totalNumberOfTrades: Int
     private let lastPrice: String
-    var lastPriceFormatted: String? {  /// Refactor
-        guard let double = Double(lastPrice ?? "") else { return nil }
+    var lastPriceFormatted: String {  /// Refactor
+        guard let double = Double(lastPrice) else { return "" }
         return double.removeZerosFromEnd(maxZerosCount: 4)
     }
 
