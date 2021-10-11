@@ -57,7 +57,7 @@ final class BinanceSocketApi: BinanceSocketApiType {
         updateType: StreamUpdateMethod,
         forStreams streams: [String]
     ) {
-        let request = WSBinanceQuery(
+        let request = StreamQuery(
             method: updateType.rawValue,
             params: streams,
             id: Int.random(in: 1...9999999)

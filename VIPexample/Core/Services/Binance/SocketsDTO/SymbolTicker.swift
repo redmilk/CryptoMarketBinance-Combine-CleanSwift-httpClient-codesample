@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct WSSymbolTicker: Decodable {
+struct SymbolTicker: Decodable {
     let stream: String
-    let data: WSSymbolTickerElement
+    let data: SymbolTickerElement
 }
 
-struct WSSymbolTickerElement: Decodable {
+struct SymbolTickerElement: Decodable {
     let eventType: String
     let eventTime: Int
     let symbol: String
@@ -37,7 +37,7 @@ struct WSSymbolTickerElement: Decodable {
     let totalNumberOfTrades: Int
     private let lastPrice: String
     var lastPriceFormatted: String {  /// Refactor to custom init
-        return Double(lastPrice)!.removeZerosFromEnd(maxZerosCount: 4)
+        lastPrice.withoutTrailingZeros
     }
 
     enum CodingKeys: String, CodingKey {

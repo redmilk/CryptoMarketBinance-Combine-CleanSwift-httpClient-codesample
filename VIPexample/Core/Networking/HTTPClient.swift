@@ -78,7 +78,7 @@ final class HTTPClient: HTTPClientType {
                         case is DecodingError: return RequestError.parsing("Parsing failure", error)
                         case is URLError: return RequestError.network("URL request error", error as! URLError)
                         case is RequestError: return error
-                        //TODO: - look for way to refactor
+                        // TODO: - look for way to refactor
                         default: return (error as NSError).code == -1001 ? RequestError.timeout(urlRequest) : RequestError.unknown(error)
                         }
                     }

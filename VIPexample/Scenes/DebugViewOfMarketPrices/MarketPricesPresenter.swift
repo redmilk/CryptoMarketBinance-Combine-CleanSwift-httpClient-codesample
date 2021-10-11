@@ -16,6 +16,7 @@ struct MarketPricesPresenter: PresenterType {
     let outputToViewController = PassthroughSubject<MarketPricesViewController.State, Never>()
     
     private let coordinator: CoordinatorType
+    private let formatter = BinanceResponseModelsFormatter()
     private var bag = Set<AnyCancellable>()
     
     init(coordinator: CoordinatorType) {
@@ -30,10 +31,12 @@ private extension MarketPricesPresenter {
     
     mutating func bindInput() {
         inputFromInteractor
-            .map { [self] interactorResponse in
+            .compactMap { [self] interactorResponse in
                 switch interactorResponse {
                 case .socketResponseModel(let model):
-                    return .recievedResponseModel(model: model)
+                    let preparedDataForView = prepareDataForViewController(model)
+                    guard let preparedData = preparedDataForView else { return nil }
+                    return .recievedPreparedTextData(text: preparedData)
                 case .socketResponseStatusMessage(let status, let shouldClean):
                     return .updateSocketStatus(newStatus: status, shouldCleanView: shouldClean)
                 case .socketResponseFail(let error):
@@ -42,6 +45,24 @@ private extension MarketPricesPresenter {
             }
             .subscribe(outputToViewController)
             .store(in: &bag)
+    }
+    
+    // MARK: - Prepare data for ViewController's needed format
+    
+    func prepareDataForViewController(_ model: AllStreamTickerTypes?) -> String? {
+        guard let model = model else { return nil }
+        switch model {
+        case .singleSymbolMini(_):
+            return ""
+        case .multipleSymbolsMini(_):
+            return ""
+        case .singleSymbol(let singleSymbolModel):
+            return formatter.formatSingleSymbolTickerElement(singleSymbolModel)
+        case .multipleSymbols(let multipleSymbolModel):
+            return formatter.formatMultipleSymbolsResponse(multipleSymbolModel)
+        case .allMarketMiniTicker(let allMarketMiniTicker):
+            return formatter.formatAllMarketMiniTickerElements(allMarketMiniTicker)
+        }
     }
     
     func extractErrorMessage(fromError error: BinanceServiceError) -> String {

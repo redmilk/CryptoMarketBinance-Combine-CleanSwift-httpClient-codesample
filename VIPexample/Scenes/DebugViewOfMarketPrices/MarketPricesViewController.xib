@@ -71,7 +71,7 @@
                                         </button>
                                     </subviews>
                                 </stackView>
-                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" text="btcusdt@ticker" borderStyle="bezel" placeholder="Stream name" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="MQ1-jx-nSy">
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" text="btcusdt@miniTicker ethusdt@miniTicker" borderStyle="bezel" placeholder="Stream name" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="MQ1-jx-nSy">
                                     <rect key="frame" x="138" y="0.0" width="138" height="40"/>
                                     <color key="backgroundColor" red="0.12984204290000001" green="0.12984612579999999" blue="0.12984395030000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="textColor" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

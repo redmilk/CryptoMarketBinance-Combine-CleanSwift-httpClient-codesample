@@ -30,7 +30,7 @@ final class Logger {
     /// set false for disabling concole logs
     private static var isEnabled: Bool = true
     
-    static func log(_ error: Error?,
+    static func logError(_ error: Error?,
                     descriptions: String? = "",
                     path: String = #file,
                     line: Int = #line,

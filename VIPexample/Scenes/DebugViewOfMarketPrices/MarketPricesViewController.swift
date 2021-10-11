@@ -14,7 +14,7 @@ import Combine
 
 extension MarketPricesViewController {
     enum State {
-        case recievedResponseModel(model: CommonSymbolTickerType?)
+        case recievedPreparedTextData(text: String)
         case updateSocketStatus(newStatus: String, shouldCleanView: Bool)
         case failure(errorDescription: String, shouldCleanView: Bool)
     }
@@ -30,18 +30,17 @@ extension MarketPricesViewController {
 
 // MARK: - MarketPricesViewController
 
-final class MarketPricesViewController: UIViewController, ViewControllerType {
+final class MarketPricesViewController: UIViewController {
     
-    @IBOutlet weak var mainTextView: UITextView!
-    @IBOutlet weak var debugTextView: UITextView!
-    @IBOutlet weak var updateStreamTextField: UITextField!
-    
-    @IBOutlet weak var configureButton: UIButton!
-    @IBOutlet weak var connectButton: UIButton!
-    @IBOutlet weak var disconnectButton: UIButton!
-    @IBOutlet weak var newStreamButton: UIButton!
-    @IBOutlet weak var removeStreamButton: UIButton!
-    @IBOutlet weak var reconnectButton: UIButton!
+    @IBOutlet private weak var mainTextView: UITextView!
+    @IBOutlet private weak var debugTextView: UITextView!
+    @IBOutlet private weak var updateStreamTextField: UITextField!
+    @IBOutlet private weak var configureButton: UIButton!
+    @IBOutlet private weak var connectButton: UIButton!
+    @IBOutlet private weak var disconnectButton: UIButton!
+    @IBOutlet private weak var newStreamButton: UIButton!
+    @IBOutlet private weak var removeStreamButton: UIButton!
+    @IBOutlet private weak var reconnectButton: UIButton!
         
     let inputFromPresenter = PassthroughSubject<State, Never>()
     let outputToInteractor = PassthroughSubject<Action, Never>()
@@ -66,14 +65,28 @@ final class MarketPricesViewController: UIViewController, ViewControllerType {
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
-    func storeSubscriptions(_ bag: inout Set<AnyCancellable>) {
-        self.bag = bag
+    private func updateWithTextData(_ text: String) {
+        mainTextView.text += "\n \(text)"
+        let range = NSMakeRange(self.mainTextView.text.count, 0)
+        mainTextView.scrollRangeToVisible(range)
+    }
+    
+    private func updateWithNewSocketStatus(_ socketStatus: String, _ shouldCleanView: Bool) {
+        debugTextView.text = socketStatus
+        shouldCleanView ? mainTextView.text = nil : ()
+        Logger.log(socketStatus, type: .sockets)
+    }
+    
+    private func updateWithErrorDescription(_ errorDescription: String, _ shouldCleanView: Bool) {
+        debugTextView.text = errorDescription
+        shouldCleanView ? mainTextView.text = nil : ()
+        Logger.logError(nil, descriptions: errorDescription)
     }
 }
 
-// MARK: - ViewController Input-Output and Helper methods
+// MARK: - Clean Swift ViewController Input-Output
 
-private extension MarketPricesViewController {
+extension MarketPricesViewController: ViewControllerType {
     
     func dispatchActionsForInteractor() {
         /// Sending actions to Interactor
@@ -92,6 +105,7 @@ private extension MarketPricesViewController {
         let removeStream = removeStreamButton.publisher(for: .touchUpInside)
             .combineLatest(textFieldValues)
             .map { Action.removeStream($0.1) }
+        
         Publishers.Merge6(configure, connect, disconnect, reconnect, newStreamAdd, removeStream)
             .sink(receiveValue: { [weak self] in self?.outputToInteractor.send($0) })
             .store(in: &bag)
@@ -103,41 +117,19 @@ private extension MarketPricesViewController {
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] state in
                 switch state {
-                case .recievedResponseModel(let model):
-                    self?.updateWithModel(model)
+                case .recievedPreparedTextData(let preparedTextData):
+                    self?.updateWithTextData(preparedTextData)
                 case .updateSocketStatus(let socketStatus, let shouldCleanView):
-                    self?.updateWithSocketStatus(socketStatus, shouldCleanView)
+                    self?.updateWithNewSocketStatus(socketStatus, shouldCleanView)
                 case .failure(let errorMessage, let shouldCleanView):
-                    self?.handleErrorDescription(errorMessage, shouldCleanView)
+                    self?.updateWithErrorDescription(errorMessage, shouldCleanView)
                 }
             })
             .store(in: &bag)
     }
     
-    // MARK: - Helper methods
-    
-    func updateWithModel(_ model: CommonSymbolTickerType?) {
-        guard let model = model else { return }
-        switch model {
-        case .singleSymbol(let singleSymbolModel):
-            print((singleSymbolModel.symbol) + " " + (singleSymbolModel.priceChangePercent) + "%")
-            mainTextView.text += "\t" + (singleSymbolModel.symbol) + " " + (singleSymbolModel.lastPriceFormatted)
-        case .multipleSymbols(let multipleSymbolModel):
-            print((multipleSymbolModel.data.symbol) + " " + (multipleSymbolModel.data.priceChangePercent) + "%")
-            mainTextView.text += "\t" + (multipleSymbolModel.data.symbol) + " " + (multipleSymbolModel.data.lastPriceFormatted)
-        }
-        let range = NSMakeRange(self.mainTextView.text.count, 0)
-        mainTextView.scrollRangeToVisible(range)
-    }
-    
-    func updateWithSocketStatus(_ status: String, _ shouldCleanView: Bool) {
-        debugTextView.text = status
-        shouldCleanView ? mainTextView.text = nil : ()
-        Logger.log(status, type: .sockets)
-    }
-    
-    func handleErrorDescription(_ errorDescription: String, _ shouldCleanView: Bool) {
-        debugTextView.text = errorDescription
-        shouldCleanView ? mainTextView.text = nil : ()
+    /// this called from `ModuleLayersBinderType` protocol extension implicitly, no need to call
+    func storeSubscriptions(_ bag: inout Set<AnyCancellable>) {
+        self.bag = bag
     }
 }

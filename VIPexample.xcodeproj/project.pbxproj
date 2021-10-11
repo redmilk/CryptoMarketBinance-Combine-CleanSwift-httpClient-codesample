@@ -83,13 +83,12 @@
 		7951B88D27110B0B00C321B7 /* MarketPricesConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7951B88727110B0B00C321B7 /* MarketPricesConfigurator.swift */; };
 		7951B88E27110B0B00C321B7 /* MarketPricesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7951B88827110B0B00C321B7 /* MarketPricesViewController.xib */; };
 		7951B89827110FFC00C321B7 /* WebSocketClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7951B89727110FFC00C321B7 /* WebSocketClient.swift */; };
-		7951B89E27111E6A00C321B7 /* WSAggTrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7951B89D27111E6A00C321B7 /* WSAggTrade.swift */; };
-		7951B8A32711207900C321B7 /* WSBinanceQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7951B8A22711207900C321B7 /* WSBinanceQuery.swift */; };
-		7951B8A8271124BB00C321B7 /* WSAllMarketTicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7951B8A7271124BB00C321B7 /* WSAllMarketTicker.swift */; };
+		7951B8A32711207900C321B7 /* StreamQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7951B8A22711207900C321B7 /* StreamQuery.swift */; };
+		7951B8A8271124BB00C321B7 /* AllMarketMiniTicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7951B8A7271124BB00C321B7 /* AllMarketMiniTicker.swift */; };
 		7951B8AD27112A0500C321B7 /* DateTimeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7951B8AC27112A0500C321B7 /* DateTimeHelper.swift */; };
 		7951B8F3271134E900C321B7 /* BinancSocketAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7951B8F2271134E900C321B7 /* BinancSocketAPI.swift */; };
 		7951B8FB2711364700C321B7 /* BinanceEndpointHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7951B8FA2711364700C321B7 /* BinanceEndpointHelper.swift */; };
-		79653A752712303F006B3B7C /* CommonSymbolTickerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79653A742712303F006B3B7C /* CommonSymbolTickerType.swift */; };
+		79653A752712303F006B3B7C /* AllStreamTickerTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79653A742712303F006B3B7C /* AllStreamTickerTypes.swift */; };
 		79653A7A27123472006B3B7C /* BinanceStreamInformationKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79653A7927123472006B3B7C /* BinanceStreamInformationKeys.swift */; };
 		79653A8C27125231006B3B7C /* BaseAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79653A8B27125231006B3B7C /* BaseAssets.swift */; };
 		79653A98271252E7006B3B7C /* QuoteAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79653A97271252E7006B3B7C /* QuoteAssets.swift */; };
@@ -109,8 +108,10 @@
 		79A1309726B25F6D0068CFDF /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A1309626B25F6D0068CFDF /* HelperFunctions.swift */; };
 		79A1309826B25F6D0068CFDF /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A1309626B25F6D0068CFDF /* HelperFunctions.swift */; };
 		79A1309926B25F6D0068CFDF /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A1309626B25F6D0068CFDF /* HelperFunctions.swift */; };
-		79E89F952711FF6D00BF800B /* WSSymbolTicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E89F942711FF6D00BF800B /* WSSymbolTicker.swift */; };
-		79E89F9A271207F600BF800B /* Number+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E89F99271207F600BF800B /* Number+Extensions.swift */; };
+		79DFA9322714A993002EA664 /* BinanceResponseModelsFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DFA9312714A993002EA664 /* BinanceResponseModelsFormatter.swift */; };
+		79DFA9402714B8DB002EA664 /* SymbolTickerMini.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DFA93F2714B8DB002EA664 /* SymbolTickerMini.swift */; };
+		79E89F952711FF6D00BF800B /* SymbolTicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E89F942711FF6D00BF800B /* SymbolTicker.swift */; };
+		79E89F9A271207F600BF800B /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E89F99271207F600BF800B /* String+Extensions.swift */; };
 		79FB9B6B26B2BD3200F36ED7 /* ItemOrArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FB9B6A26B2BD3200F36ED7 /* ItemOrArray.swift */; };
 		79FB9B6C26B2BD3200F36ED7 /* ItemOrArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FB9B6A26B2BD3200F36ED7 /* ItemOrArray.swift */; };
 		79FB9B6D26B2BD3200F36ED7 /* ItemOrArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FB9B6A26B2BD3200F36ED7 /* ItemOrArray.swift */; };
@@ -192,13 +193,12 @@
 		7951B88727110B0B00C321B7 /* MarketPricesConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketPricesConfigurator.swift; sourceTree = "<group>"; };
 		7951B88827110B0B00C321B7 /* MarketPricesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MarketPricesViewController.xib; sourceTree = "<group>"; };
 		7951B89727110FFC00C321B7 /* WebSocketClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketClient.swift; sourceTree = "<group>"; };
-		7951B89D27111E6A00C321B7 /* WSAggTrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSAggTrade.swift; sourceTree = "<group>"; };
-		7951B8A22711207900C321B7 /* WSBinanceQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSBinanceQuery.swift; sourceTree = "<group>"; };
-		7951B8A7271124BB00C321B7 /* WSAllMarketTicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSAllMarketTicker.swift; sourceTree = "<group>"; };
+		7951B8A22711207900C321B7 /* StreamQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamQuery.swift; sourceTree = "<group>"; };
+		7951B8A7271124BB00C321B7 /* AllMarketMiniTicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllMarketMiniTicker.swift; sourceTree = "<group>"; };
 		7951B8AC27112A0500C321B7 /* DateTimeHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimeHelper.swift; sourceTree = "<group>"; };
 		7951B8F2271134E900C321B7 /* BinancSocketAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinancSocketAPI.swift; sourceTree = "<group>"; };
 		7951B8FA2711364700C321B7 /* BinanceEndpointHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinanceEndpointHelper.swift; sourceTree = "<group>"; };
-		79653A742712303F006B3B7C /* CommonSymbolTickerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonSymbolTickerType.swift; sourceTree = "<group>"; };
+		79653A742712303F006B3B7C /* AllStreamTickerTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllStreamTickerTypes.swift; sourceTree = "<group>"; };
 		79653A7927123472006B3B7C /* BinanceStreamInformationKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinanceStreamInformationKeys.swift; sourceTree = "<group>"; };
 		79653A8B27125231006B3B7C /* BaseAssets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAssets.swift; sourceTree = "<group>"; };
 		79653A97271252E7006B3B7C /* QuoteAssets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteAssets.swift; sourceTree = "<group>"; };
@@ -208,8 +208,10 @@
 		79A12FCA26B22A070068CFDF /* Price.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Price.swift; sourceTree = "<group>"; };
 		79A12FD126B22FAC0068CFDF /* OrderBookTicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderBookTicker.swift; sourceTree = "<group>"; };
 		79A1309626B25F6D0068CFDF /* HelperFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFunctions.swift; sourceTree = "<group>"; };
-		79E89F942711FF6D00BF800B /* WSSymbolTicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSSymbolTicker.swift; sourceTree = "<group>"; };
-		79E89F99271207F600BF800B /* Number+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Number+Extensions.swift"; sourceTree = "<group>"; };
+		79DFA9312714A993002EA664 /* BinanceResponseModelsFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinanceResponseModelsFormatter.swift; sourceTree = "<group>"; };
+		79DFA93F2714B8DB002EA664 /* SymbolTickerMini.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolTickerMini.swift; sourceTree = "<group>"; };
+		79E89F942711FF6D00BF800B /* SymbolTicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolTicker.swift; sourceTree = "<group>"; };
+		79E89F99271207F600BF800B /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		79FB9B6A26B2BD3200F36ED7 /* ItemOrArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemOrArray.swift; sourceTree = "<group>"; };
 		840D68032648D63700F8C01A /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		840D68042648D63700F8C01A /* ContentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContentViewController.xib; sourceTree = "<group>"; };
@@ -306,9 +308,10 @@
 				790A1E4826B1FA5A00969231 /* BinanceAPI.swift */,
 				7951B8FA2711364700C321B7 /* BinanceEndpointHelper.swift */,
 				79653A7927123472006B3B7C /* BinanceStreamInformationKeys.swift */,
+				79DFA9312714A993002EA664 /* BinanceResponseModelsFormatter.swift */,
 				7951B89C27111E4600C321B7 /* SocketsDTO */,
-				79653A93271252C2006B3B7C /* Symbols */,
 				790A1F0026B206F300969231 /* RequestDTO */,
+				79653A93271252C2006B3B7C /* Symbols */,
 			);
 			path = Binance;
 			sourceTree = "<group>";
@@ -357,7 +360,7 @@
 				790A1EB026B1FEC000969231 /* UIControl+Extensions.swift */,
 				790A1EB126B1FEC000969231 /* Publisher+Extensions.swift */,
 				790A1EB226B1FEC000969231 /* Collection+Extensions.swift */,
-				79E89F99271207F600BF800B /* Number+Extensions.swift */,
+				79E89F99271207F600BF800B /* String+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -388,11 +391,11 @@
 		7951B89C27111E4600C321B7 /* SocketsDTO */ = {
 			isa = PBXGroup;
 			children = (
-				7951B89D27111E6A00C321B7 /* WSAggTrade.swift */,
-				7951B8A22711207900C321B7 /* WSBinanceQuery.swift */,
-				7951B8A7271124BB00C321B7 /* WSAllMarketTicker.swift */,
-				79E89F942711FF6D00BF800B /* WSSymbolTicker.swift */,
-				79653A742712303F006B3B7C /* CommonSymbolTickerType.swift */,
+				79653A742712303F006B3B7C /* AllStreamTickerTypes.swift */,
+				7951B8A22711207900C321B7 /* StreamQuery.swift */,
+				7951B8A7271124BB00C321B7 /* AllMarketMiniTicker.swift */,
+				79E89F942711FF6D00BF800B /* SymbolTicker.swift */,
+				79DFA93F2714B8DB002EA664 /* SymbolTickerMini.swift */,
 			);
 			path = SocketsDTO;
 			sourceTree = "<group>";
@@ -418,9 +421,9 @@
 		79A55ACB27149EE20073D232 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				84CDFC3D264949FD00BDB150 /* Marvel */,
-				790A1E4726B1F9E400969231 /* Binance */,
 				790A1E5226B1FC4700969231 /* ServicesContainer.swift */,
+				790A1E4726B1F9E400969231 /* Binance */,
+				84CDFC3D264949FD00BDB150 /* Marvel */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -696,8 +699,9 @@
 				84EEE12D2648BEC4003C4D93 /* AuthCoordinator.swift in Sources */,
 				79FB9B6B26B2BD3200F36ED7 /* ItemOrArray.swift in Sources */,
 				790A1E7926B1FC9B00969231 /* RequestParametersAdapter.swift in Sources */,
+				79DFA9322714A993002EA664 /* BinanceResponseModelsFormatter.swift in Sources */,
 				79653A98271252E7006B3B7C /* QuoteAssets.swift in Sources */,
-				7951B8A32711207900C321B7 /* WSBinanceQuery.swift in Sources */,
+				7951B8A32711207900C321B7 /* StreamQuery.swift in Sources */,
 				840D68152648DBC500F8C01A /* PresenterType.swift in Sources */,
 				7951B8F3271134E900C321B7 /* BinancSocketAPI.swift in Sources */,
 				79653A8C27125231006B3B7C /* BaseAssets.swift in Sources */,
@@ -705,7 +709,6 @@
 				840D68172648DCAC00F8C01A /* InteractorType.swift in Sources */,
 				7951B88927110B0B00C321B7 /* MarketPricesCoordinator.swift in Sources */,
 				84CDFC452649722C00BDB150 /* ContentCollectionCell.swift in Sources */,
-				7951B89E27111E6A00C321B7 /* WSAggTrade.swift in Sources */,
 				790A1F0D26B2080900969231 /* BinanceService.swift in Sources */,
 				790A1EA426B1FEB000969231 /* PublishTimeLogger.swift in Sources */,
 				790A1EB326B1FEC000969231 /* UIViewController+Extensions.swift in Sources */,
@@ -730,7 +733,7 @@
 				840D68052648D63700F8C01A /* ContentViewController.swift in Sources */,
 				840D680F2648D98600F8C01A /* CoordinatorType.swift in Sources */,
 				7951B89827110FFC00C321B7 /* WebSocketClient.swift in Sources */,
-				7951B8A8271124BB00C321B7 /* WSAllMarketTicker.swift in Sources */,
+				7951B8A8271124BB00C321B7 /* AllMarketMiniTicker.swift in Sources */,
 				7951B8FB2711364700C321B7 /* BinanceEndpointHelper.swift in Sources */,
 				790A1EBF26B1FEC000969231 /* Collection+Extensions.swift in Sources */,
 				79A12FD226B22FAC0068CFDF /* OrderBookTicker.swift in Sources */,
@@ -739,7 +742,7 @@
 				840D680D2648D97300F8C01A /* ModuleLayersBinderType.swift in Sources */,
 				790A1E8526B1FC9B00969231 /* HTTPClient.swift in Sources */,
 				7951B8AD27112A0500C321B7 /* DateTimeHelper.swift in Sources */,
-				79653A752712303F006B3B7C /* CommonSymbolTickerType.swift in Sources */,
+				79653A752712303F006B3B7C /* AllStreamTickerTypes.swift in Sources */,
 				790A1E7C26B1FC9B00969231 /* RequestBuilder.swift in Sources */,
 				84CDFC4126495E4800BDB150 /* ApiModels.swift in Sources */,
 				79A12FB826B2235A0068CFDF /* Candlestick.swift in Sources */,
@@ -749,15 +752,16 @@
 				790A1F1E26B212E200969231 /* RecentTrade.swift in Sources */,
 				790A1F1726B2118A00969231 /* OrderBook.swift in Sources */,
 				790A1E7626B1FC9B00969231 /* AuthTokens.swift in Sources */,
-				79E89F952711FF6D00BF800B /* WSSymbolTicker.swift in Sources */,
+				79E89F952711FF6D00BF800B /* SymbolTicker.swift in Sources */,
 				790A1E6A26B1FC9B00969231 /* RequestError.swift in Sources */,
-				79E89F9A271207F600BF800B /* Number+Extensions.swift in Sources */,
+				79E89F9A271207F600BF800B /* String+Extensions.swift in Sources */,
 				840D680A2648D71E00F8C01A /* ContentConfigurator.swift in Sources */,
 				790A1E7326B1FC9B00969231 /* ImageCacher.swift in Sources */,
 				790A1E5326B1FC4700969231 /* ServicesContainer.swift in Sources */,
 				79A12FC426B2281A0068CFDF /* PriceChange24h.swift in Sources */,
 				790A1EA126B1FEB000969231 /* Logger.swift in Sources */,
 				840D68112648DA6B00F8C01A /* ContentInteractor.swift in Sources */,
+				79DFA9402714B8DB002EA664 /* SymbolTickerMini.swift in Sources */,
 				84C3B327264894910080FFB0 /* AuthPresenter.swift in Sources */,
 				840D68132648DA8400F8C01A /* ContentPresenter.swift in Sources */,
 				790A1E4926B1FA5A00969231 /* BinanceAPI.swift in Sources */,

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct WSBinanceQuery: Codable {
+struct StreamQuery: Codable {
     var method: String
     var params: [String]
     var id: Int
