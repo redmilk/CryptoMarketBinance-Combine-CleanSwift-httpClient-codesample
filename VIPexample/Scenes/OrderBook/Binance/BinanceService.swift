@@ -58,11 +58,7 @@ extension BinanceService {
 // MARK: - HTTP Request API methods
 
 extension BinanceService {
-    
-    func loadExchangeInfo() -> AnyPublisher<ExchangeInfo, Error> {
-        binanceRequestApi.loadExchangeInfo()
-    }
-    
+ 
     func checkPing(startTime: Double) -> AnyPublisher<Double, Error> {
         binanceRequestApi.checkPing()
             .map { _ in startTime - Date().timeIntervalSince1970 }
@@ -99,7 +95,7 @@ extension BinanceService {
         binanceRequestApi.loadPriceChangeBy24Hours(symbol: symbol)
     }
     
-    func loadOrderBookTicker(symbol: String?) -> AnyPublisher<OrderBookTickerResponse, Error> {
+    func loadOrderBookTicker(symbol: String?) -> AnyPublisher<ItemOrArray<OrderBookTicker>, Error> {
         binanceRequestApi.loadOrderBookTicker(symbol: symbol)
     }
 }

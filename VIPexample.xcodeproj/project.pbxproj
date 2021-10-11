@@ -91,11 +91,8 @@
 		7951B8FB2711364700C321B7 /* BinanceEndpointHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7951B8FA2711364700C321B7 /* BinanceEndpointHelper.swift */; };
 		79653A752712303F006B3B7C /* CommonSymbolTickerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79653A742712303F006B3B7C /* CommonSymbolTickerType.swift */; };
 		79653A7A27123472006B3B7C /* BinanceStreamInformationKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79653A7927123472006B3B7C /* BinanceStreamInformationKeys.swift */; };
-		79653A7F2712414A006B3B7C /* ExchangeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79653A7E2712414A006B3B7C /* ExchangeInfo.swift */; };
-		79653A84271241C7006B3B7C /* JSONAny.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79653A83271241C7006B3B7C /* JSONAny.swift */; };
 		79653A8C27125231006B3B7C /* BaseAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79653A8B27125231006B3B7C /* BaseAssets.swift */; };
 		79653A98271252E7006B3B7C /* QuoteAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79653A97271252E7006B3B7C /* QuoteAssets.swift */; };
-		79653A9D27125327006B3B7C /* SymbolPairs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79653A9C27125327006B3B7C /* SymbolPairs.swift */; };
 		79A12FB826B2235A0068CFDF /* Candlestick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A12FB726B2235A0068CFDF /* Candlestick.swift */; };
 		79A12FBD26B226950068CFDF /* AveragePrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A12FBC26B226950068CFDF /* AveragePrice.swift */; };
 		79A12FBE26B226950068CFDF /* AveragePrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A12FBC26B226950068CFDF /* AveragePrice.swift */; };
@@ -203,11 +200,8 @@
 		7951B8FA2711364700C321B7 /* BinanceEndpointHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinanceEndpointHelper.swift; sourceTree = "<group>"; };
 		79653A742712303F006B3B7C /* CommonSymbolTickerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonSymbolTickerType.swift; sourceTree = "<group>"; };
 		79653A7927123472006B3B7C /* BinanceStreamInformationKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinanceStreamInformationKeys.swift; sourceTree = "<group>"; };
-		79653A7E2712414A006B3B7C /* ExchangeInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeInfo.swift; sourceTree = "<group>"; };
-		79653A83271241C7006B3B7C /* JSONAny.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONAny.swift; sourceTree = "<group>"; };
 		79653A8B27125231006B3B7C /* BaseAssets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAssets.swift; sourceTree = "<group>"; };
 		79653A97271252E7006B3B7C /* QuoteAssets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteAssets.swift; sourceTree = "<group>"; };
-		79653A9C27125327006B3B7C /* SymbolPairs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolPairs.swift; sourceTree = "<group>"; };
 		79A12FB726B2235A0068CFDF /* Candlestick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Candlestick.swift; sourceTree = "<group>"; };
 		79A12FBC26B226950068CFDF /* AveragePrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AveragePrice.swift; sourceTree = "<group>"; };
 		79A12FC326B2281A0068CFDF /* PriceChange24h.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceChange24h.swift; sourceTree = "<group>"; };
@@ -327,14 +321,14 @@
 				790A1E6526B1FC9A00969231 /* HTTPClient.swift */,
 				7951B89727110FFC00C321B7 /* WebSocketClient.swift */,
 				790A1E6426B1FC9A00969231 /* Authenticator.swift */,
-				79FB9B6926B2BD1000F36ED7 /* CodableUtils */,
-				790A1E5D26B1FC9A00969231 /* ImageCacherLoader */,
 				790A1E6026B1FC9A00969231 /* AuthTokens.swift */,
 				790A1E6126B1FC9A00969231 /* RequestParametersAdapter.swift */,
 				790A1E6226B1FC9A00969231 /* RequestBuilder.swift */,
 				790A1E6326B1FC9A00969231 /* Publisher+Extensions.swift */,
 				790A1E6626B1FC9A00969231 /* RequestHeaderAdapter.swift */,
 				790A1E5A26B1FC9A00969231 /* RequestError.swift */,
+				790A1E5D26B1FC9A00969231 /* ImageCacherLoader */,
+				79FB9B6926B2BD1000F36ED7 /* CodableUtils */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -381,7 +375,6 @@
 		790A1F0026B206F300969231 /* RequestDTO */ = {
 			isa = PBXGroup;
 			children = (
-				79653A7E2712414A006B3B7C /* ExchangeInfo.swift */,
 				790A1F0126B2070C00969231 /* Ping.swift */,
 				790A1F1626B2118A00969231 /* OrderBook.swift */,
 				790A1F1D26B212E200969231 /* RecentTrade.swift */,
@@ -411,7 +404,6 @@
 			children = (
 				79653A8B27125231006B3B7C /* BaseAssets.swift */,
 				79653A97271252E7006B3B7C /* QuoteAssets.swift */,
-				79653A9C27125327006B3B7C /* SymbolPairs.swift */,
 			);
 			path = Symbols;
 			sourceTree = "<group>";
@@ -429,7 +421,6 @@
 			isa = PBXGroup;
 			children = (
 				79FB9B6A26B2BD3200F36ED7 /* ItemOrArray.swift */,
-				79653A83271241C7006B3B7C /* JSONAny.swift */,
 			);
 			path = CodableUtils;
 			sourceTree = "<group>";
@@ -706,7 +697,6 @@
 				840D68172648DCAC00F8C01A /* InteractorType.swift in Sources */,
 				7951B88927110B0B00C321B7 /* MarketPricesCoordinator.swift in Sources */,
 				84CDFC452649722C00BDB150 /* ContentCollectionCell.swift in Sources */,
-				79653A7F2712414A006B3B7C /* ExchangeInfo.swift in Sources */,
 				7951B89E27111E6A00C321B7 /* WSAggTrade.swift in Sources */,
 				790A1F0D26B2080900969231 /* BinanceService.swift in Sources */,
 				790A1EA426B1FEB000969231 /* PublishTimeLogger.swift in Sources */,
@@ -718,7 +708,6 @@
 				84C3B2F7264894120080FFB0 /* AuthViewController.swift in Sources */,
 				790A1E8826B1FC9B00969231 /* RequestHeaderAdapter.swift in Sources */,
 				840D68192648E33500F8C01A /* ViewControllerType.swift in Sources */,
-				79653A84271241C7006B3B7C /* JSONAny.swift in Sources */,
 				790A1E8226B1FC9B00969231 /* Authenticator.swift in Sources */,
 				790A1EC926B1FF5500969231 /* ApplicationFlowCoordinator.swift in Sources */,
 				7951B88D27110B0B00C321B7 /* MarketPricesConfigurator.swift in Sources */,
@@ -745,7 +734,6 @@
 				79653A752712303F006B3B7C /* CommonSymbolTickerType.swift in Sources */,
 				790A1E7C26B1FC9B00969231 /* RequestBuilder.swift in Sources */,
 				84CDFC4126495E4800BDB150 /* ApiModels.swift in Sources */,
-				79653A9D27125327006B3B7C /* SymbolPairs.swift in Sources */,
 				79A12FB826B2235A0068CFDF /* Candlestick.swift in Sources */,
 				7951B88C27110B0B00C321B7 /* MarketPricesInteractor.swift in Sources */,
 				84C3B2F5264894120080FFB0 /* SceneDelegate.swift in Sources */,

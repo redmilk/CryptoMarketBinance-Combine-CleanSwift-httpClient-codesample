@@ -27,7 +27,6 @@ fileprivate enum Endpoints {
 
 protocol BinanceRequestApiType {
     init(httpClient: HTTPClientType)
-    func loadExchangeInfo() -> AnyPublisher<ExchangeInfo, Error>
     func checkPing() -> AnyPublisher<Ping, Error>
     func loadOrderBook(symbol: String, limit: Int) -> AnyPublisher<OrderBook, Error>
     func loadRecentTrades(symbol: String, limit: Int) -> AnyPublisher<[RecentTrade], Error>
@@ -36,7 +35,7 @@ protocol BinanceRequestApiType {
     func loadAveragePrice(symbol: String) -> AnyPublisher<AveragePrice, Error>
     func loadPriceChangeBy24Hours(symbol: String) -> AnyPublisher<PriceChange24h, Error>
     func loadPrice(symbol: String?) -> AnyPublisher<ItemOrArray<Price>, Error>
-    func loadOrderBookTicker(symbol: String?) -> AnyPublisher<OrderBookTickerResponse, Error>
+    func loadOrderBookTicker(symbol: String?) -> AnyPublisher<ItemOrArray<OrderBookTicker>, Error>
 }
 
 struct BinanceApi: BinanceRequestApiType {
@@ -44,17 +43,6 @@ struct BinanceApi: BinanceRequestApiType {
     
     init(httpClient: HTTPClientType) {
         self.httpClient = httpClient
-    }
-    
-    func loadExchangeInfo() -> AnyPublisher<ExchangeInfo, Error> {
-        let headers = RequestHeaderAdapter()
-        var requestBuilder = RequestBuilder(
-            baseUrl: Endpoints.baseUrl,
-            pathComponent: Endpoints.exchangeInfo,
-            adapters: [headers],
-            method: .get
-        )
-        return httpClient.request(with: requestBuilder.request)
     }
     
     func checkPing() -> AnyPublisher<Ping, Error> {
@@ -182,7 +170,7 @@ struct BinanceApi: BinanceRequestApiType {
     
     /// if symbol is nil all symbols will return
     /// Best price/qty on the order book for a symbol or symbols.
-    func loadOrderBookTicker(symbol: String?) -> AnyPublisher<OrderBookTickerResponse, Error> {
+    func loadOrderBookTicker(symbol: String?) -> AnyPublisher<ItemOrArray<OrderBookTicker>, Error> {
         let headers = RequestHeaderAdapter()
         let params = RequestParametersAdapter(query: [Param("symbol", symbol)])
         var requestBuilder = RequestBuilder(
