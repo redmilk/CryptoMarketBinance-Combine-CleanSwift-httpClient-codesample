@@ -33,11 +33,11 @@ private extension MarketPricesPresenter {
             .map { [self] interactorResponse in
                 switch interactorResponse {
                 case .socketResponseModel(let model):
-                    return .recievedResponseModel(model)
+                    return .recievedResponseModel(model: model)
                 case .socketResponseStatusMessage(let status, let shouldClean):
-                    return .updateSocketStatus(status, shouldClean: shouldClean)
+                    return .updateSocketStatus(newStatus: status, shouldCleanView: shouldClean)
                 case .socketResponseFail(let error):
-                    return .failure(errorMessage: extractErrorMessage(fromError: error))
+                    return .failure(errorDescription: extractErrorMessage(fromError: error), shouldCleanView: false)
                 }
             }
             .subscribe(outputToViewController)

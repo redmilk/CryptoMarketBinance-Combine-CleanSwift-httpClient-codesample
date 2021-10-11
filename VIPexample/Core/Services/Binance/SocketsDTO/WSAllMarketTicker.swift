@@ -10,11 +10,11 @@ import Foundation
 // MARK: - WSAllMarketTicker
 struct WSAllMarketTicker: Codable {
     let stream: String
-    let data: [Datum]
+    let data: [WSMarketTickElement]
 }
 
 // MARK: - Datum
-struct Datum: Codable {
+struct WSMarketTickElement: Codable {
     let eventTime: Int
     let eventType: String
     let symbol: String

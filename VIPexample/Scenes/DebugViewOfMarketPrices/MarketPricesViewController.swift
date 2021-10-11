@@ -14,10 +14,9 @@ import Combine
 
 extension MarketPricesViewController {
     enum State {
-        case recievedResponseModel(CommonSymbolTickerType?)
-        case updateSocketStatus(String, shouldClean: Bool)
-        case failure(errorMessage: String)
-        case clear
+        case recievedResponseModel(model: CommonSymbolTickerType?)
+        case updateSocketStatus(newStatus: String, shouldCleanView: Bool)
+        case failure(errorDescription: String, shouldCleanView: Bool)
     }
     enum Action {
         case configureSockets([String])
@@ -72,7 +71,7 @@ final class MarketPricesViewController: UIViewController, ViewControllerType {
     }
 }
 
-// MARK: - ViewController Input-Output
+// MARK: - ViewController Input-Output and Helper methods
 
 private extension MarketPricesViewController {
     
@@ -105,27 +104,40 @@ private extension MarketPricesViewController {
             .sink(receiveValue: { [weak self] state in
                 switch state {
                 case .recievedResponseModel(let model):
-                    guard let model = model else { return }
-                    switch model {
-                    case .singleSymbol(let singleSymbolModel):
-                        print((singleSymbolModel.symbol ?? "") + " " + (singleSymbolModel.priceChangePercent ?? "") + "%")
-                        self?.mainTextView.text += "\t" + (singleSymbolModel.symbol ?? "") + " " + (singleSymbolModel.lastPriceFormatted ?? "")
-                    case .multipleSymbols(let multipleSymbolModel):
-                        print((multipleSymbolModel.data.symbol ?? "") + " " + (multipleSymbolModel.data.priceChangePercent ?? "") + "%")
-                        self?.mainTextView.text += "\t" + (multipleSymbolModel.data.symbol ?? "") + " " + (multipleSymbolModel.data.lastPriceFormatted ?? "")
-                    }
-                    let range = NSMakeRange(self?.mainTextView.text.count ?? 0 - 1, 0)
-                    self?.mainTextView.scrollRangeToVisible(range)
-                case .updateSocketStatus(let socketStatus, let shouldClean):
-                    self?.debugTextView.text = socketStatus
-                    shouldClean ? self?.mainTextView.text = nil : ()
-                    Logger.log(socketStatus, type: .sockets)
-                case .failure(let errorMessage):
-                    self?.debugTextView.text = errorMessage
-                case .clear:
-                    self?.mainTextView.text = nil
+                    self?.updateWithModel(model)
+                case .updateSocketStatus(let socketStatus, let shouldCleanView):
+                    self?.updateWithSocketStatus(socketStatus, shouldCleanView)
+                case .failure(let errorMessage, let shouldCleanView):
+                    self?.handleErrorDescription(errorMessage, shouldCleanView)
                 }
             })
             .store(in: &bag)
+    }
+    
+    // MARK: - Helper methods
+    
+    func updateWithModel(_ model: CommonSymbolTickerType?) {
+        guard let model = model else { return }
+        switch model {
+        case .singleSymbol(let singleSymbolModel):
+            print((singleSymbolModel.symbol) + " " + (singleSymbolModel.priceChangePercent) + "%")
+            mainTextView.text += "\t" + (singleSymbolModel.symbol) + " " + (singleSymbolModel.lastPriceFormatted)
+        case .multipleSymbols(let multipleSymbolModel):
+            print((multipleSymbolModel.data.symbol) + " " + (multipleSymbolModel.data.priceChangePercent) + "%")
+            mainTextView.text += "\t" + (multipleSymbolModel.data.symbol) + " " + (multipleSymbolModel.data.lastPriceFormatted)
+        }
+        let range = NSMakeRange(self.mainTextView.text.count, 0)
+        mainTextView.scrollRangeToVisible(range)
+    }
+    
+    func updateWithSocketStatus(_ status: String, _ shouldCleanView: Bool) {
+        debugTextView.text = status
+        shouldCleanView ? mainTextView.text = nil : ()
+        Logger.log(status, type: .sockets)
+    }
+    
+    func handleErrorDescription(_ errorDescription: String, _ shouldCleanView: Bool) {
+        debugTextView.text = errorDescription
+        shouldCleanView ? mainTextView.text = nil : ()
     }
 }

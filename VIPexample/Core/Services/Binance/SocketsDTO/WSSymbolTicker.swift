@@ -7,17 +7,12 @@
 
 import Foundation
 
-struct SymbolTickerDTO: Decodable {
+struct WSSymbolTicker: Decodable {
     let stream: String
-    let data: SymbolTickerNestedDTO
-    
-    enum CodingKeys: String, CodingKey {
-        case stream = "stream"
-        case data = "data"
-    }
+    let data: WSSymbolTickerElement
 }
 
-struct SymbolTickerNestedDTO: Decodable {
+struct WSSymbolTickerElement: Decodable {
     let eventType: String
     let eventTime: Int
     let symbol: String
@@ -41,9 +36,8 @@ struct SymbolTickerNestedDTO: Decodable {
     let lastTradeId: Int
     let totalNumberOfTrades: Int
     private let lastPrice: String
-    var lastPriceFormatted: String? {  /// Refactor
-        guard let double = Double(lastPrice ?? "") else { return nil }
-        return double.removeZerosFromEnd(maxZerosCount: 4)
+    var lastPriceFormatted: String {  /// Refactor to custom init
+        return Double(lastPrice)!.removeZerosFromEnd(maxZerosCount: 4)
     }
 
     enum CodingKeys: String, CodingKey {

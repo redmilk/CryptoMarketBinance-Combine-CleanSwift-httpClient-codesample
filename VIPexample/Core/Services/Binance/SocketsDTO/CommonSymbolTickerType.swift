@@ -9,15 +9,15 @@ import Foundation
 
 enum CommonSymbolTickerType: Decodable {
     
-    case multipleSymbols(SymbolTickerDTO)
-    case singleSymbol(SymbolTickerNestedDTO)
+    case multipleSymbols(WSSymbolTicker)
+    case singleSymbol(WSSymbolTickerElement)
     
     init(from decoder: Decoder) throws {
-        if let multiple = try? SymbolTickerDTO(from: decoder) {
+        if let multiple = try? WSSymbolTicker(from: decoder) {
             self = .multipleSymbols(multiple)
             return
         }
-        if let single = try? SymbolTickerNestedDTO(from: decoder) {
+        if let single = try? WSSymbolTickerElement(from: decoder) {
             self = .singleSymbol(single)
             return
         }
