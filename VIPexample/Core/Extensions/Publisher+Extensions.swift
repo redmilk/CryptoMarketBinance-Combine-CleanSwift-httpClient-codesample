@@ -29,3 +29,29 @@ extension Publisher {
         map(transform).switchToLatest()
     }
 }
+
+// MARK: - Delay and Retry
+
+extension Publisher {
+    func delayAndRetry<S: Scheduler>(
+        for interval: S.SchedulerTimeType.Stride,
+        scheduler: S,
+        count: Int
+    ) -> AnyPublisher<Self.Output, Self.Failure> {
+        applyDelayAndRetry(upstream: self, for: interval, scheduler: scheduler, count: count)
+    }
+    
+    private func applyDelayAndRetry<Upstream: Publisher, S: Scheduler>(
+        upstream: Upstream,
+        for interval: S.SchedulerTimeType.Stride,
+        scheduler: S,
+        count: Int
+    ) -> AnyPublisher<Upstream.Output, Upstream.Failure> {
+        Publishers.Share(upstream: upstream)
+            .catch { _ in
+                share.delay(for: interval, scheduler: scheduler)
+            }
+            .retry(count)
+            .eraseToAnyPublisher()
+    }
+}

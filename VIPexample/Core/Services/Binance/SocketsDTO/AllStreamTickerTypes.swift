@@ -8,19 +8,24 @@
 import Foundation
 
 enum AllStreamTickerTypes: Decodable {
-    case singleSymbolMini(SymbolTickerMiniElement)
-    case multipleSymbolsMini(SymbolTickerMini)
-    case multipleSymbols(SymbolTicker)
-    case singleSymbol(SymbolTickerElement)
+    case allMarketTicker([SymbolTickerElement])
     case allMarketMiniTicker([AllMarketMiniTickerElement])
+    case singleSymbol(SymbolTickerElement)
+    case singleSymbolMini(SymbolTickerMiniElement)
+    case multipleSymbols(SymbolTicker)
+    case multipleSymbolsMini(SymbolTickerMini)
     
     init(from decoder: Decoder) throws {
-        if let singleTickerMini = try? SymbolTickerMiniElement(from: decoder) {
-            self = .singleSymbolMini(singleTickerMini)
+        if let allMarket = try? [SymbolTickerElement](from: decoder) {
+            self = .allMarketTicker(allMarket)
             return
         }
-        if let multipleTickerMini = try? SymbolTickerMini(from: decoder) {
-            self = .multipleSymbolsMini(multipleTickerMini)
+        if let marketMini = try? [AllMarketMiniTickerElement](from: decoder) {
+            self = .allMarketMiniTicker(marketMini)
+            return
+        }
+        if let singleTickerMini = try? SymbolTickerMiniElement(from: decoder) {
+            self = .singleSymbolMini(singleTickerMini)
             return
         }
         if let single = try? SymbolTickerElement(from: decoder) {
@@ -31,8 +36,8 @@ enum AllStreamTickerTypes: Decodable {
             self = .multipleSymbols(multiple)
             return
         }
-        if let marketMini = try? [AllMarketMiniTickerElement](from: decoder) {
-            self = .allMarketMiniTicker(marketMini)
+        if let multipleTickerMini = try? SymbolTickerMini(from: decoder) {
+            self = .multipleSymbolsMini(multipleTickerMini)
             return
         }
         throw RequestError.parsing("AllStreamTickerTypes parsing fail, json data may be currupted", nil)

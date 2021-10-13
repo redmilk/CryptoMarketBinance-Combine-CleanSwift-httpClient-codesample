@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// for changes to socket stream ticks data
 struct StreamQuery: Codable {
     var method: String
     var params: [String]

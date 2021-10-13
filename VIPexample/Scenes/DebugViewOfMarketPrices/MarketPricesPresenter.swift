@@ -62,6 +62,8 @@ private extension MarketPricesPresenter {
             return formatter.formatMultipleSymbolsResponse(multipleSymbolModel)
         case .allMarketMiniTicker(let allMarketMiniTicker):
             return formatter.formatAllMarketMiniTickerElements(allMarketMiniTicker)
+        case .allMarketTicker(let allMarket):
+            return allMarket.count.description
         }
     }
     

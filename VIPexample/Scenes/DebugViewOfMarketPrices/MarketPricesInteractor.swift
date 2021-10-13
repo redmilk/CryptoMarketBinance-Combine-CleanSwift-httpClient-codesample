@@ -66,7 +66,7 @@ private extension MarketPricesInteractor {
             return model
         } catch {
             Logger.logError(nil, descriptions: (error as NSError).localizedDescription)
+            return nil
         }
-        return nil
     }
 }

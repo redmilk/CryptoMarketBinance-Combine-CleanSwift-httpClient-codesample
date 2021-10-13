@@ -76,6 +76,20 @@
 		790A1F1E26B212E200969231 /* RecentTrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790A1F1D26B212E200969231 /* RecentTrade.swift */; };
 		790A1F1F26B212E200969231 /* RecentTrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790A1F1D26B212E200969231 /* RecentTrade.swift */; };
 		790A1F2026B212E200969231 /* RecentTrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790A1F1D26B212E200969231 /* RecentTrade.swift */; };
+		793B6311271507EC004B8BEB /* MarketBoardCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B630B271507EC004B8BEB /* MarketBoardCoordinator.swift */; };
+		793B6312271507EC004B8BEB /* MarketBoardPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B630C271507EC004B8BEB /* MarketBoardPresenter.swift */; };
+		793B6313271507EC004B8BEB /* MarketBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B630D271507EC004B8BEB /* MarketBoardViewController.swift */; };
+		793B6314271507EC004B8BEB /* MarketBoardInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B630E271507EC004B8BEB /* MarketBoardInteractor.swift */; };
+		793B6315271507EC004B8BEB /* MarketBoardConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B630F271507EC004B8BEB /* MarketBoardConfigurator.swift */; };
+		793B6316271507EC004B8BEB /* MarketBoardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 793B6310271507EC004B8BEB /* MarketBoardViewController.xib */; };
+		793B631B271508B3004B8BEB /* MarketBoardDisplayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B631A271508B3004B8BEB /* MarketBoardDisplayManager.swift */; };
+		793B6320271509CB004B8BEB /* UICollectionView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B631F271509CB004B8BEB /* UICollectionView+Extensions.swift */; };
+		793B632627150D73004B8BEB /* MarketBoardSectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B632527150D73004B8BEB /* MarketBoardSectionModel.swift */; };
+		793B632B27150DB4004B8BEB /* MarketBoardItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B632A27150DB4004B8BEB /* MarketBoardItemModel.swift */; };
+		794643482714EEFE0055C84C /* MarketBoardMainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794643462714EEFE0055C84C /* MarketBoardMainCell.swift */; };
+		794643492714EEFE0055C84C /* MarketBoardMainCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 794643472714EEFE0055C84C /* MarketBoardMainCell.xib */; };
+		7946434F2714F1660055C84C /* MarketBoardMainHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7946434D2714F1650055C84C /* MarketBoardMainHeader.swift */; };
+		794643502714F1660055C84C /* MarketBoardMainHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7946434E2714F1660055C84C /* MarketBoardMainHeader.xib */; };
 		7951B88927110B0B00C321B7 /* MarketPricesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7951B88327110B0B00C321B7 /* MarketPricesCoordinator.swift */; };
 		7951B88A27110B0B00C321B7 /* MarketPricesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7951B88427110B0B00C321B7 /* MarketPricesPresenter.swift */; };
 		7951B88B27110B0B00C321B7 /* MarketPricesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7951B88527110B0B00C321B7 /* MarketPricesViewController.swift */; };
@@ -92,6 +106,10 @@
 		79653A7A27123472006B3B7C /* BinanceStreamInformationKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79653A7927123472006B3B7C /* BinanceStreamInformationKeys.swift */; };
 		79653A8C27125231006B3B7C /* BaseAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79653A8B27125231006B3B7C /* BaseAssets.swift */; };
 		79653A98271252E7006B3B7C /* QuoteAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79653A97271252E7006B3B7C /* QuoteAssets.swift */; };
+		79768A2727151AE400D18DE4 /* MarketBoardSectionBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79768A2627151AE400D18DE4 /* MarketBoardSectionBuilder.swift */; };
+		79768A5127152E2300D18DE4 /* ModelConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79768A5027152E2300D18DE4 /* ModelConfigurable.swift */; };
+		7980538C27174E8C000DBE7F /* CombineCustomOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7980538B27174E8C000DBE7F /* CombineCustomOperator.swift */; };
+		79805391271750D1000DBE7F /* CombineCustomSubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79805390271750D1000DBE7F /* CombineCustomSubject.swift */; };
 		79A12FB826B2235A0068CFDF /* Candlestick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A12FB726B2235A0068CFDF /* Candlestick.swift */; };
 		79A12FBD26B226950068CFDF /* AveragePrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A12FBC26B226950068CFDF /* AveragePrice.swift */; };
 		79A12FBE26B226950068CFDF /* AveragePrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A12FBC26B226950068CFDF /* AveragePrice.swift */; };
@@ -186,6 +204,20 @@
 		790A1F0C26B2080900969231 /* BinanceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinanceService.swift; sourceTree = "<group>"; };
 		790A1F1626B2118A00969231 /* OrderBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderBook.swift; sourceTree = "<group>"; };
 		790A1F1D26B212E200969231 /* RecentTrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentTrade.swift; sourceTree = "<group>"; };
+		793B630B271507EC004B8BEB /* MarketBoardCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketBoardCoordinator.swift; sourceTree = "<group>"; };
+		793B630C271507EC004B8BEB /* MarketBoardPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketBoardPresenter.swift; sourceTree = "<group>"; };
+		793B630D271507EC004B8BEB /* MarketBoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketBoardViewController.swift; sourceTree = "<group>"; };
+		793B630E271507EC004B8BEB /* MarketBoardInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketBoardInteractor.swift; sourceTree = "<group>"; };
+		793B630F271507EC004B8BEB /* MarketBoardConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketBoardConfigurator.swift; sourceTree = "<group>"; };
+		793B6310271507EC004B8BEB /* MarketBoardViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MarketBoardViewController.xib; sourceTree = "<group>"; };
+		793B631A271508B3004B8BEB /* MarketBoardDisplayManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketBoardDisplayManager.swift; sourceTree = "<group>"; };
+		793B631F271509CB004B8BEB /* UICollectionView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extensions.swift"; sourceTree = "<group>"; };
+		793B632527150D73004B8BEB /* MarketBoardSectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketBoardSectionModel.swift; sourceTree = "<group>"; };
+		793B632A27150DB4004B8BEB /* MarketBoardItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketBoardItemModel.swift; sourceTree = "<group>"; };
+		794643462714EEFE0055C84C /* MarketBoardMainCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketBoardMainCell.swift; sourceTree = "<group>"; };
+		794643472714EEFE0055C84C /* MarketBoardMainCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MarketBoardMainCell.xib; sourceTree = "<group>"; };
+		7946434D2714F1650055C84C /* MarketBoardMainHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketBoardMainHeader.swift; sourceTree = "<group>"; };
+		7946434E2714F1660055C84C /* MarketBoardMainHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MarketBoardMainHeader.xib; sourceTree = "<group>"; };
 		7951B88327110B0B00C321B7 /* MarketPricesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketPricesCoordinator.swift; sourceTree = "<group>"; };
 		7951B88427110B0B00C321B7 /* MarketPricesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketPricesPresenter.swift; sourceTree = "<group>"; };
 		7951B88527110B0B00C321B7 /* MarketPricesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketPricesViewController.swift; sourceTree = "<group>"; };
@@ -202,6 +234,10 @@
 		79653A7927123472006B3B7C /* BinanceStreamInformationKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinanceStreamInformationKeys.swift; sourceTree = "<group>"; };
 		79653A8B27125231006B3B7C /* BaseAssets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAssets.swift; sourceTree = "<group>"; };
 		79653A97271252E7006B3B7C /* QuoteAssets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteAssets.swift; sourceTree = "<group>"; };
+		79768A2627151AE400D18DE4 /* MarketBoardSectionBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketBoardSectionBuilder.swift; sourceTree = "<group>"; };
+		79768A5027152E2300D18DE4 /* ModelConfigurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelConfigurable.swift; sourceTree = "<group>"; };
+		7980538B27174E8C000DBE7F /* CombineCustomOperator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineCustomOperator.swift; sourceTree = "<group>"; };
+		79805390271750D1000DBE7F /* CombineCustomSubject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineCustomSubject.swift; sourceTree = "<group>"; };
 		79A12FB726B2235A0068CFDF /* Candlestick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Candlestick.swift; sourceTree = "<group>"; };
 		79A12FBC26B226950068CFDF /* AveragePrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AveragePrice.swift; sourceTree = "<group>"; };
 		79A12FC326B2281A0068CFDF /* PriceChange24h.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceChange24h.swift; sourceTree = "<group>"; };
@@ -289,8 +325,8 @@
 		790A1E4626B1F99A00969231 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				79768A4B27152DCD00D18DE4 /* Protocols */,
 				79A1309526B25F440068CFDF /* Utils */,
-				840D680B2648D94500F8C01A /* CleanSwiftComponents */,
 				790A1ED226B1FF5800969231 /* FlowCoordinator */,
 				790A1EAD26B1FEC000969231 /* Extensions */,
 				790A1E9E26B1FEB000969231 /* Debug */,
@@ -361,6 +397,7 @@
 				790A1EB126B1FEC000969231 /* Publisher+Extensions.swift */,
 				790A1EB226B1FEC000969231 /* Collection+Extensions.swift */,
 				79E89F99271207F600BF800B /* String+Extensions.swift */,
+				793B631F271509CB004B8BEB /* UICollectionView+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -388,6 +425,41 @@
 			path = RequestDTO;
 			sourceTree = "<group>";
 		};
+		793B632427150CF8004B8BEB /* CollectionModels */ = {
+			isa = PBXGroup;
+			children = (
+				79768A2627151AE400D18DE4 /* MarketBoardSectionBuilder.swift */,
+				793B632527150D73004B8BEB /* MarketBoardSectionModel.swift */,
+				793B632A27150DB4004B8BEB /* MarketBoardItemModel.swift */,
+			);
+			path = CollectionModels;
+			sourceTree = "<group>";
+		};
+		794643452714EE260055C84C /* MarketLeaderboard */ = {
+			isa = PBXGroup;
+			children = (
+				79768A122715130400D18DE4 /* Views */,
+				793B632427150CF8004B8BEB /* CollectionModels */,
+				793B631A271508B3004B8BEB /* MarketBoardDisplayManager.swift */,
+				793B630B271507EC004B8BEB /* MarketBoardCoordinator.swift */,
+				793B630C271507EC004B8BEB /* MarketBoardPresenter.swift */,
+				793B630D271507EC004B8BEB /* MarketBoardViewController.swift */,
+				793B630E271507EC004B8BEB /* MarketBoardInteractor.swift */,
+				793B630F271507EC004B8BEB /* MarketBoardConfigurator.swift */,
+				793B6310271507EC004B8BEB /* MarketBoardViewController.xib */,
+			);
+			path = MarketLeaderboard;
+			sourceTree = "<group>";
+		};
+		794643542714F16D0055C84C /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				794643472714EEFE0055C84C /* MarketBoardMainCell.xib */,
+				794643462714EEFE0055C84C /* MarketBoardMainCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		7951B89C27111E4600C321B7 /* SocketsDTO */ = {
 			isa = PBXGroup;
 			children = (
@@ -409,11 +481,40 @@
 			path = Symbols;
 			sourceTree = "<group>";
 		};
+		79768A122715130400D18DE4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				79768A132715133D00D18DE4 /* Header */,
+				794643542714F16D0055C84C /* Cell */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		79768A132715133D00D18DE4 /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				7946434D2714F1650055C84C /* MarketBoardMainHeader.swift */,
+				7946434E2714F1660055C84C /* MarketBoardMainHeader.xib */,
+			);
+			path = Header;
+			sourceTree = "<group>";
+		};
+		79768A4B27152DCD00D18DE4 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				840D680B2648D94500F8C01A /* CleanSwiftComponents */,
+				79768A5027152E2300D18DE4 /* ModelConfigurable.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		79A1309526B25F440068CFDF /* Utils */ = {
 			isa = PBXGroup;
 			children = (
 				79A1309626B25F6D0068CFDF /* HelperFunctions.swift */,
 				7951B8AC27112A0500C321B7 /* DateTimeHelper.swift */,
+				7980538B27174E8C000DBE7F /* CombineCustomOperator.swift */,
+				79805390271750D1000DBE7F /* CombineCustomSubject.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -453,6 +554,7 @@
 		840D68022648D5F600F8C01A /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				794643452714EE260055C84C /* MarketLeaderboard */,
 				790A1E3C26B1F80500969231 /* DebugViewOfMarketPrices */,
 				840D68012648D5C000F8C01A /* Content */,
 				84C3B322264894350080FFB0 /* Authorization */,
@@ -669,6 +771,9 @@
 				7951B88E27110B0B00C321B7 /* MarketPricesViewController.xib in Resources */,
 				840D68062648D63700F8C01A /* ContentViewController.xib in Resources */,
 				840D681E26491E9300F8C01A /* AuthViewController.xib in Resources */,
+				794643492714EEFE0055C84C /* MarketBoardMainCell.xib in Resources */,
+				793B6316271507EC004B8BEB /* MarketBoardViewController.xib in Resources */,
+				794643502714F1660055C84C /* MarketBoardMainHeader.xib in Resources */,
 				84C3B2FF264894130080FFB0 /* LaunchScreen.storyboard in Resources */,
 				84C3B2FC264894130080FFB0 /* Assets.xcassets in Resources */,
 				84CDFC462649722C00BDB150 /* ContentCollectionCell.xib in Resources */,
@@ -699,30 +804,38 @@
 				84EEE12D2648BEC4003C4D93 /* AuthCoordinator.swift in Sources */,
 				79FB9B6B26B2BD3200F36ED7 /* ItemOrArray.swift in Sources */,
 				790A1E7926B1FC9B00969231 /* RequestParametersAdapter.swift in Sources */,
+				7980538C27174E8C000DBE7F /* CombineCustomOperator.swift in Sources */,
 				79DFA9322714A993002EA664 /* BinanceResponseModelsFormatter.swift in Sources */,
+				793B6320271509CB004B8BEB /* UICollectionView+Extensions.swift in Sources */,
 				79653A98271252E7006B3B7C /* QuoteAssets.swift in Sources */,
 				7951B8A32711207900C321B7 /* StreamQuery.swift in Sources */,
 				840D68152648DBC500F8C01A /* PresenterType.swift in Sources */,
 				7951B8F3271134E900C321B7 /* BinancSocketAPI.swift in Sources */,
+				793B632627150D73004B8BEB /* MarketBoardSectionModel.swift in Sources */,
 				79653A8C27125231006B3B7C /* BaseAssets.swift in Sources */,
 				790A1F0226B2070C00969231 /* Ping.swift in Sources */,
 				840D68172648DCAC00F8C01A /* InteractorType.swift in Sources */,
 				7951B88927110B0B00C321B7 /* MarketPricesCoordinator.swift in Sources */,
+				793B6313271507EC004B8BEB /* MarketBoardViewController.swift in Sources */,
 				84CDFC452649722C00BDB150 /* ContentCollectionCell.swift in Sources */,
 				790A1F0D26B2080900969231 /* BinanceService.swift in Sources */,
 				790A1EA426B1FEB000969231 /* PublishTimeLogger.swift in Sources */,
+				793B6315271507EC004B8BEB /* MarketBoardConfigurator.swift in Sources */,
 				790A1EB326B1FEC000969231 /* UIViewController+Extensions.swift in Sources */,
+				79805391271750D1000DBE7F /* CombineCustomSubject.swift in Sources */,
 				790A1EB926B1FEC000969231 /* UIControl+Extensions.swift in Sources */,
 				790A1E7F26B1FC9B00969231 /* Publisher+Extensions.swift in Sources */,
 				84CDFC3F26494A2700BDB150 /* MarvelService.swift in Sources */,
 				79653A7A27123472006B3B7C /* BinanceStreamInformationKeys.swift in Sources */,
 				84C3B2F7264894120080FFB0 /* AuthViewController.swift in Sources */,
+				79768A2727151AE400D18DE4 /* MarketBoardSectionBuilder.swift in Sources */,
 				790A1E8826B1FC9B00969231 /* RequestHeaderAdapter.swift in Sources */,
 				840D68192648E33500F8C01A /* ViewControllerType.swift in Sources */,
 				790A1E8226B1FC9B00969231 /* Authenticator.swift in Sources */,
 				790A1EC926B1FF5500969231 /* ApplicationFlowCoordinator.swift in Sources */,
 				7951B88D27110B0B00C321B7 /* MarketPricesConfigurator.swift in Sources */,
 				7951B88B27110B0B00C321B7 /* MarketPricesViewController.swift in Sources */,
+				793B6314271507EC004B8BEB /* MarketBoardInteractor.swift in Sources */,
 				840D68082648D6C200F8C01A /* ContentCoordinator.swift in Sources */,
 				7951B88A27110B0B00C321B7 /* MarketPricesPresenter.swift in Sources */,
 				84C3B2F3264894120080FFB0 /* AppDelegate.swift in Sources */,
@@ -732,6 +845,7 @@
 				790A1EB626B1FEC000969231 /* UIView+Extensions.swift in Sources */,
 				840D68052648D63700F8C01A /* ContentViewController.swift in Sources */,
 				840D680F2648D98600F8C01A /* CoordinatorType.swift in Sources */,
+				7946434F2714F1660055C84C /* MarketBoardMainHeader.swift in Sources */,
 				7951B89827110FFC00C321B7 /* WebSocketClient.swift in Sources */,
 				7951B8A8271124BB00C321B7 /* AllMarketMiniTicker.swift in Sources */,
 				7951B8FB2711364700C321B7 /* BinanceEndpointHelper.swift in Sources */,
@@ -741,22 +855,28 @@
 				79A12FCB26B22A070068CFDF /* Price.swift in Sources */,
 				840D680D2648D97300F8C01A /* ModuleLayersBinderType.swift in Sources */,
 				790A1E8526B1FC9B00969231 /* HTTPClient.swift in Sources */,
+				793B6311271507EC004B8BEB /* MarketBoardCoordinator.swift in Sources */,
 				7951B8AD27112A0500C321B7 /* DateTimeHelper.swift in Sources */,
 				79653A752712303F006B3B7C /* AllStreamTickerTypes.swift in Sources */,
 				790A1E7C26B1FC9B00969231 /* RequestBuilder.swift in Sources */,
+				793B631B271508B3004B8BEB /* MarketBoardDisplayManager.swift in Sources */,
+				793B632B27150DB4004B8BEB /* MarketBoardItemModel.swift in Sources */,
 				84CDFC4126495E4800BDB150 /* ApiModels.swift in Sources */,
 				79A12FB826B2235A0068CFDF /* Candlestick.swift in Sources */,
 				7951B88C27110B0B00C321B7 /* MarketPricesInteractor.swift in Sources */,
 				84C3B2F5264894120080FFB0 /* SceneDelegate.swift in Sources */,
+				793B6312271507EC004B8BEB /* MarketBoardPresenter.swift in Sources */,
 				84C3B32B2648A8D20080FFB0 /* AuthConfigurator.swift in Sources */,
 				790A1F1E26B212E200969231 /* RecentTrade.swift in Sources */,
 				790A1F1726B2118A00969231 /* OrderBook.swift in Sources */,
+				794643482714EEFE0055C84C /* MarketBoardMainCell.swift in Sources */,
 				790A1E7626B1FC9B00969231 /* AuthTokens.swift in Sources */,
 				79E89F952711FF6D00BF800B /* SymbolTicker.swift in Sources */,
 				790A1E6A26B1FC9B00969231 /* RequestError.swift in Sources */,
 				79E89F9A271207F600BF800B /* String+Extensions.swift in Sources */,
 				840D680A2648D71E00F8C01A /* ContentConfigurator.swift in Sources */,
 				790A1E7326B1FC9B00969231 /* ImageCacher.swift in Sources */,
+				79768A5127152E2300D18DE4 /* ModelConfigurable.swift in Sources */,
 				790A1E5326B1FC4700969231 /* ServicesContainer.swift in Sources */,
 				79A12FC426B2281A0068CFDF /* PriceChange24h.swift in Sources */,
 				790A1EA126B1FEB000969231 /* Logger.swift in Sources */,
@@ -998,6 +1118,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kefirtest.VIPexample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1018,6 +1139,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kefirtest.VIPexample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
