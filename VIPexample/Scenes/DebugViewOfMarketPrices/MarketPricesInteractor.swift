@@ -5,7 +5,7 @@
 import Foundation
 import Combine
 
-struct MarketPricesInteractor: InteractorType, BinanceServiceProvidable {
+final class MarketPricesInteractor: InteractorType, BinanceServiceProvidable {
     
     enum Response {
         case socketResponseModel(AllStreamTickerTypes?)
@@ -19,17 +19,20 @@ struct MarketPricesInteractor: InteractorType, BinanceServiceProvidable {
     private var bag = Set<AnyCancellable>()
     
     init() {
-        bindInput()
+        handleInput()
         listenToSocketClientResponse()
+    }
+    deinit {
+        Logger.log(String(describing: self), type: .deinited)
     }
 }
 
 // MARK: Internal
 
 private extension MarketPricesInteractor {
-    mutating func bindInput() {
+    func handleInput() {
         inputFromController
-            .sink { [self] action in
+            .sink { [unowned self] action in
             switch action {
             case .configureSockets(let initialStreams): binanceService.configure(withSingleOrMultipleStreams: initialStreams)
             case .connect: binanceService.connect()
@@ -42,9 +45,9 @@ private extension MarketPricesInteractor {
         .store(in: &bag)
     }
     
-    mutating func listenToSocketClientResponse() {
+    func listenToSocketClientResponse() {
         binanceService.subscribeSocketResponse()
-            .map { [self] socketResult in
+            .map { [unowned self] socketResult in
                 switch socketResult {
                 case .connected: return Response.socketResponseStatusMessage("Connected", shouldClean: false)
                 case .disconnected: return Response.socketResponseStatusMessage("Disconnected", shouldClean: true)
@@ -54,7 +57,7 @@ private extension MarketPricesInteractor {
                     return Response.socketResponseModel(decoded)
                 }
             }
-            .sink(receiveValue: { [self] in outputToPresenter.send($0) })
+            .sink(receiveValue: { [unowned self] in outputToPresenter.send($0) })
             .store(in: &bag)
     }
     

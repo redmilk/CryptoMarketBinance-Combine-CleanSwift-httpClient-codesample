@@ -7,8 +7,14 @@
 
 import UIKit.UIViewController
 
-struct ContentConfigurator: ModuleLayersBinderType {
+final class ContentConfigurator: ModuleLayersBinderType {
+    let controller: ContentViewController
     let interactor: ContentInteractor
     let presenter: ContentPresenter
-    let controller: ContentViewController
+    
+    init(controller: ContentViewController, interactor: ContentInteractor, presenter: ContentPresenter) {
+        self.controller = controller
+        self.interactor = interactor
+        self.presenter = presenter
+    }
 }

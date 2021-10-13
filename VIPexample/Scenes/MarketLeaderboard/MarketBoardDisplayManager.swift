@@ -8,57 +8,27 @@
 import Combine
 import UIKit
 
-final class MarketBoardDisplayManager<Input: MarketBoardSectionModel, Failure: Error> {
+final class MarketBoardDisplayManager {
     
-    typealias DataSource = UICollectionViewDiffableDataSource<MarketBoardSectionModel, MarketBoardItemModel>
-    typealias Snapshot = NSDiffableDataSourceSnapshot<MarketBoardSectionModel, MarketBoardItemModel>
+    typealias DataSource = UICollectionViewDiffableDataSource<MarketBoardSectionModel, SymbolTickerElement>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<MarketBoardSectionModel, SymbolTickerElement>
     
     private unowned let collectionView: UICollectionView
     private var dataSource: DataSource!
-    private var subscription: Subscription?
-    private var completed = false
-    
+
     init(collectionView: UICollectionView) {
         self.collectionView = collectionView
     }
     
-    private func update(withSections sections: [MarketBoardSectionModel]) {
+    func configure() {
         collectionView.register(cellClassName: MarketBoardMainCell.self)
         collectionView.registerHeaderNib(MarketBoardMainHeader.self)
         dataSource = buildDataSource()
         layoutCollection()
+    }
+    
+    func update(withSections sections: [MarketBoardSectionModel]) {
         applySnapshot(sections: sections)
-    }
-}
-
-// MARK: - Behave as a Subscriber
-extension MarketBoardDisplayManager: Subscriber, Cancellable {
-    func receive(subscription: Subscription) {
-        if self.subscription == nil && completed == false {
-            self.subscription = subscription
-            subscription.request(.unlimited)
-        }
-    }
-
-    func receive(_ input: [MarketBoardSectionModel]) -> Subscribers.Demand {
-        update(withSections: input)
-        return .unlimited
-    }
-
-    func receive(completion: Subscribers.Completion<Failure>) {
-        switch completion {
-        case .failure(_): break
-        case .finished: break
-        }
-        subscription?.cancel()
-        subscription = nil
-        completed = true
-    }
-
-    func cancel() {
-        subscription?.cancel()
-        subscription = nil
-        completed = true
     }
 }
 
@@ -67,15 +37,15 @@ extension MarketBoardDisplayManager: Subscriber, Cancellable {
 private extension MarketBoardDisplayManager {
     
     func applySnapshot(sections: [MarketBoardSectionModel]) {
-        var snapshot = Snapshot()
-        snapshot.appendSections(sections)
-        sections.forEach { snapshot.appendItems($0.users, toSection: $0) }
-        DispatchQueue.main.async {
-            self.dataSource.apply(snapshot, animatingDifferences: true, completion: { [weak self] in
-                guard let self = self else { return }
-                //self.collectionView.scrollToItem(at: rewardInfo.position, at: .centeredVertically, animated: false)
-            })
-        }
+//        var snapshot = Snapshot()
+//        snapshot.appendSections(sections)
+//        sections.forEach { snapshot.appendItems($0.users, toSection: $0) }
+//        DispatchQueue.main.async {
+//            self.dataSource.apply(snapshot, animatingDifferences: true, completion: { [weak self] in
+//                guard let self = self else { return }
+//                //self.collectionView.scrollToItem(at: rewardInfo.position, at: .centeredVertically, animated: false)
+//            })
+//        }
     }
     
     func buildDataSource() -> DataSource {
@@ -88,16 +58,16 @@ private extension MarketBoardDisplayManager {
                 
                 return cell
             })
-        dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
-            guard kind == UICollectionView.elementKindSectionHeader else { return nil }
-            let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
-            let view = collectionView.dequeueReusableSupplementaryView(
-                ofKind: kind,
-                withReuseIdentifier: String(describing: MarketBoardMainHeader.self),
-                for: indexPath) as? MarketBoardMainHeader
-            view?.configure(withBracketTitle: section.title, coinsPrize: Int(section.rewardAmount)!)
-            return view
-        }
+//        dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
+//            guard kind == UICollectionView.elementKindSectionHeader else { return nil }
+//            let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
+//            let view = collectionView.dequeueReusableSupplementaryView(
+//                ofKind: kind,
+//                withReuseIdentifier: String(describing: MarketBoardMainHeader.self),
+//                for: indexPath) as? MarketBoardMainHeader
+//            view?.configure(withBracketTitle: section.title, coinsPrize: Int(section.rewardAmount)!)
+//            return view
+//        }
         return dataSource
     }
     

@@ -28,9 +28,9 @@ final class MarketBoardCoordinator: CoordinatorType, MarketBoardCoordinatorType 
         let interactor = MarketBoardInteractor()
         let presenter = MarketBoardPresenter(coordinator: self)
         configurator = MarketBoardConfigurator(
+            controller: controller,
             interactor: interactor,
-            presenter: presenter,
-            controller: controller
+            presenter: presenter
         )
         configurator?.bindModuleLayers(controller: controller, bag: &bag)
 

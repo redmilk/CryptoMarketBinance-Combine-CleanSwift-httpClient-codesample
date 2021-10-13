@@ -10,7 +10,7 @@
 import Combine
 import Foundation
 
-struct MarketPricesPresenter: PresenterType {
+final class MarketPricesPresenter: PresenterType {
 
     let inputFromInteractor = PassthroughSubject<MarketPricesInteractor.Response, Never>()
     let outputToViewController = PassthroughSubject<MarketPricesViewController.State, Never>()
@@ -21,7 +21,10 @@ struct MarketPricesPresenter: PresenterType {
     
     init(coordinator: CoordinatorType) {
         self.coordinator = coordinator
-        bindInput()
+        handleInput()
+    }
+    deinit {
+        Logger.log(String(describing: self), type: .deinited)
     }
 }
 
@@ -29,9 +32,9 @@ struct MarketPricesPresenter: PresenterType {
 
 private extension MarketPricesPresenter {
     
-    mutating func bindInput() {
+    func handleInput() {
         inputFromInteractor
-            .compactMap { [self] interactorResponse in
+            .compactMap { [unowned self] interactorResponse in
                 switch interactorResponse {
                 case .socketResponseModel(let model):
                     let preparedDataForView = prepareDataForViewController(model)

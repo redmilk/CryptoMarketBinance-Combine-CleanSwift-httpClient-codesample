@@ -17,7 +17,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         //print(MD5())
         //let coordinator = AuthCoordinator(window: window!)
-        let coordinator = MarketPricesCoordinator(window: window!)
+        //let coordinator = MarketPricesCoordinator(window: window!)
+        let coordinator = MarketBoardCoordinator(window: window!)
         coordinator.start()
     }
 }

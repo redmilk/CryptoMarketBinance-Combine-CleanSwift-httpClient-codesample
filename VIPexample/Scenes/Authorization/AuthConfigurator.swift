@@ -8,8 +8,14 @@
 import Foundation
 import UIKit.UIViewController
 
-struct AuthConfigurator: ModuleLayersBinderType {
+final class AuthConfigurator: ModuleLayersBinderType {
+    let controller: AuthViewController
     let interactor: AuthInteractor
     let presenter: AuthPresenter
-    let controller: AuthViewController
+    
+    init(controller: AuthViewController, interactor: AuthInteractor, presenter: AuthPresenter) {
+        self.controller = controller
+        self.interactor = interactor
+        self.presenter = presenter
+    }
 }

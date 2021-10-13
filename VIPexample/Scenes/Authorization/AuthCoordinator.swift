@@ -31,9 +31,9 @@ final class AuthCoordinator: CoordinatorType, AuthCoordinatorType {
         let interactor = AuthInteractor()
         let presenter = AuthPresenter(coordinator: self)
         configurator = AuthConfigurator(
+            controller: controller,
             interactor: interactor,
-            presenter: presenter,
-            controller: controller
+            presenter: presenter
         )
         configurator?.bindModuleLayers(controller: controller, bag: &bag)
 

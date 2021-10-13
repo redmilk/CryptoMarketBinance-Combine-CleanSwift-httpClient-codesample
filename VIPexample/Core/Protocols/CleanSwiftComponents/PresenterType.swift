@@ -7,7 +7,7 @@
 
 import Combine
 
-protocol PresenterType {
+protocol PresenterType: class {
     associatedtype InteractorResponse
     associatedtype ViewControllerState
     associatedtype CoordinatorType

@@ -27,9 +27,9 @@ final class ContentCoordinator: CoordinatorType {
         let interactor = ContentInteractor()
         let presenter = ContentPresenter(coordinator: self)
         configurator = ContentConfigurator(
+            controller: controller,
             interactor: interactor,
-            presenter: presenter,
-            controller: controller
+            presenter: presenter
         )
         configurator?.bindModuleLayers(controller: controller, bag: &bag)
         

@@ -10,7 +10,7 @@
 import Combine
 import Foundation
 
-struct MarketBoardPresenter: PresenterType {
+final class MarketBoardPresenter: PresenterType {
 
     let inputFromInteractor = PassthroughSubject<MarketBoardInteractor.Response, Never>()
     let outputToViewController = PassthroughSubject<MarketBoardViewController.State, Never>()
@@ -20,7 +20,7 @@ struct MarketBoardPresenter: PresenterType {
     
     init(coordinator: CoordinatorType) {
         self.coordinator = coordinator
-        bindInputOutput()
+        handleInput()
     }
 }
 
@@ -28,14 +28,14 @@ struct MarketBoardPresenter: PresenterType {
 
 private extension MarketBoardPresenter {
     
-    mutating func bindInputOutput() {
-        inputFromInteractor
-            .map { interactorResponse in
-                switch interactorResponse {
-                case .dummy: return .newData(MarketBoardSectionModel(title: "", rewardAmount: "", isChampionsBracket: false, users: []))
-                }
+    func handleInput() {
+        inputFromInteractor.sink(receiveValue: { [unowned self] interactorResponse in
+            switch interactorResponse {
+            case .marketSymbolsTick(let tickItems):
+                outputToViewController.send(.newData(MarketBoardSectionModel(items: tickItems)))
+            case .loading: break
             }
-            .subscribe(outputToViewController)
-            .store(in: &bag)
+        })
+        .store(in: &bag)
     }
 }

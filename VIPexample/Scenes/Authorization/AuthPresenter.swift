@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-struct AuthPresenter: PresenterType {
+final class AuthPresenter: PresenterType {
     
     let inputFromInteractor = PassthroughSubject<AuthInteractor.Response, Never>()
     let outputToViewController = PassthroughSubject<AuthViewController.State, Never>()

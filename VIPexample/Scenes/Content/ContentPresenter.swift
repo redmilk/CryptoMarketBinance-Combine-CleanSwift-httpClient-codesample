@@ -7,7 +7,7 @@
 
 import Combine
 
-struct ContentPresenter: PresenterType {
+final class ContentPresenter: PresenterType {
     
     let inputFromInteractor = PassthroughSubject<ContentInteractor.Response, Never>()
     let outputToViewController = PassthroughSubject<ContentViewController.State, Never>()
@@ -19,7 +19,7 @@ struct ContentPresenter: PresenterType {
         self.coordinator = coordinator
         
         inputFromInteractor
-            .sink(receiveValue: { [self] interactorResponse in
+            .sink(receiveValue: { [unowned self] interactorResponse in
                 switch interactorResponse {
                 case .closePressed: coordinator.end()
                 case .character(let character):

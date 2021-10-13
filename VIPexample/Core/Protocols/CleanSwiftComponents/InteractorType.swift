@@ -7,7 +7,7 @@
 
 import Combine
 
-protocol InteractorType {
+protocol InteractorType: class {
     associatedtype ViewControllerAction
     associatedtype PresenterResponse
     

@@ -5,8 +5,14 @@
 import Foundation
 import UIKit.UIViewController
 
-struct MarketBoardConfigurator: ModuleLayersBinderType {
+final class MarketBoardConfigurator: ModuleLayersBinderType {
+    let controller: MarketBoardViewController
     let interactor: MarketBoardInteractor
     let presenter: MarketBoardPresenter
-    let controller: MarketBoardViewController
+    
+    init(controller: MarketBoardViewController, interactor: MarketBoardInteractor, presenter: MarketBoardPresenter) {
+        self.controller = controller
+        self.interactor = interactor
+        self.presenter = presenter
+    }
 }

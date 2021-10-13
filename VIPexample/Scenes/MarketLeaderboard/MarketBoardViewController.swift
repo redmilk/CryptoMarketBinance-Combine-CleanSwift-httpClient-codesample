@@ -31,7 +31,7 @@ final class MarketBoardViewController: UIViewController, ViewControllerType {
     let outputToInteractor = PassthroughSubject<Action, Never>()
 
     private var bag: Set<AnyCancellable>!
-    private lazy var dataManager = MarketBoardDisplayManager<MarketBoardSectionModel, Never>(collectionView: collectionView)
+    private lazy var dataManager = MarketBoardDisplayManager(collectionView: collectionView)
 
     init() {
         super.init(nibName: String(describing: MarketBoardViewController.self), bundle: nil)
@@ -45,6 +45,7 @@ final class MarketBoardViewController: UIViewController, ViewControllerType {
         super.viewDidLoad()
         subscribePresenterOutput()
         dispatchActionsForInteractor()
+        dataManager.configure()
     }
     
     func storeSubscriptions(_ bag: inout Set<AnyCancellable>) {
@@ -60,17 +61,17 @@ private extension MarketBoardViewController {
     func dispatchActionsForInteractor() {
         /// Sending actions to Interactor
         outputToInteractor.send(.streamStart)
-        
     }
     
     /// VC INPUT
     func subscribePresenterOutput() {
         /// Recieve Presenter's output
-        inputFromPresenter.sink(receiveValue: { state in
+        inputFromPresenter.sink(receiveValue: { [unowned self] state in
             switch state {
-            case .newData(let sections):
-                break
+            case .newData(let section):
+                dataManager.update(withSections: [section])
             }
         })
+        .store(in: &bag)
     }
 }

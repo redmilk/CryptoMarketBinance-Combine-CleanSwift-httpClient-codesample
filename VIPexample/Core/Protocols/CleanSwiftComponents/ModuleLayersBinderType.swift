@@ -8,19 +8,18 @@
 import UIKit.UIViewController
 import Combine
 
-protocol ModuleLayersBinderType {
+protocol ModuleLayersBinderType: class {
+    associatedtype ViewController: ViewControllerType
     associatedtype Interactor: InteractorType
     associatedtype Presenter: PresenterType
-    associatedtype ViewController: ViewControllerType
     
+    var controller: ViewController { get }
     var interactor: Interactor { get }
     var presenter: Presenter { get }
-    var controller: ViewController { get }
-    
-    init(interactor: Interactor, presenter: Presenter, controller: ViewController)
     
     /// ViewController + Presenter + Interactor layers INPUT and OUTPUT binding
-    /// call in coordinator start()
+    /// called in coordinator `start()`
+    
     func bindModuleLayers(controller: ViewController, bag: inout Set<AnyCancellable>)
 }
 

@@ -7,7 +7,7 @@
 
 import Combine
 
-struct ContentInteractor: InteractorType {
+final class ContentInteractor: InteractorType {
     enum Response {
         case closePressed
         case character(MurvelResult?)
@@ -26,7 +26,7 @@ struct ContentInteractor: InteractorType {
             .subscribe(outputToPresenter)
             .store(in: &bag)
         
-        inputFromVC.sink(receiveValue: { [self] action in
+        inputFromVC.sink(receiveValue: { [unowned self] action in
             switch action {
             case .willDisplayCellAtIndex(let index, let maxCount):
                 if maxCount - 5 == index {
@@ -39,8 +39,8 @@ struct ContentInteractor: InteractorType {
         .store(in: &bag)
         
         inputFromVC.filter { $0 == .loadCharacters }
-            .handleEvents(receiveOutput: { [self] _ in marvelService.requestMurvel() })
-            .flatMap({ [self] action -> AnyPublisher<Response, Never> in
+            .handleEvents(receiveOutput: { [unowned self] _ in marvelService.requestMurvel() })
+            .flatMap({ [unowned self] action -> AnyPublisher<Response, Never> in
                 marvelService.murvels.flatMap({ chars -> AnyPublisher<MurvelResult, Never> in
                         Publishers.Sequence(sequence: chars)
                             .setFailureType(to: Never.self)

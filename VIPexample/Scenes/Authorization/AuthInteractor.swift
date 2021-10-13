@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-struct AuthInteractor: InteractorType {
+final class AuthInteractor: InteractorType {
     enum Response {
         case validatationResult(Bool)
         case signInRequestResult(Swift.Result<String, Error>)
@@ -22,7 +22,7 @@ struct AuthInteractor: InteractorType {
     private var bag = Set<AnyCancellable>()
     
     init() {
-        inputFromController.map { [self] action in
+        inputFromController.map { [unowned self] action in
             switch action {
             case .loginPressed:
                 return .showContent

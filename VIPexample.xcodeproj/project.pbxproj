@@ -440,11 +440,11 @@
 			children = (
 				79768A122715130400D18DE4 /* Views */,
 				793B632427150CF8004B8BEB /* CollectionModels */,
-				793B631A271508B3004B8BEB /* MarketBoardDisplayManager.swift */,
-				793B630B271507EC004B8BEB /* MarketBoardCoordinator.swift */,
-				793B630C271507EC004B8BEB /* MarketBoardPresenter.swift */,
 				793B630D271507EC004B8BEB /* MarketBoardViewController.swift */,
 				793B630E271507EC004B8BEB /* MarketBoardInteractor.swift */,
+				793B630C271507EC004B8BEB /* MarketBoardPresenter.swift */,
+				793B631A271508B3004B8BEB /* MarketBoardDisplayManager.swift */,
+				793B630B271507EC004B8BEB /* MarketBoardCoordinator.swift */,
 				793B630F271507EC004B8BEB /* MarketBoardConfigurator.swift */,
 				793B6310271507EC004B8BEB /* MarketBoardViewController.xib */,
 			);

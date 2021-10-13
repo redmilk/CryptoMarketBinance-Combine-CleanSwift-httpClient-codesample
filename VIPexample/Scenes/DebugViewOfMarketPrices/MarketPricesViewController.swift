@@ -50,6 +50,9 @@ final class MarketPricesViewController: UIViewController {
     init() {
         super.init(nibName: String(describing: MarketPricesViewController.self), bundle: nil)
     }
+    deinit {
+        Logger.log(String(describing: self), type: .deinited)
+    }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

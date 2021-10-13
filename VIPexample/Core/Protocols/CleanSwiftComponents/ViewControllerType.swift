@@ -7,7 +7,7 @@
 
 import Combine
 
-protocol ViewControllerType: AnyObject {
+protocol ViewControllerType: class {
     associatedtype ViewControllerState
     associatedtype ViewControllerAction
     

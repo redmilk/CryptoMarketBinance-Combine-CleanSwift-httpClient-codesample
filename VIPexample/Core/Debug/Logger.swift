@@ -17,6 +17,7 @@ enum LoggerTypes: Int {
     case redirectURL
     case token
     case subscriptionFinished
+    case deinited
 }
 
 final class Logger {
@@ -108,6 +109,8 @@ final class Logger {
             print(str:" - LOGGER \(time) 🧬 Token " + string)
         case .subscriptionFinished:
             print(str:" - LOGGER \(time) 🗑 Finished " + string)
+        case .deinited:
+            print(str:" - LOGGER \(time) 🚯 Deinit " + string)
         }
     }
     

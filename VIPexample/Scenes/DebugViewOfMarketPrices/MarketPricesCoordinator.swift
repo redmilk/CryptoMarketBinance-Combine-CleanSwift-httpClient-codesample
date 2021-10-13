@@ -28,9 +28,9 @@ final class MarketPricesCoordinator: CoordinatorType, MarketPricesCoordinatorTyp
         let interactor = MarketPricesInteractor()
         let presenter = MarketPricesPresenter(coordinator: self)
         configurator = MarketPricesConfigurator(
+            controller: controller,
             interactor: interactor,
-            presenter: presenter,
-            controller: controller
+            presenter: presenter
         )
         configurator?.bindModuleLayers(controller: controller, bag: &bag)
 

@@ -12,6 +12,22 @@ struct SymbolTicker: Decodable {
     let data: SymbolTickerElement
 }
 
+extension SymbolTickerElement: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(eventType)
+        hasher.combine(eventTime)
+        hasher.combine(symbol)
+        hasher.combine(priceChangePercent)
+        hasher.combine(priceChange)
+        hasher.combine(weightedAveragePrice)
+        hasher.combine(totalTradedQuoteAssetVolume)
+        hasher.combine(firstTradeBefore24hrRollingWindow)
+        hasher.combine(bestBidQuantity)
+        hasher.combine(bestBidPrice)
+        hasher.combine(bestAskQuantity)
+    }
+}
+
 struct SymbolTickerElement: Decodable {
     let eventType: String
     let eventTime: Int
