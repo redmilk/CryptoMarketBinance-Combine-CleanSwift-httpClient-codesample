@@ -53,7 +53,7 @@ struct SymbolTickerElement: Decodable {
     let symbol: String
     let eventType: String
     let eventTime: Int
-    let weightedAveragePrice: String
+    let weightedAveragePrice: Double
     let firstTradeBefore24hrRollingWindow: String
     let totalTradedQuoteAssetVolume: String
     let bestBidQuantity: String
@@ -62,14 +62,19 @@ struct SymbolTickerElement: Decodable {
     let bestAskPrice: String
     let statisticsOpenTime: String
     let statisticsCloseTime: String
-    let highPrice: String
-    let lowPrice: String
+    let highPrice: Double
+    let lowPrice: Double
     let totalTradedBaseAssetVolume: String
     let lastQuantity: String
     let openPrice: String
     let firstTradeId: Int
     let lastTradeId: Int
     let lastPrice: String
+    
+    // MARK: - Specially for SHIBA price
+    var avgPriceText: String?
+    var highPriceText: String?
+    var lowPriceText: String?
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -79,7 +84,6 @@ struct SymbolTickerElement: Decodable {
         symbol = try container.decode(String.self, forKey: .symbol)
         eventType = try container.decode(String.self, forKey: .eventType)
         eventTime = try container.decode(Int.self, forKey: .eventTime)
-        weightedAveragePrice = try container.decode(String.self, forKey: .weightedAveragePrice).withoutTrailingZeros
         firstTradeBefore24hrRollingWindow = try container.decode(String.self, forKey: .firstTradeBefore24hrRollingWindow)
         bestBidQuantity = try container.decode(String.self, forKey: .bestBidQuantity).withoutTrailingZeros
         bestBidPrice = try container.decode(String.self, forKey: .bestBidPrice).withoutTrailingZeros
@@ -89,8 +93,6 @@ struct SymbolTickerElement: Decodable {
         statisticsOpenTime = DateTimeHelper.convertIntervalToDateString(openTime)
         let closeTime = try container.decode(Int.self, forKey: .statisticsCloseTime)
         statisticsCloseTime = DateTimeHelper.convertIntervalToDateString(closeTime)
-        highPrice = try container.decode(String.self, forKey: .highPrice).withoutTrailingZeros
-        lowPrice = try container.decode(String.self, forKey: .lowPrice).withoutTrailingZeros
         totalTradedQuoteAssetVolume = try container.decode(String.self, forKey: .totalTradedQuoteAssetVolume)
         totalTradedBaseAssetVolume = try container.decode(String.self, forKey: .totalTradedBaseAssetVolume)
         lastQuantity = try container.decode(String.self, forKey: .lastQuantity).withoutTrailingZeros
@@ -98,8 +100,14 @@ struct SymbolTickerElement: Decodable {
         firstTradeId = try container.decode(Int.self, forKey: .firstTradeId)
         lastTradeId = try container.decode(Int.self, forKey: .lastTradeId)
         lastPrice = try container.decode(String.self, forKey: .lastPrice).withoutTrailingZeros
+        avgPriceText = try container.decode(String.self, forKey: .weightedAveragePrice)
+        highPriceText = try container.decode(String.self, forKey: .highPrice)
+        lowPriceText = try container.decode(String.self, forKey: .lowPrice)
+        highPrice = Double(highPriceText!)!
+        lowPrice = Double(lowPriceText!)!
+        weightedAveragePrice = Double(avgPriceText!)!
     }
-
+    
     enum CodingKeys: String, CodingKey {
         case eventType = "e"
         case eventTime = "E"

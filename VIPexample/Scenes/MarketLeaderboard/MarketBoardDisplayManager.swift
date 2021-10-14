@@ -39,7 +39,9 @@ private extension MarketBoardDisplayManager {
         var newSnapshot = Snapshot()
         newSnapshot.appendSections(sections)
         sections.forEach { newSnapshot.appendItems($0.items, toSection: $0) }
-        self.dataSource.apply(newSnapshot, animatingDifferences: false)
+        DispatchQueue.main.async {
+            self.dataSource.apply(newSnapshot, animatingDifferences: false)
+        }
     }
     
     func buildDataSource() -> DataSource {

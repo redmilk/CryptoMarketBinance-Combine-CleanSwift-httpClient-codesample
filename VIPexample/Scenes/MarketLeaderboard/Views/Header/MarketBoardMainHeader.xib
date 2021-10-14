@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -22,61 +22,55 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="4df-7v-z5J">
-                            <rect key="frame" x="4" y="65" width="390" height="65"/>
+                            <rect key="frame" x="0.0" y="65" width="398" height="65"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="5NZ-ns-tPF">
-                                    <rect key="frame" x="0.0" y="0.0" width="390" height="32.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="398" height="32.5"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="change%" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="e0J-cW-fiN">
-                                            <rect key="frame" x="0.0" y="0.0" width="55.5" height="32.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="66.5" height="32.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SYMB" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="ubB-GI-CIx">
-                                            <rect key="frame" x="55.5" y="0.0" width="56" height="32.5"/>
+                                            <rect key="frame" x="66.5" y="0.0" width="66" height="32.5"/>
                                             <fontDescription key="fontDescription" type="system" weight="black" pointSize="11"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="last P $" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000000000001" preferredMaxLayoutWidth="20" translatesAutoresizingMaskIntoConstraints="NO" id="1aX-3L-ICO">
-                                            <rect key="frame" x="111.5" y="0.0" width="55.5" height="32.5"/>
+                                            <rect key="frame" x="132.5" y="0.0" width="66.5" height="32.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AVG P $" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="l5j-H5-0A0">
-                                            <rect key="frame" x="167" y="0.0" width="56" height="32.5"/>
+                                            <rect key="frame" x="199" y="0.0" width="66.5" height="32.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="high P $" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="Sw3-wV-HUe">
-                                            <rect key="frame" x="223" y="0.0" width="55.5" height="32.5"/>
+                                            <rect key="frame" x="265.5" y="0.0" width="66" height="32.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="low P $" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="VAc-GL-SD0">
-                                            <rect key="frame" x="278.5" y="0.0" width="56" height="32.5"/>
+                                            <rect key="frame" x="331.5" y="0.0" width="66.5" height="32.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="totalTradedBase" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="JXF-1b-hfd">
-                                            <rect key="frame" x="334.5" y="0.0" width="0.0" height="32.5"/>
+                                            <rect key="frame" x="398" y="0.0" width="0.0" height="32.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="totalTradedQuote" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="F6E-lU-maz">
-                                            <rect key="frame" x="334.5" y="0.0" width="0.0" height="32.5"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="9"/>
-                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="total T" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="aUd-kE-GsI">
-                                            <rect key="frame" x="334.5" y="0.0" width="55.5" height="32.5"/>
+                                            <rect key="frame" x="398" y="0.0" width="0.0" height="32.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
@@ -85,40 +79,34 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="TSw-NW-OJb">
-                                    <rect key="frame" x="0.0" y="32.5" width="390" height="32.5"/>
+                                    <rect key="frame" x="0.0" y="32.5" width="398" height="32.5"/>
                                     <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="total T" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="aUd-kE-GsI">
+                                            <rect key="frame" x="0.0" y="0.0" width="79.5" height="32.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="best bid Q" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="bQ7-5X-zIp">
-                                            <rect key="frame" x="0.0" y="0.0" width="65" height="32.5"/>
+                                            <rect key="frame" x="79.5" y="0.0" width="79.5" height="32.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="best ask  Q" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="ogm-Xb-vbA">
-                                            <rect key="frame" x="65" y="0.0" width="65" height="32.5"/>
+                                            <rect key="frame" x="159" y="0.0" width="80" height="32.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="best bid P $" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="IBS-YX-MFy">
-                                            <rect key="frame" x="130" y="0.0" width="65" height="32.5"/>
+                                            <rect key="frame" x="239" y="0.0" width="79.5" height="32.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" best Ask P $" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="hpo-TU-uY2">
-                                            <rect key="frame" x="195" y="0.0" width="65" height="32.5"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="9"/>
-                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="close T" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="dd0-eM-VDp">
-                                            <rect key="frame" x="260" y="0.0" width="65" height="32.5"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="9"/>
-                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="last Q" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="4Ct-SS-rEH">
-                                            <rect key="frame" x="325" y="0.0" width="65" height="32.5"/>
+                                            <rect key="frame" x="318.5" y="0.0" width="79.5" height="32.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
@@ -134,10 +122,10 @@
                     <constraints>
                         <constraint firstItem="tG3-Nh-BuO" firstAttribute="top" secondItem="pKs-Cu-beI" secondAttribute="top" id="EiZ-9R-cyW"/>
                         <constraint firstAttribute="trailing" secondItem="tG3-Nh-BuO" secondAttribute="trailing" id="FKQ-uC-82O"/>
-                        <constraint firstItem="4df-7v-z5J" firstAttribute="leading" secondItem="pKs-Cu-beI" secondAttribute="leading" constant="4" id="e8D-7C-dvz"/>
+                        <constraint firstItem="4df-7v-z5J" firstAttribute="leading" secondItem="pKs-Cu-beI" secondAttribute="leading" id="e8D-7C-dvz"/>
                         <constraint firstItem="tG3-Nh-BuO" firstAttribute="height" secondItem="pKs-Cu-beI" secondAttribute="height" multiplier="0.5" id="qhL-5r-fAb"/>
                         <constraint firstItem="4df-7v-z5J" firstAttribute="height" secondItem="pKs-Cu-beI" secondAttribute="height" multiplier="0.5" id="sE8-0K-P8m"/>
-                        <constraint firstAttribute="trailing" secondItem="4df-7v-z5J" secondAttribute="trailing" constant="4" id="ucd-3k-HKf"/>
+                        <constraint firstAttribute="trailing" secondItem="4df-7v-z5J" secondAttribute="trailing" id="ucd-3k-HKf"/>
                         <constraint firstAttribute="bottom" secondItem="4df-7v-z5J" secondAttribute="bottom" id="x4r-Eh-SUk"/>
                         <constraint firstItem="tG3-Nh-BuO" firstAttribute="leading" secondItem="pKs-Cu-beI" secondAttribute="leading" id="xs2-GV-5ox"/>
                     </constraints>

@@ -37,53 +37,51 @@ struct BinanceFilterSorter {
         
         var sections: [MarketBoardSectionModel] = []
         // usdt
-        var totalTradesAmountTopA = allMarket
-        applyModifiersToData(modifiers: [UsdtAsQuoteAssetFilter(), TotalTradesAmountSorter(isAscending: true), RequiredAmountOfDataFetcher(prefix)], allMarket: &totalTradesAmountTopA)
+        var excludeUpDownAndContainsUsdt = allMarket
+        applyModifiersToData(modifiers: [UsdtAsQuoteAssetFilterAndExcludeBlvUpDown()], allMarket: &excludeUpDownAndContainsUsdt)
+        
+        var totalTradesAmountTopA = excludeUpDownAndContainsUsdt
+        applyModifiersToData(modifiers: [TotalTradesAmountSorter(isAscending: true), RequiredAmountOfDataFetcher(prefix)], allMarket: &totalTradesAmountTopA)
         makeSectionItemsUnique(items: &totalTradesAmountTopA, sortType: .totalNumberOfTrades)
         sections.append(MarketBoardSectionModel(items: totalTradesAmountTopA, title: "Total number of trades ⤵️", highlightedField: .totalNumberOfTrades))
         
-        var priceChangePercentD = allMarket
-        applyModifiersToData(modifiers: [UsdtAsQuoteAssetFilter(), PriceChangePercentSorter(isAscending: false), RequiredAmountOfDataFetcher(prefix)], allMarket: &priceChangePercentD)
-        makeSectionItemsUnique(items: &priceChangePercentD, sortType: .priceChangePercent)
-        sections.append(MarketBoardSectionModel(items: priceChangePercentD, title: "Price change percent ⤴️", highlightedField: .priceChangePercent))
-        var priceChangePercentA = allMarket
-        applyModifiersToData(modifiers: [UsdtAsQuoteAssetFilter(), PriceChangePercentSorter(isAscending: true), RequiredAmountOfDataFetcher(prefix)], allMarket: &priceChangePercentA)
+        var priceChangePercentA = excludeUpDownAndContainsUsdt
+        applyModifiersToData(modifiers: [PriceChangePercentSorter(isAscending: true), RequiredAmountOfDataFetcher(prefix)], allMarket: &priceChangePercentA)
         makeSectionItemsUnique(items: &priceChangePercentA, sortType: .priceChangePercent)
         sections.append(MarketBoardSectionModel(items: priceChangePercentA, title: "Price change percent ⤵️", highlightedField: .priceChangePercent))
-        
-        var lastQuantityD = allMarket
-        applyModifiersToData(modifiers: [UsdtAsQuoteAssetFilter(), LastQuantitySorter(isAscending: false), RequiredAmountOfDataFetcher(prefix)], allMarket: &lastQuantityD)
-        makeSectionItemsUnique(items: &lastQuantityD, sortType: .lastQuantity)
-        sections.append(MarketBoardSectionModel(items: lastQuantityD, title: "Last quantity ⤴️", highlightedField: .lastQuantity))
-        var lastQuantityA = allMarket
-        applyModifiersToData(modifiers: [UsdtAsQuoteAssetFilter(), LastQuantitySorter(isAscending: true), RequiredAmountOfDataFetcher(prefix)], allMarket: &lastQuantityA)
-        makeSectionItemsUnique(items: &lastQuantityA, sortType: .lastQuantity)
-        sections.append(MarketBoardSectionModel(items: lastQuantityA, title: "Last quantity ⤵️", highlightedField: .lastQuantity))
 
-        var highPriceD = allMarket
-        applyModifiersToData(modifiers: [UsdtAsQuoteAssetFilter(), HighPriceSorter(isAscending: false), RequiredAmountOfDataFetcher(prefix)], allMarket: &highPriceD)
+        var priceChangePercentD = excludeUpDownAndContainsUsdt
+        applyModifiersToData(modifiers: [PriceChangePercentSorter(isAscending: false), RequiredAmountOfDataFetcher(prefix)], allMarket: &priceChangePercentD)
+        makeSectionItemsUnique(items: &priceChangePercentD, sortType: .priceChangePercent)
+        sections.append(MarketBoardSectionModel(items: priceChangePercentD, title: "Price change percent ⤴️", highlightedField: .priceChangePercent))
+        
+        var highPriceD = excludeUpDownAndContainsUsdt
+        applyModifiersToData(modifiers: [HighPriceSorter(isAscending: false), RequiredAmountOfDataFetcher(prefix)], allMarket: &highPriceD)
         makeSectionItemsUnique(items: &highPriceD, sortType: .highPrice)
         sections.append(MarketBoardSectionModel(items: highPriceD, title: "High price ⤴️", highlightedField: .highPrice))
-        var highPriceA = allMarket
-        applyModifiersToData(modifiers: [UsdtAsQuoteAssetFilter(), HighPriceSorter(isAscending: true), RequiredAmountOfDataFetcher(prefix)], allMarket: &highPriceA)
+        
+        var highPriceA = excludeUpDownAndContainsUsdt
+        applyModifiersToData(modifiers: [HighPriceSorter(isAscending: true), RequiredAmountOfDataFetcher(prefix)], allMarket: &highPriceA)
         makeSectionItemsUnique(items: &highPriceA, sortType: .highPrice)
         sections.append(MarketBoardSectionModel(items: highPriceA, title: "High price ⤵️", highlightedField: .highPrice))
 
-        var lowPriceD = allMarket
-        applyModifiersToData(modifiers: [UsdtAsQuoteAssetFilter(), LowPriceSorter(isAscending: false), RequiredAmountOfDataFetcher(prefix)], allMarket: &lowPriceD)
+        var lowPriceD = excludeUpDownAndContainsUsdt
+        applyModifiersToData(modifiers: [LowPriceSorter(isAscending: false), RequiredAmountOfDataFetcher(prefix)], allMarket: &lowPriceD)
         makeSectionItemsUnique(items: &lowPriceD, sortType: .lowPrice)
         sections.append(MarketBoardSectionModel(items: lowPriceD, title: "Low price ⤴️", highlightedField: .lowPrice))
-        var lowPriceA = allMarket
-        applyModifiersToData(modifiers: [UsdtAsQuoteAssetFilter(), LowPriceSorter(isAscending: true), RequiredAmountOfDataFetcher(prefix)], allMarket: &lowPriceA)
+        
+        var lowPriceA = excludeUpDownAndContainsUsdt
+        applyModifiersToData(modifiers: [LowPriceSorter(isAscending: true), RequiredAmountOfDataFetcher(prefix)], allMarket: &lowPriceA)
         makeSectionItemsUnique(items: &lowPriceA, sortType: .lowPrice)
         sections.append(MarketBoardSectionModel(items: lowPriceA, title: "Low price ⤵️", highlightedField: .lowPrice))
         
-        var weightedAveragePriceD = allMarket
-        applyModifiersToData(modifiers: [UsdtAsQuoteAssetFilter(), WeightedAveragePriceSorter(isAscending: false), RequiredAmountOfDataFetcher(prefix)], allMarket: &weightedAveragePriceD)
+        var weightedAveragePriceD = excludeUpDownAndContainsUsdt
+        applyModifiersToData(modifiers: [WeightedAveragePriceSorter(isAscending: false), RequiredAmountOfDataFetcher(prefix)], allMarket: &weightedAveragePriceD)
         makeSectionItemsUnique(items: &weightedAveragePriceD, sortType: .averagePrice)
+        
         sections.append(MarketBoardSectionModel(items: weightedAveragePriceD, title: "Weighted average price ⤴️", highlightedField: .averagePrice))
-        var weightedAveragePriceA = allMarket
-        applyModifiersToData(modifiers: [UsdtAsQuoteAssetFilter(), WeightedAveragePriceSorter(isAscending: true), RequiredAmountOfDataFetcher(prefix)], allMarket: &weightedAveragePriceA)
+        var weightedAveragePriceA = excludeUpDownAndContainsUsdt
+        applyModifiersToData(modifiers: [WeightedAveragePriceSorter(isAscending: true), RequiredAmountOfDataFetcher(prefix)], allMarket: &weightedAveragePriceA)
         makeSectionItemsUnique(items: &weightedAveragePriceA, sortType: .averagePrice)
         sections.append(MarketBoardSectionModel(items: weightedAveragePriceA, title: "Weighted average price ⤵️", highlightedField: .averagePrice))
 
@@ -93,9 +91,9 @@ struct BinanceFilterSorter {
     
     // MARK: - Data modifier strategies
     
-    struct UsdtAsQuoteAssetFilter: DataModifierStrategyType {
+    struct UsdtAsQuoteAssetFilterAndExcludeBlvUpDown: DataModifierStrategyType {
         func applyModifier(toMarketStreamData data: inout [SymbolTickerElement]) {
-            data = data.filter { $0.symbol.contains("USDT") }
+            data = data.filter { $0.symbol.lowercased().contains("usdt") && !$0.symbol.lowercased().contains("down") }
         }
     }
     

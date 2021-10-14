@@ -8,10 +8,13 @@
 import UIKit
 import Combine
 #warning("Refactor to collection of controls")
-fileprivate let highlightedFontSize: CGFloat = 11
-fileprivate let defaultFontSize: CGFloat = 9
+fileprivate let highlightedBackgroundColor: UIColor = UIColor.blue
+fileprivate let defaultBackgroundColor: UIColor = UIColor.clear
 
 final class MarketBoardMainCell: UICollectionViewCell, ModelConfigurable {
+    
+    @IBOutlet private weak var cryptoSymbolLabel: UILabel!
+    @IBOutlet private weak var cryptoIconImageView: UIImageView!
     @IBOutlet private weak var priceChangePercentLabel: UILabel!
     @IBOutlet private weak var symbolLabel: UILabel!
     @IBOutlet private weak var lastPrice: UILabel!
@@ -24,68 +27,69 @@ final class MarketBoardMainCell: UICollectionViewCell, ModelConfigurable {
     @IBOutlet private weak var bestAskQuantity: UILabel!
     @IBOutlet private weak var bestBidPrice: UILabel!
     @IBOutlet private weak var bestAskPrice: UILabel!
-    @IBOutlet private weak var statisticsCloseTime: UILabel!
-    @IBOutlet private weak var lastQuantityLabel: UILabel!
     @IBOutlet private weak var averagePriceLabel: UILabel!
     
     func configure(withModel model: SymbolTickerElement) {
         priceChangePercentLabel.text = (model.priceChangePercent > 0 ? "+" : "") + (String(format: "%.2f", model.priceChangePercent) + "%")
-        symbolLabel.text = model.symbol.uppercased().replacingOccurrences(of: "USDT", with: "")
+        symbolLabel.text = model.symbol.uppercased()
+        let baseAssetName = model.symbol.uppercased().replacingOccurrences(of: "USDT", with: "")
+        cryptoIconImageView.image = UIImage(named: baseAssetName)
+        cryptoIconImageView.image == nil ? cryptoIconImageView.image = UIImage(named: baseAssetName.lowercased()) : ()
+        cryptoSymbolLabel.isHidden = cryptoIconImageView.image != nil
+        cryptoSymbolLabel.text = baseAssetName
         lastPrice.text = model.lastPrice
         highPriceLabel.text = model.highPrice.description
         lowPriceLabel.text = model.lowPrice.description
         totalTradedBase.text = model.totalTradedBaseAssetVolume
-        
         bestBidQuantity.text = model.bestBidQuantity
         bestAskQuantity.text = model.bestAskQuantity
         bestBidPrice.text = model.bestBidPrice.description
         bestAskPrice.text = model.bestAskPrice.description
         totalTradedQuote.text = model.totalTradedQuoteAssetVolume
         totalNumberOfTrades.text = model.totalNumberOfTrades.description
-        statisticsCloseTime.text = model.statisticsCloseTime
-        lastQuantityLabel.text = model.lastQuantity
         averagePriceLabel.text = model.weightedAveragePrice.description
-        
         setDefaultHighlight()
-        highlighSortingField(highlightedFontSize, model: model)
+        highlighSortingField(highlightedBackgroundColor, model: model)
+        // Specialy for SHIB tiny price
+        if model.symbol.uppercased().contains("SHIB") {
+            highPriceLabel.text = model.avgPriceText ?? ""
+            lowPriceLabel.text = model.lowPriceText ?? ""
+            averagePriceLabel.text = model.avgPriceText ?? ""
+        }
     }
     
-    private func highlighSortingField(_ highlightedFontSize: CGFloat, model: SymbolTickerElement) {
+    private func highlighSortingField(_ highlightedBackgroundColor: UIColor, model: SymbolTickerElement) {
         guard let highlightedField = model.highlightedField else { return }
         switch highlightedField {
-        case .averagePrice: averagePriceLabel.font = .systemFont(ofSize: highlightedFontSize, weight: .black)
-        case .bestAskPrice: bestAskPrice.font = .systemFont(ofSize: highlightedFontSize, weight: .black)
-        case .bestAskQuantity: bestAskQuantity.font = .systemFont(ofSize: highlightedFontSize, weight: .black)
-        case .bestBidPrice: bestBidPrice.font = .systemFont(ofSize: highlightedFontSize, weight: .black)
-        case .bestBidQuantity: bestBidQuantity.font = .systemFont(ofSize: highlightedFontSize, weight: .black)
-        case .highPrice: highPriceLabel.font = .systemFont(ofSize: highlightedFontSize, weight: .black)
-        case .lastPrice: lastPrice.font =  .systemFont(ofSize: highlightedFontSize, weight: .black)
-        case .lastQuantity: lastQuantityLabel.font  = .systemFont(ofSize: highlightedFontSize, weight: .black)
-        case .lowPrice: lowPriceLabel.font = .systemFont(ofSize: highlightedFontSize, weight: .black)
-        case .priceChangePercent: priceChangePercentLabel.font = .systemFont(ofSize: highlightedFontSize, weight: .black)
-        case .statisticsCloseTime: statisticsCloseTime.font = .systemFont(ofSize: highlightedFontSize, weight: .black)
-        case .symbol: symbolLabel.font = .systemFont(ofSize: highlightedFontSize, weight: .black)
-        case .totalNumberOfTrades: totalNumberOfTrades.font = .systemFont(ofSize: highlightedFontSize, weight: .black)
-        case .totalTradedBase: totalTradedBase.font = .systemFont(ofSize: highlightedFontSize, weight: .black)
-        case .totalTradedQuote: totalTradedQuote.font = .systemFont(ofSize: highlightedFontSize, weight: .black)
+        case .averagePrice: averagePriceLabel.backgroundColor = highlightedBackgroundColor
+        case .bestAskPrice: bestAskPrice.backgroundColor = highlightedBackgroundColor
+        case .bestAskQuantity: bestAskQuantity.backgroundColor = highlightedBackgroundColor
+        case .bestBidPrice: bestBidPrice.backgroundColor = highlightedBackgroundColor
+        case .bestBidQuantity: bestBidQuantity.backgroundColor = highlightedBackgroundColor
+        case .highPrice: highPriceLabel.backgroundColor = highlightedBackgroundColor
+        case .lastPrice: lastPrice.backgroundColor = highlightedBackgroundColor
+        case .lowPrice: lowPriceLabel.backgroundColor = highlightedBackgroundColor
+        case .priceChangePercent: priceChangePercentLabel.backgroundColor = highlightedBackgroundColor
+        case .symbol: symbolLabel.backgroundColor = highlightedBackgroundColor
+        case .totalNumberOfTrades: totalNumberOfTrades.backgroundColor = highlightedBackgroundColor
+        case .totalTradedBase: totalTradedBase.backgroundColor = highlightedBackgroundColor
+        case .totalTradedQuote: totalTradedQuote.backgroundColor = highlightedBackgroundColor
         }
     }
     
     private func setDefaultHighlight() {
-        averagePriceLabel.font = .systemFont(ofSize: defaultFontSize, weight: .regular)
-        bestAskPrice.font = .systemFont(ofSize: defaultFontSize, weight: .regular)
-        bestAskQuantity.font = .systemFont(ofSize: defaultFontSize, weight: .regular)
-        bestBidPrice.font = .systemFont(ofSize: defaultFontSize, weight: .regular)
-        bestBidQuantity.font = .systemFont(ofSize: defaultFontSize, weight: .regular)
-        highPriceLabel.font = .systemFont(ofSize: defaultFontSize, weight: .regular)
-        lastQuantityLabel.font  = .systemFont(ofSize: defaultFontSize, weight: .regular)
-        lowPriceLabel.font = .systemFont(ofSize: defaultFontSize, weight: .regular)
-        priceChangePercentLabel.font = .systemFont(ofSize: defaultFontSize, weight: .regular)
-        statisticsCloseTime.font = .systemFont(ofSize: defaultFontSize, weight: .regular)
-        symbolLabel.font = .systemFont(ofSize: highlightedFontSize, weight: .regular)
-        lastPrice.font =  .systemFont(ofSize: highlightedFontSize, weight: .regular)
-        totalNumberOfTrades.font = .systemFont(ofSize: defaultFontSize, weight: .regular)
-        totalTradedBase.font = .systemFont(ofSize: defaultFontSize, weight: .regular)
-        totalTradedQuote.font = .systemFont(ofSize: defaultFontSize, weight: .regular)
+        averagePriceLabel.backgroundColor = defaultBackgroundColor
+        bestAskPrice.backgroundColor = defaultBackgroundColor
+        bestAskQuantity.backgroundColor = defaultBackgroundColor
+        bestBidPrice.backgroundColor = defaultBackgroundColor
+        bestBidQuantity.backgroundColor = defaultBackgroundColor
+        highPriceLabel.backgroundColor = defaultBackgroundColor
+        lowPriceLabel.backgroundColor = defaultBackgroundColor
+        priceChangePercentLabel.backgroundColor = defaultBackgroundColor
+        symbolLabel.backgroundColor = defaultBackgroundColor
+        lastPrice.backgroundColor = defaultBackgroundColor
+        totalNumberOfTrades.backgroundColor = defaultBackgroundColor
+        totalTradedBase.backgroundColor = defaultBackgroundColor
+        totalTradedQuote.backgroundColor = defaultBackgroundColor
     }
 }

@@ -20,8 +20,6 @@ enum HighlightedField {
     case bestAskQuantity
     case bestBidPrice
     case bestAskPrice
-    case statisticsCloseTime
-    case lastQuantity
     case averagePrice
 }
 
