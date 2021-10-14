@@ -34,7 +34,7 @@ private extension MarketPricesInteractor {
         inputFromController
             .sink { [unowned self] action in
             switch action {
-            case .configureSockets(let initialStreams): binanceService.configure(withSingleOrMultipleStreams: initialStreams)
+            case .configureSockets(let initialStreams): binanceService.configure(withSingleOrMultipleStreams: ["!ticker@arr"])
             case .connect: binanceService.connect()
             case .disconnect: binanceService.disconnect()
             case .addStream(let streamNames): binanceService.updateStreams(updateType: .subscribe, forStreams: streamNames)
@@ -62,7 +62,7 @@ private extension MarketPricesInteractor {
     }
     
     func decodeSocketResponse(_ response: String) -> AllStreamTickerTypes? {
-        Logger.log(response, type: .responses)
+        //Logger.log(response, type: .responses)
         let data = Data(response.utf8)
         do {
             let model = try JSONDecoder().decode(AllStreamTickerTypes.self, from: data)

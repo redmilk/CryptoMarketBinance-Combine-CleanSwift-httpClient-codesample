@@ -8,7 +8,7 @@ import Combine
 final class MarketBoardInteractor: InteractorType, BinanceServiceProvidable {
     
     enum Response {
-        case marketSymbolsTick([SymbolTickerElement])
+        case marketSymbolsTick([MarketBoardSectionModel])
         case loading
     }
     
@@ -38,7 +38,7 @@ private extension MarketBoardInteractor {
     func connectToMarketStreams() {
         let symbols = "btcusdt@ticker ethusdt@ticker adausdt@ticker shibusdt@ticker xrpusdt@ticker avaxusdt@ticker dogeusdt@ticker dotusdt@ticker bnbusdt@ticker atomusdt@ticker ftmusdt@ticker ltcusdt@ticker omgusdt@ticker linkusdt@ticker neousdt@ticker iotausdt@ticker kncusdt@ticker"
             .components(separatedBy: [" "]).filter { !$0.isEmpty }
-        binanceService.configure(withSingleOrMultipleStreams: symbols)
+        binanceService.configure(withSingleOrMultipleStreams: ["!ticker@arr"])
         binanceService.connect()
         outputToPresenter.send(.loading)
         
@@ -60,8 +60,9 @@ private extension MarketBoardInteractor {
             .catch { Just(Result<[SymbolTickerElement], Error>.failure($0)) }
             .sink(receiveValue: { [unowned self] result in
                 switch result {
-                case .success(let symbolTickerModels):
-                    outputToPresenter.send(.marketSymbolsTick(symbolTickerModels))
+                case .success(var symbolTickerModels):
+                    let sections = binanceService.buildMarketTopBySections(allMarket: symbolTickerModels, prefix: 20)
+                    outputToPresenter.send(.marketSymbolsTick(sections))
                 case .failure(let error as NSError):
                     Logger.logError(error, descriptions: error.localizedDescription)
                 }

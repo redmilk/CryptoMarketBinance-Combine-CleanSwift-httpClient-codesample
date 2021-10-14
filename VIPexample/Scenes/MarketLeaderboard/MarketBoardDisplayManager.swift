@@ -35,39 +35,34 @@ final class MarketBoardDisplayManager {
 // MARK: - Internal
 
 private extension MarketBoardDisplayManager {
-    
     func applySnapshot(sections: [MarketBoardSectionModel]) {
-//        var snapshot = Snapshot()
-//        snapshot.appendSections(sections)
-//        sections.forEach { snapshot.appendItems($0.users, toSection: $0) }
-//        DispatchQueue.main.async {
-//            self.dataSource.apply(snapshot, animatingDifferences: true, completion: { [weak self] in
-//                guard let self = self else { return }
-//                //self.collectionView.scrollToItem(at: rewardInfo.position, at: .centeredVertically, animated: false)
-//            })
-//        }
+        var newSnapshot = Snapshot()
+        newSnapshot.appendSections(sections)
+        sections.forEach { newSnapshot.appendItems($0.items, toSection: $0) }
+        self.dataSource.apply(newSnapshot, animatingDifferences: false)
     }
     
     func buildDataSource() -> DataSource {
         let dataSource = DataSource(
             collectionView: collectionView,
-            cellProvider: { [unowned self] (collectionView, indexPath, user) -> UICollectionViewCell? in
+            cellProvider: { [unowned self] (collectionView, indexPath, item) -> UICollectionViewCell? in
                 let cell = collectionView.dequeueReusableCell(
                     withReuseIdentifier: String(describing: MarketBoardMainCell.self),
                     for: indexPath) as! MarketBoardMainCell
-                
+                cell.configure(withModel: item)
+                cell.backgroundColor = indexPath.row % 2 == 0 ? .black : #colorLiteral(red: 0.1298420429, green: 0.1298461258, blue: 0.1298439503, alpha: 1)
                 return cell
             })
-//        dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
-//            guard kind == UICollectionView.elementKindSectionHeader else { return nil }
-//            let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
-//            let view = collectionView.dequeueReusableSupplementaryView(
-//                ofKind: kind,
-//                withReuseIdentifier: String(describing: MarketBoardMainHeader.self),
-//                for: indexPath) as? MarketBoardMainHeader
-//            view?.configure(withBracketTitle: section.title, coinsPrize: Int(section.rewardAmount)!)
-//            return view
-//        }
+        dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
+            guard kind == UICollectionView.elementKindSectionHeader else { return nil }
+            let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
+            let view = collectionView.dequeueReusableSupplementaryView(
+                ofKind: kind,
+                withReuseIdentifier: String(describing: MarketBoardMainHeader.self),
+                for: indexPath) as? MarketBoardMainHeader
+            view?.configure(withTitle: section.title)
+            return view
+        }
         return dataSource
     }
     
@@ -75,7 +70,7 @@ private extension MarketBoardDisplayManager {
         let layout = UICollectionViewCompositionalLayout(sectionProvider: { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
             let size = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1),
-                heightDimension: .absolute(44)
+                heightDimension: .absolute(35)
             )
             let item = NSCollectionLayoutItem(layoutSize: size)
             item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
@@ -84,15 +79,8 @@ private extension MarketBoardDisplayManager {
             section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
             section.interGroupSpacing = 0
             /// section header
-            let headerFooterSize = NSCollectionLayoutSize(
-              widthDimension: .fractionalWidth(1.0),
-              heightDimension: .absolute(37)
-            )
-            let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
-              layoutSize: headerFooterSize,
-              elementKind: UICollectionView.elementKindSectionHeader,
-              alignment: .top
-            )
+            let headerFooterSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(80))
+            let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerFooterSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
             section.boundarySupplementaryItems = [sectionHeader]
             return section
         })

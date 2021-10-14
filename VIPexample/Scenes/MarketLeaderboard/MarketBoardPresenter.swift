@@ -31,8 +31,8 @@ private extension MarketBoardPresenter {
     func handleInput() {
         inputFromInteractor.sink(receiveValue: { [unowned self] interactorResponse in
             switch interactorResponse {
-            case .marketSymbolsTick(let tickItems):
-                outputToViewController.send(.newData(MarketBoardSectionModel(items: tickItems)))
+            case .marketSymbolsTick(let marketData):
+                outputToViewController.send(.newData(marketData))
             case .loading: break
             }
         })

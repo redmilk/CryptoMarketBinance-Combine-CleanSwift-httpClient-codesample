@@ -14,7 +14,7 @@ import Combine
 
 extension MarketBoardViewController {
     enum State {
-        case newData(MarketBoardSectionModel)
+        case newData([MarketBoardSectionModel])
     }
     enum Action {
         case streamStart
@@ -48,6 +48,11 @@ final class MarketBoardViewController: UIViewController, ViewControllerType {
         dataManager.configure()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
     func storeSubscriptions(_ bag: inout Set<AnyCancellable>) {
         self.bag = bag
     }
@@ -66,10 +71,11 @@ private extension MarketBoardViewController {
     /// VC INPUT
     func subscribePresenterOutput() {
         /// Recieve Presenter's output
-        inputFromPresenter.sink(receiveValue: { [unowned self] state in
+        inputFromPresenter
+            .sink(receiveValue: { [unowned self] state in
             switch state {
-            case .newData(let section):
-                dataManager.update(withSections: [section])
+            case .newData(let sections):
+                dataManager.update(withSections: sections)
             }
         })
         .store(in: &bag)

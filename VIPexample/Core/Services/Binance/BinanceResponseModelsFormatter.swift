@@ -18,11 +18,11 @@ struct BinanceResponseModelsFormatter {
     }
    
     func formatSingleSymbolTickerElement(_ symbolTickerElement: SymbolTickerElement) -> String {
-        "\t\(symbolTickerElement.symbol) \(symbolTickerElement.lastPriceFormatted)"
+        "\t\(symbolTickerElement.symbol) \(symbolTickerElement.lastPrice)"
     }
     
     func formatMultipleSymbolsResponse(_ symbolTicker: SymbolTicker) -> String {
-        "\t\(symbolTicker.data.symbol) \(symbolTicker.data.lastPriceFormatted)"
+        "\t\(symbolTicker.data.symbol) \(symbolTicker.data.lastPrice)"
     }
     
     func formatAllMarketMiniTickerElements(_ elements: [AllMarketMiniTickerElement]) -> String {

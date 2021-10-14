@@ -16,6 +16,7 @@ enum BinanceServiceError: Error {
 final class BinanceService {
     private let binanceRequestApi: BinanceRequestApiType
     private let binanceSocketApi: BinanceSocketApiType
+    private let filterSorter = BinanceFilterSorter()
     private var bag = Set<AnyCancellable>()
 
     init(binanceRequestApi: BinanceRequestApiType,
@@ -52,6 +53,10 @@ extension BinanceService {
     
     func disconnect() {
         binanceSocketApi.disconnect()
+    }
+    
+    func buildMarketTopBySections(allMarket: [SymbolTickerElement], prefix: Int) -> [MarketBoardSectionModel] {
+        filterSorter.buildLeaderboardSectionsBasedOnEveryField(allMarket: allMarket, prefix: prefix)
     }
 }
 
