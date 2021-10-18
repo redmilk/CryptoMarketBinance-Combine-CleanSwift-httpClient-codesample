@@ -118,9 +118,7 @@ final class Logger {
         guard isEnabled else { return }
         
         #if DEBUG
-        Swift.print()
         Swift.print(str)
-        Swift.print()
         #endif
     }
 }

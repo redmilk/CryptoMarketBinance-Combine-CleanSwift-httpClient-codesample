@@ -130,6 +130,7 @@
 		79DFA9402714B8DB002EA664 /* SymbolTickerMini.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DFA93F2714B8DB002EA664 /* SymbolTickerMini.swift */; };
 		79E89F952711FF6D00BF800B /* SymbolTicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E89F942711FF6D00BF800B /* SymbolTicker.swift */; };
 		79E89F9A271207F600BF800B /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E89F99271207F600BF800B /* String+Extensions.swift */; };
+		79F7D678271D495100403E84 /* UIBarButtonItem+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F7D677271D495100403E84 /* UIBarButtonItem+Extensions.swift */; };
 		79FB9B6B26B2BD3200F36ED7 /* ItemOrArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FB9B6A26B2BD3200F36ED7 /* ItemOrArray.swift */; };
 		79FB9B6C26B2BD3200F36ED7 /* ItemOrArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FB9B6A26B2BD3200F36ED7 /* ItemOrArray.swift */; };
 		79FB9B6D26B2BD3200F36ED7 /* ItemOrArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FB9B6A26B2BD3200F36ED7 /* ItemOrArray.swift */; };
@@ -248,6 +249,7 @@
 		79DFA93F2714B8DB002EA664 /* SymbolTickerMini.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolTickerMini.swift; sourceTree = "<group>"; };
 		79E89F942711FF6D00BF800B /* SymbolTicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolTicker.swift; sourceTree = "<group>"; };
 		79E89F99271207F600BF800B /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		79F7D677271D495100403E84 /* UIBarButtonItem+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Extensions.swift"; sourceTree = "<group>"; };
 		79FB9B6A26B2BD3200F36ED7 /* ItemOrArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemOrArray.swift; sourceTree = "<group>"; };
 		840D68032648D63700F8C01A /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		840D68042648D63700F8C01A /* ContentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContentViewController.xib; sourceTree = "<group>"; };
@@ -357,8 +359,8 @@
 			isa = PBXGroup;
 			children = (
 				790A1E6526B1FC9A00969231 /* HTTPClient.swift */,
-				7951B89727110FFC00C321B7 /* WebSocketClient.swift */,
 				790A1E6426B1FC9A00969231 /* Authenticator.swift */,
+				7951B89727110FFC00C321B7 /* WebSocketClient.swift */,
 				790A1E6026B1FC9A00969231 /* AuthTokens.swift */,
 				790A1E6126B1FC9A00969231 /* RequestParametersAdapter.swift */,
 				790A1E6226B1FC9A00969231 /* RequestBuilder.swift */,
@@ -395,6 +397,7 @@
 				790A1EAE26B1FEC000969231 /* UIViewController+Extensions.swift */,
 				790A1EAF26B1FEC000969231 /* UIView+Extensions.swift */,
 				790A1EB026B1FEC000969231 /* UIControl+Extensions.swift */,
+				79F7D677271D495100403E84 /* UIBarButtonItem+Extensions.swift */,
 				790A1EB126B1FEC000969231 /* Publisher+Extensions.swift */,
 				790A1EB226B1FEC000969231 /* Collection+Extensions.swift */,
 				79E89F99271207F600BF800B /* String+Extensions.swift */,
@@ -868,6 +871,7 @@
 				84C3B32B2648A8D20080FFB0 /* AuthConfigurator.swift in Sources */,
 				790A1F1E26B212E200969231 /* RecentTrade.swift in Sources */,
 				790A1F1726B2118A00969231 /* OrderBook.swift in Sources */,
+				79F7D678271D495100403E84 /* UIBarButtonItem+Extensions.swift in Sources */,
 				794643482714EEFE0055C84C /* MarketBoardMainCell.swift in Sources */,
 				790A1E7626B1FC9B00969231 /* AuthTokens.swift in Sources */,
 				79E89F952711FF6D00BF800B /* SymbolTicker.swift in Sources */,
@@ -1113,7 +1117,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SU7Z8X6W4R;
 				INFOPLIST_FILE = VIPexample/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1134,7 +1138,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SU7Z8X6W4R;
 				INFOPLIST_FILE = VIPexample/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -44,10 +44,10 @@ final class Authenticator {
             /// request new access token with `refreshToken`
             refreshPublisher = requestAccessToken(withRefreshToken: refreshToken)
                 .map { Optional($0) }
-                .handleEvents(receiveOutput: {
-                    self.authTokens = $0
+                .handleEvents(receiveOutput: { [unowned self] newToken in
+                    authTokens = newToken
                 },
-                receiveCompletion: { _ in
+                receiveCompletion: { [unowned self] _ in
                     queue.sync { refreshPublisher = nil }
                 })
                 .eraseToAnyPublisher()
@@ -77,7 +77,8 @@ private extension Authenticator {
             method: .put
         )
         return URLSession.shared.dataTaskPublisher(for: requestBuilder.request)
-            //.retry(3)
+            .eraseToAnyPublisher()
+            //.delayAndRetry(forInterval: 3, scheduler: DispatchQueue.main, count: 3)
             .tryMap { data, response in
                 guard let _ = response as? HTTPURLResponse else { throw RequestError.nilResponse(requestBuilder.request) }
                 return data

@@ -19,6 +19,9 @@ final class MarketBoardDisplayManager {
     init(collectionView: UICollectionView) {
         self.collectionView = collectionView
     }
+    deinit {
+        Logger.log(String(describing: self), type: .deinited)
+    }
     
     func configure() {
         collectionView.register(cellClassName: MarketBoardMainCell.self)

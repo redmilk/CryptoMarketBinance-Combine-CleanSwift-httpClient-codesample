@@ -15,12 +15,16 @@ final class MarketBoardPresenter: PresenterType {
     let inputFromInteractor = PassthroughSubject<MarketBoardInteractor.Response, Never>()
     let outputToViewController = PassthroughSubject<MarketBoardViewController.State, Never>()
     
-    private let coordinator: CoordinatorType
-    private var bag = Set<AnyCancellable>()
+    private let coordinator: MarketBoardCoordinatorType
+    private var bag: Set<AnyCancellable>
     
-    init(coordinator: CoordinatorType) {
+    init(coordinator: MarketBoardCoordinatorType, bag: inout Set<AnyCancellable>) {
+        self.bag = bag
         self.coordinator = coordinator
         handleInput()
+    }
+    deinit {
+        Logger.log(String(describing: self), type: .deinited)
     }
 }
 
@@ -34,6 +38,7 @@ private extension MarketBoardPresenter {
             case .marketSymbolsTick(let marketData):
                 outputToViewController.send(.newData(marketData))
             case .loading: break
+            case .openDebug: coordinator.openDebugScene()
             }
         })
         .store(in: &bag)

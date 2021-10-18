@@ -9,6 +9,7 @@ final class MarketBoardInteractor: InteractorType, BinanceServiceProvidable {
     
     enum Response {
         case marketSymbolsTick([MarketBoardSectionModel])
+        case openDebug
         case loading
     }
     
@@ -20,6 +21,9 @@ final class MarketBoardInteractor: InteractorType, BinanceServiceProvidable {
     init() {
         handleRequestFromController()
     }
+    deinit {
+        Logger.log(String(describing: self), type: .deinited)
+    }
 }
 
 // MARK: Internal
@@ -30,6 +34,8 @@ private extension MarketBoardInteractor {
             switch action {
             case .streamStart:
                 connectToMarketStreams()
+            case .openDebug:
+                outputToPresenter.send(.openDebug)
             }
         })
         .store(in: &bag)
@@ -58,11 +64,12 @@ private extension MarketBoardInteractor {
             .compactMap { $0 }
             .eraseToAnyPublisher()
             .catch { Just(Result<[SymbolTickerElement], Error>.failure($0)) }
-            .sink(receiveValue: { [unowned self] result in
+            .sink(receiveValue: { [weak self] result in
+                guard let self = self else { return }
                 switch result {
-                case .success(var symbolTickerModels):
-                    let sections = binanceService.buildMarketTopBySections(allMarket: symbolTickerModels, prefix: 20)
-                    outputToPresenter.send(.marketSymbolsTick(sections))
+                case .success(let symbolTickerModels):
+                    let sections = self.binanceService.buildMarketTopBySections(allMarket: symbolTickerModels, prefix: 20)
+                    self.outputToPresenter.send(.marketSymbolsTick(sections))
                 case .failure(let error as NSError):
                     Logger.logError(error, descriptions: error.localizedDescription)
                 }

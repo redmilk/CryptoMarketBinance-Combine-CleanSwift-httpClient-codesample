@@ -9,7 +9,7 @@ import Combine
 
 final class ContentInteractor: InteractorType {
     enum Response {
-        case closePressed
+        case showAuth
         case character(MurvelResult?)
     }
     
@@ -20,25 +20,22 @@ final class ContentInteractor: InteractorType {
     private var bag = Set<AnyCancellable>()
     
     init() {
-        let inputFromVC = inputFromController.share()
-        inputFromVC.filter({ $0 == .closePressed })
-            .map { _ in .closePressed }
-            .subscribe(outputToPresenter)
-            .store(in: &bag)
-        
-        inputFromVC.sink(receiveValue: { [unowned self] action in
+        inputFromController
+            .sink(receiveValue: { [unowned self] action in
             switch action {
             case .willDisplayCellAtIndex(let index, let maxCount):
                 if maxCount - 5 == index {
                     marvelService.requestMurvel()
                 }
-            case .closePressed: outputToPresenter.send(.closePressed)
+            case .showAuth:
+                outputToPresenter.send(.showAuth)
             case _: break
             }
         })
         .store(in: &bag)
         
-        inputFromVC.filter { $0 == .loadCharacters }
+        inputFromController
+            .filter { $0 == .loadCharacters }
             .handleEvents(receiveOutput: { [unowned self] _ in marvelService.requestMurvel() })
             .flatMap({ [unowned self] action -> AnyPublisher<Response, Never> in
                 marvelService.murvels.flatMap({ chars -> AnyPublisher<MurvelResult, Never> in
@@ -51,5 +48,8 @@ final class ContentInteractor: InteractorType {
             })
             .subscribe(outputToPresenter)
             .store(in: &bag)
+    }
+    deinit {
+        Logger.log(String(describing: self), type: .deinited)
     }
 }

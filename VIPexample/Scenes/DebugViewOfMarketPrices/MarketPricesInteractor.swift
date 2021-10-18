@@ -11,6 +11,7 @@ final class MarketPricesInteractor: InteractorType, BinanceServiceProvidable {
         case socketResponseModel(AllStreamTickerTypes?)
         case socketResponseStatusMessage(String, shouldClean: Bool)
         case socketResponseFail(BinanceServiceError)
+        case openMarvelScene
     }
     
     let inputFromController = PassthroughSubject<MarketPricesViewController.Action, Never>()
@@ -34,12 +35,14 @@ private extension MarketPricesInteractor {
         inputFromController
             .sink { [unowned self] action in
             switch action {
-            case .configureSockets(let initialStreams): binanceService.configure(withSingleOrMultipleStreams: ["!ticker@arr"])
+            case .configureSockets(let initialStreams): binanceService.configure(withSingleOrMultipleStreams: initialStreams)
             case .connect: binanceService.connect()
             case .disconnect: binanceService.disconnect()
             case .addStream(let streamNames): binanceService.updateStreams(updateType: .subscribe, forStreams: streamNames)
             case .removeStream(let streamNames): binanceService.updateStreams(updateType: .unsubscribe, forStreams: streamNames)
             case .reconnect: binanceService.reconnect()
+            case .openMarvelScene:
+                outputToPresenter.send(.openMarvelScene)
             }
         }
         .store(in: &bag)

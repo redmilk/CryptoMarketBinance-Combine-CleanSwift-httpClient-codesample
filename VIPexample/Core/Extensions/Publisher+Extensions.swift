@@ -7,6 +7,14 @@
 
 import Combine
 
+extension Publisher where Self.Failure == Never {
+    public func assignNoRetain<Root>(to keyPath: ReferenceWritableKeyPath<Root, Self.Output>, on object: Root) -> AnyCancellable where Root: AnyObject {
+        sink { [weak object] (value) in
+            object?[keyPath: keyPath] = value
+        }
+    }
+}
+
 extension Publisher {
     static func empty() -> AnyPublisher<Output, Failure> {
         return Empty().eraseToAnyPublisher()
@@ -34,16 +42,16 @@ extension Publisher {
 
 extension Publisher {
     func delayAndRetry<S: Scheduler>(
-        for interval: S.SchedulerTimeType.Stride,
+        forInterval interval: S.SchedulerTimeType.Stride,
         scheduler: S,
         count: Int
     ) -> AnyPublisher<Self.Output, Self.Failure> {
-        applyDelayAndRetry(upstream: self, for: interval, scheduler: scheduler, count: count)
+        applyDelayAndRetry(upstream: self, forInterval: interval, scheduler: scheduler, count: count)
     }
     
     private func applyDelayAndRetry<Upstream: Publisher, S: Scheduler>(
         upstream: Upstream,
-        for interval: S.SchedulerTimeType.Stride,
+        forInterval interval: S.SchedulerTimeType.Stride,
         scheduler: S,
         count: Int
     ) -> AnyPublisher<Upstream.Output, Upstream.Failure> {

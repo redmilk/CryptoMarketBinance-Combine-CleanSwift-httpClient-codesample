@@ -13,34 +13,33 @@ final class AuthPresenter: PresenterType {
     let inputFromInteractor = PassthroughSubject<AuthInteractor.Response, Never>()
     let outputToViewController = PassthroughSubject<AuthViewController.State, Never>()
     
-    private let coordinator: CoordinatorType & AuthCoordinatorType
-    private var bag = Set<AnyCancellable>()
+    private unowned let coordinator: CoordinatorType
+    var bag: Set<AnyCancellable>
     
-    init(coordinator: CoordinatorType & AuthCoordinatorType) {
+    init(coordinator: CoordinatorType, bag: inout Set<AnyCancellable>) {
         self.coordinator = coordinator
-        
-        inputFromInteractor
-            .map { interactorResponse in
+        self.bag = bag
+        inputFromInteractor.sink { [unowned self] interactorResponse in
                 switch interactorResponse {
                 /// sign in network request result
                 case .signInRequestResult(let result):
                     switch result {
-                    case .success(let username): return .signinResult(nickname: username)
-                    case .failure(let error): return .signinResultFailure(errorMessage: error.localizedDescription)
+                    case .success(let username): outputToViewController.send(.signinResult(nickname: username))
+                    case .failure(let error): return outputToViewController.send(.signinResultFailure(errorMessage: error.localizedDescription))
                     }
                 /// user login credentials validation result
                 case .validatationResult(let result):
                     let message = result ? "Credentials is valid" : "Invalid credentials"
-                    return .validationResult(result: result, message: message)
-                case .showContent:
-                    coordinator.showContent()
-                    return .idle
+                    outputToViewController.send(.validationResult(result: result, message: message))
+                case .showContent: break
+                    //coordinator.showContent()
                 case .removeRoot:
                     coordinator.end()
-                    return .idle
                 }
             }
-            .subscribe(outputToViewController)
             .store(in: &bag)
+    }
+    deinit {
+        Logger.log(String(describing: self), type: .deinited)
     }
 }

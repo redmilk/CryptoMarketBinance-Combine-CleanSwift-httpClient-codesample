@@ -11,7 +11,6 @@ import Combine
 // MARK: - view controller State and Actions types
 extension AuthViewController {
     enum State {
-        case idle
         case validationResult(result: Bool, message: String)
         case signinResult(nickname: String)
         case signinResultFailure(errorMessage: String)
@@ -40,7 +39,8 @@ final class AuthViewController: UIViewController, ViewControllerType {
     @IBOutlet private weak var messageLabel: UILabel!
     @IBOutlet private weak var removeRootButton: UIButton!
     
-    private var bag: Set<AnyCancellable>!
+    //private var bag: Set<AnyCancellable>!
+    var bag = Set<AnyCancellable>()
     
     init() {
         super.init(nibName: String(describing: AuthViewController.self), bundle: nil)
@@ -49,7 +49,7 @@ final class AuthViewController: UIViewController, ViewControllerType {
         fatalError("init(coder:) has not been implemented")
     }
     deinit {
-        Logger.log("AuthViewController", type: .lifecycle)
+        Logger.log(String(describing: self), type: .deinited)
     }
     
     override func viewDidLoad() {
@@ -68,7 +68,6 @@ final class AuthViewController: UIViewController, ViewControllerType {
 private extension AuthViewController {
     /// Sending actions into interactor input
     func dispatchActionsForInteractor() {
-        
         let credentialsAction = Publishers.CombineLatest(
             usernameTextfield.publisher(for: .editingChanged).compactMap { $0.text },
             passwordTextfield.publisher(for: .editingChanged).compactMap { $0.text }
@@ -77,13 +76,15 @@ private extension AuthViewController {
         .prepend(Action.validateCredentials("", ""))
         
         let removeRootAction = removeRootButton.publisher(for: .touchUpInside)
-            .map { _ in  Action.removeRoot }
+            .map {  _ in  Action.removeRoot }
         
         let loginPressedAction = loginButton.publisher(for: .touchUpInside)
             .map { _ in Action.loginPressed }
         
         Publishers.Merge3(credentialsAction, removeRootAction, loginPressedAction)
-            .subscribe(outputToInteractor)
+            .sink(receiveValue: { [unowned self] action in
+                outputToInteractor.send(action)
+            })
             .store(in: &bag)
     }
     
@@ -102,8 +103,6 @@ private extension AuthViewController {
                 case .validationResult(let result, let validationResultMessage):
                     messageLabel.text = validationResultMessage
                     loginButton.isEnabled = result
-                    
-                case .idle: break
                 }
             })
             .store(in: &bag)

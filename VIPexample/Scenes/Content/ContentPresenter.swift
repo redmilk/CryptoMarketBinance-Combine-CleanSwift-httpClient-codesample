@@ -15,18 +15,21 @@ final class ContentPresenter: PresenterType {
     private let coordinator: CoordinatorType
     private var bag = Set<AnyCancellable>()
     
-    init(coordinator: CoordinatorType) {
+    init(coordinator: CoordinatorType, bag: inout Set<AnyCancellable>) {
         self.coordinator = coordinator
         
         inputFromInteractor
             .sink(receiveValue: { [unowned self] interactorResponse in
                 switch interactorResponse {
-                case .closePressed: coordinator.end()
+                case .showAuth: coordinator.end()
                 case .character(let character):
                     guard let character = character else { return }
                     outputToViewController.send(.character(character))
                 }
             })
             .store(in: &bag)
+    }
+    deinit {
+        Logger.log(String(describing: self), type: .deinited)
     }
 }

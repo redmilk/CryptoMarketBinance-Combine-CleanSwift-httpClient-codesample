@@ -1,48 +1,44 @@
 //
-//  UIControl+Extensions.swift
-//  ReactiveMovies
+//  UIBarButtonItem+Extension.swift
+//  VIPexample
 //
-//  Created by Danyl Timofeyev on 23.04.2021.
+//  Created by Danyl Timofeyev on 18.10.2021.
 //
 
 import Combine
-import Foundation
-import UIKit
+import UIKit.UIBarButtonItem
 
-protocol ControlWithPublisher: UIControl { }
-extension UIControl: ControlWithPublisher { }
-extension ControlWithPublisher {
-    func publisher(for event: UIControl.Event = .primaryActionTriggered) -> ControlPublisher<Self> {
-        ControlPublisher(control: self, for: event)
+protocol BarButtonControlPublisher: UIBarButtonItem { }
+
+extension UIBarButtonItem: BarButtonControlPublisher { }
+extension BarButtonControlPublisher {
+    func publisher() -> BarButtonControlWithPublisher<Self> {
+        BarButtonControlWithPublisher(control: self)
     }
 }
 
-struct ControlPublisher<T: UIControl>: Publisher {
+struct BarButtonControlWithPublisher<T: UIBarButtonItem>: Publisher {
     typealias Output = T
     typealias Failure = Never
     
     unowned let control: T
-    let event: UIControl.Event
     
-    init(control: T, for event: UIControl.Event = .primaryActionTriggered) {
+    init(control: T) {
         self.control = control
-        self.event = event
     }
     
     func receive<S>(subscriber: S) where S : Subscriber, S.Input == Output, S.Failure == Failure {
-        let innerClass = Inner(downstream: subscriber, sender: control, event: event)
+        let innerClass = Inner(downstream: subscriber, sender: control)
         subscriber.receive(subscription: innerClass)
     }
     
     final class Inner <S: Subscriber>: NSObject, Subscription where S.Input == Output, S.Failure == Failure {
         private weak var sender: T?
-        private let event: UIControl.Event
         private var downstream: S?
         
-        init(downstream: S, sender: T, event: UIControl.Event) {
+        init(downstream: S, sender: T) {
             self.downstream = downstream
             self.sender = sender
-            self.event = event
             super.init()
         }
         
@@ -51,7 +47,8 @@ struct ControlPublisher<T: UIControl>: Publisher {
         }
         
         func request(_ demand: Subscribers.Demand) {
-            sender?.addTarget(self, action: #selector(doAction), for: event)
+            sender?.action = #selector(doAction)
+            sender?.target = self
         }
         
         func cancel() {
@@ -64,7 +61,8 @@ struct ControlPublisher<T: UIControl>: Publisher {
         }
         
         private func finish() {
-            self.sender?.removeTarget(self, action: #selector(doAction), for: event)
+            self.sender?.target = nil
+            self.sender?.action = nil
             self.sender = nil
             self.downstream = nil
         }

@@ -7,7 +7,7 @@ import UIKit.UINavigationController
 import Combine
 
 protocol MarketPricesCoordinatorType {
-   
+    func openMarvelScene()
 }
 
 final class MarketPricesCoordinator: CoordinatorType, MarketPricesCoordinatorType {
@@ -19,7 +19,7 @@ final class MarketPricesCoordinator: CoordinatorType, MarketPricesCoordinatorTyp
         self.window = window
     }
     deinit {
-        print("Deinit Coordinator")
+        Logger.log(String(describing: self), type: .deinited)
     }
     
     func start() {
@@ -37,6 +37,12 @@ final class MarketPricesCoordinator: CoordinatorType, MarketPricesCoordinatorTyp
         navigationController = UINavigationController(rootViewController: controller)
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
+    }
+    
+    func openMarvelScene() {
+        end()
+        let coordinator = ContentCoordinator(window: window)
+        coordinator.start()
     }
     
     func end() {

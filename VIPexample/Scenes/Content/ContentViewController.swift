@@ -16,7 +16,7 @@ extension ContentViewController {
         case character(MurvelResult)
     }
     enum Action: Equatable {
-        case closePressed
+        case showAuth
         case loadCharacters
         case willDisplayCellAtIndex(index: Int, total: Int)
     }
@@ -39,9 +39,9 @@ final class ContentViewController: UIViewController, ViewControllerType {
     let inputFromPresenter = PassthroughSubject<State, Never>()
     let outputToInteractor = PassthroughSubject<Action, Never>()
     
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet private weak var collectionView: UICollectionView!
     
-    private var bag: Set<AnyCancellable>!
+    var bag = Set<AnyCancellable>()
     private lazy var dataSource = makeDataSource()
     private let searchController = UISearchController(searchResultsController: nil)
     
@@ -52,11 +52,13 @@ final class ContentViewController: UIViewController, ViewControllerType {
         fatalError("init(coder:) has not been implemented")
     }
     deinit {
-        Logger.log("ContentViewController", type: .lifecycle)
+        Logger.log(String(describing: self), type: .deinited)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureView()
+        configureCollection()
         
         inputFromPresenter.sink(receiveValue: { [unowned self] state in
             switch state {
@@ -67,7 +69,6 @@ final class ContentViewController: UIViewController, ViewControllerType {
         })
         .store(in: &bag)
         
-        configureView()
         outputToInteractor.send(.loadCharacters)
     }
     
@@ -75,8 +76,23 @@ final class ContentViewController: UIViewController, ViewControllerType {
         self.bag = bag
     }
     
-    @objc func closePressed() {
-        outputToInteractor.send(.closePressed)
+    private func configureView() {
+        let showAuth = UIBarButtonItem(title: "Auth", style: .plain, target: nil, action: nil)
+        showAuth.publisher()
+            .sink(receiveValue: { [unowned self] sender in
+                outputToInteractor.send(.showAuth)
+        })
+        .store(in: &bag)
+        navigationItem.rightBarButtonItem  = showAuth
+    }
+    
+    private func configureCollection() {
+        collectionView.delegate = self
+        collectionView.registerCell(ContentCollectionCell.self)
+        collectionView.setCollectionViewLayout(generateLayout(), animated: false)
+        var snapshot = Snapshot()
+        snapshot.appendSections([.main])
+        dataSource.apply(snapshot, animatingDifferences: false)
     }
 }
 
@@ -92,16 +108,6 @@ extension ContentViewController: UICollectionViewDelegate {
 }
 
 private extension ContentViewController {
-    func configureView() {
-        let button = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(closePressed))
-        navigationItem.setRightBarButton(button, animated: false)
-        collectionView.delegate = self
-        collectionView.registerCell(ContentCollectionCell.self)
-        collectionView.setCollectionViewLayout(generateLayout(), animated: false)
-        var snapshot = Snapshot()
-        snapshot.appendSections([.main])
-        dataSource.apply(snapshot, animatingDifferences: false)
-    }
     
     func applySnapshot(murvel: MurvelResult, animatingDifferences: Bool = true) {
         var snapshot = dataSource.snapshot()

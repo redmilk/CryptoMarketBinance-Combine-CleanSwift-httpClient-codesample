@@ -16,7 +16,7 @@ protocol HTTPClientType {
 final class HTTPClient: HTTPClientType {
     private let urlSession: URLSession
     private var isAuthorizationRequired: Bool
-    private lazy var authenticator = Authenticator()
+    private let authenticator = Authenticator()
     
     init(session: URLSession = URLSession(configuration: .ephemeral),
         isAuthorizationRequired: Bool
@@ -42,7 +42,7 @@ final class HTTPClient: HTTPClientType {
                 urlSession.dataTaskPublisher(for: urlRequest)
                     /// map URLError to Error if occurs
                     .mapError { $0 }
-                    /// get data if request succeed, check resonse model for errors
+                    /// get data if request succeed, check response model for errors
                     .flatMap ({ data, response -> AnyPublisher<Data, Error> in
                         Logger.log(data)
                         #warning("parse server error data in custom codable model")

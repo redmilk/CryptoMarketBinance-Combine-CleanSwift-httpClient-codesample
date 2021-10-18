@@ -25,6 +25,7 @@ extension MarketPricesViewController {
         case addStream([String])
         case removeStream([String])
         case reconnect
+        case openMarvelScene
     }
 }
 
@@ -45,7 +46,7 @@ final class MarketPricesViewController: UIViewController {
     let inputFromPresenter = PassthroughSubject<State, Never>()
     let outputToInteractor = PassthroughSubject<Action, Never>()
 
-    private var bag: Set<AnyCancellable>!
+    var bag = Set<AnyCancellable>()
     
     init() {
         super.init(nibName: String(describing: MarketPricesViewController.self), bundle: nil)
@@ -59,13 +60,9 @@ final class MarketPricesViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureView()
         dispatchActionsForInteractor()
         subscribePresenterOutput()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
     private func updateWithTextData(_ text: String) {
@@ -84,6 +81,16 @@ final class MarketPricesViewController: UIViewController {
         debugTextView.text = errorDescription
         shouldCleanView ? mainTextView.text = nil : ()
         Logger.logError(nil, descriptions: errorDescription)
+    }
+    
+    private func configureView() {
+        let marvelScene = UIBarButtonItem(title: "Marvel", style: .plain, target: nil, action: nil)
+        marvelScene.publisher()
+            .sink(receiveValue: { [unowned self] sender in
+                outputToInteractor.send(.openMarvelScene)
+        })
+        .store(in: &bag)
+        navigationItem.rightBarButtonItem  = marvelScene
     }
 }
 

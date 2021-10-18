@@ -12,7 +12,7 @@ protocol PresenterType: class {
     associatedtype ViewControllerState
     associatedtype CoordinatorType
     
-    init(coordinator: CoordinatorType)
+    init(coordinator: CoordinatorType, bag: inout Set<AnyCancellable>)
     
     var inputFromInteractor: PassthroughSubject<InteractorResponse, Never> { get }
     var outputToViewController: PassthroughSubject<ViewControllerState, Never> { get }

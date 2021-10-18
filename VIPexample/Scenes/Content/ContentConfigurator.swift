@@ -17,4 +17,7 @@ final class ContentConfigurator: ModuleLayersBinderType {
         self.interactor = interactor
         self.presenter = presenter
     }
+    deinit {
+        Logger.log(String(describing: self), type: .deinited)
+    }
 }

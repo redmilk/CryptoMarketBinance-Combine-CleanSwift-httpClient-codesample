@@ -19,22 +19,25 @@ final class AuthInteractor: InteractorType {
     let inputFromController = PassthroughSubject<AuthViewController.Action, Never>()
     let outputToPresenter = PassthroughSubject<Response, Never>()
     
-    private var bag = Set<AnyCancellable>()
+    var bag: Set<AnyCancellable>
     
-    init() {
-        inputFromController.map { [unowned self] action in
+    init(bag: Set<AnyCancellable>) {
+        self.bag = bag
+        inputFromController.sink { [unowned self] action in
             switch action {
             case .loginPressed:
-                return .showContent
+                outputToPresenter.send(.showContent)
             case .validateCredentials(let username, let password):
                 let result = validateCredentials(username: username, password: password)
-                return .validatationResult(result)
+                outputToPresenter.send(.validatationResult(result))
             case .removeRoot:
-                return .removeRoot
+                outputToPresenter.send(.removeRoot)
             }
         }
-        .subscribe(outputToPresenter)
         .store(in: &bag)
+    }
+    deinit {
+        Logger.log(String(describing: self), type: .deinited)
     }
     
     private func validateCredentials(username: String, password: String) -> Bool {

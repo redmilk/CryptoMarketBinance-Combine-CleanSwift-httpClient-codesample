@@ -18,7 +18,7 @@ final class ContentCoordinator: CoordinatorType {
         self.window = window
     }
     deinit {
-        Logger.log("ContentCoordinator", type: .lifecycle)
+        Logger.log(String(describing: self), type: .deinited)
     }
     
     func start() {

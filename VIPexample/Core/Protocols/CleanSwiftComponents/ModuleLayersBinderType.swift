@@ -16,6 +16,7 @@ protocol ModuleLayersBinderType: class {
     var controller: ViewController { get }
     var interactor: Interactor { get }
     var presenter: Presenter { get }
+    //var bag: Set<AnyCancellable> { get }
     
     /// ViewController + Presenter + Interactor layers INPUT and OUTPUT binding
     /// called in coordinator `start()`
@@ -30,20 +31,29 @@ extension ModuleLayersBinderType where
     
     func bindModuleLayers(controller: ViewController, bag: inout Set<AnyCancellable>) {
         /// Requests(Actions) from VC --> Interactor
-        controller.outputToInteractor
-            .subscribe(interactor.inputFromController)
-            .store(in: &bag)
+        self.controller.outputToInteractor
+            .sink(receiveValue: { [weak self] action in
+                self?.interactor.inputFromController.send(action)
+            })
+            //.subscribe(interactor.inputFromController)
+            .store(in: &self.controller.bag)
         /// Response from Interactor --> Presenter
         interactor.outputToPresenter
-            .subscribe(presenter.inputFromInteractor)
-            .store(in: &bag)
+            .sink(receiveValue: { [weak self] interactorResponse in
+                self?.presenter.inputFromInteractor.send(interactorResponse)
+            })
+            //.subscribe(presenter.inputFromInteractor)
+            .store(in: &self.controller.bag)
         /// Prepared ViewData or States from Presenter --> ViewController
         presenter.outputToViewController
             .receive(on: DispatchQueue.main)
-            .subscribe(controller.inputFromPresenter)
-            .store(in: &bag)
+            .sink(receiveValue: { [weak self] presenterResponse in
+                self?.controller.inputFromPresenter.send(presenterResponse)
+            })
+            //.subscribe(controller.inputFromPresenter)
+            .store(in: &self.controller.bag)
         /// Need only to subscribe ViewController to Presenter's Output
         /// And send Actions to Interactor's Input
-        controller.storeSubscriptions(&bag)
+        //self.controller.storeSubscriptions(&bag)
     }
 }

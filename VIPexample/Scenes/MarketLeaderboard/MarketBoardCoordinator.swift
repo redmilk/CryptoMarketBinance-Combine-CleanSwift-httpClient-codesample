@@ -7,7 +7,7 @@ import UIKit.UINavigationController
 import Combine
 
 protocol MarketBoardCoordinatorType {
-   
+    func openDebugScene()
 }
 
 final class MarketBoardCoordinator: CoordinatorType, MarketBoardCoordinatorType {
@@ -19,14 +19,14 @@ final class MarketBoardCoordinator: CoordinatorType, MarketBoardCoordinatorType 
         self.window = window
     }
     deinit {
-        print("Deinit Coordinator")
+        Logger.log(String(describing: self), type: .deinited)
     }
     
     func start() {
         var bag = Set<AnyCancellable>()
         let controller = MarketBoardViewController()
         let interactor = MarketBoardInteractor()
-        let presenter = MarketBoardPresenter(coordinator: self)
+        let presenter = MarketBoardPresenter(coordinator: self, bag: &<#Set<AnyCancellable>#>)
         configurator = MarketBoardConfigurator(
             controller: controller,
             interactor: interactor,
@@ -37,6 +37,12 @@ final class MarketBoardCoordinator: CoordinatorType, MarketBoardCoordinatorType 
         navigationController = UINavigationController(rootViewController: controller)
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
+    }
+    
+    func openDebugScene() {
+        end()
+        let coordinator = MarketPricesCoordinator(window: window)
+        coordinator.start()
     }
     
     func end() {

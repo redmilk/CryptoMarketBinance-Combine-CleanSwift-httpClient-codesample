@@ -15,11 +15,11 @@ final class MarketPricesPresenter: PresenterType {
     let inputFromInteractor = PassthroughSubject<MarketPricesInteractor.Response, Never>()
     let outputToViewController = PassthroughSubject<MarketPricesViewController.State, Never>()
     
-    private let coordinator: CoordinatorType
+    private let coordinator: MarketPricesCoordinatorType
     private let formatter = BinanceResponseModelsFormatter()
     private var bag = Set<AnyCancellable>()
     
-    init(coordinator: CoordinatorType) {
+    init(coordinator: MarketPricesCoordinatorType) {
         self.coordinator = coordinator
         handleInput()
     }
@@ -34,19 +34,20 @@ private extension MarketPricesPresenter {
     
     func handleInput() {
         inputFromInteractor
-            .compactMap { [unowned self] interactorResponse in
+            .sink(receiveValue: { [unowned self] interactorResponse in
                 switch interactorResponse {
                 case .socketResponseModel(let model):
                     let preparedDataForView = prepareDataForViewController(model)
-                    guard let preparedData = preparedDataForView else { return nil }
-                    return .recievedPreparedTextData(text: preparedData)
+                    guard let preparedData = preparedDataForView else { return }
+                    outputToViewController.send(.recievedPreparedTextData(text: preparedData))
                 case .socketResponseStatusMessage(let status, let shouldClean):
-                    return .updateSocketStatus(newStatus: status, shouldCleanView: shouldClean)
+                    outputToViewController.send(.updateSocketStatus(newStatus: status, shouldCleanView: shouldClean))
                 case .socketResponseFail(let error):
-                    return .failure(errorDescription: extractErrorMessage(fromError: error), shouldCleanView: false)
+                    outputToViewController.send(.failure(errorDescription: extractErrorMessage(fromError: error), shouldCleanView: false))
+                case .openMarvelScene:
+                    coordinator.openMarvelScene()
                 }
-            }
-            .subscribe(outputToViewController)
+            })
             .store(in: &bag)
     }
     
