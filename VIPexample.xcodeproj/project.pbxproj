@@ -77,6 +77,7 @@
 		790A1F1F26B212E200969231 /* RecentTrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790A1F1D26B212E200969231 /* RecentTrade.swift */; };
 		790A1F2026B212E200969231 /* RecentTrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790A1F1D26B212E200969231 /* RecentTrade.swift */; };
 		791FC2CE271786DD004EA3EC /* BinanceFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791FC2CD271786DD004EA3EC /* BinanceFilter.swift */; };
+		792AD10E272224B2005AC7A8 /* KeyedDecodingContainer+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792AD10D272224B2005AC7A8 /* KeyedDecodingContainer+Extensions.swift */; };
 		793B6311271507EC004B8BEB /* MarketBoardCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B630B271507EC004B8BEB /* MarketBoardCoordinator.swift */; };
 		793B6312271507EC004B8BEB /* MarketBoardPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B630C271507EC004B8BEB /* MarketBoardPresenter.swift */; };
 		793B6313271507EC004B8BEB /* MarketBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B630D271507EC004B8BEB /* MarketBoardViewController.swift */; };
@@ -206,6 +207,7 @@
 		790A1F1626B2118A00969231 /* OrderBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderBook.swift; sourceTree = "<group>"; };
 		790A1F1D26B212E200969231 /* RecentTrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentTrade.swift; sourceTree = "<group>"; };
 		791FC2CD271786DD004EA3EC /* BinanceFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinanceFilter.swift; sourceTree = "<group>"; };
+		792AD10D272224B2005AC7A8 /* KeyedDecodingContainer+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeyedDecodingContainer+Extensions.swift"; sourceTree = "<group>"; };
 		793B630B271507EC004B8BEB /* MarketBoardCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketBoardCoordinator.swift; sourceTree = "<group>"; };
 		793B630C271507EC004B8BEB /* MarketBoardPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketBoardPresenter.swift; sourceTree = "<group>"; };
 		793B630D271507EC004B8BEB /* MarketBoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketBoardViewController.swift; sourceTree = "<group>"; };
@@ -402,6 +404,7 @@
 				790A1EB226B1FEC000969231 /* Collection+Extensions.swift */,
 				79E89F99271207F600BF800B /* String+Extensions.swift */,
 				793B631F271509CB004B8BEB /* UICollectionView+Extensions.swift */,
+				792AD10D272224B2005AC7A8 /* KeyedDecodingContainer+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -853,6 +856,7 @@
 				7951B8A8271124BB00C321B7 /* AllMarketMiniTicker.swift in Sources */,
 				7951B8FB2711364700C321B7 /* BinanceEndpointHelper.swift in Sources */,
 				790A1EBF26B1FEC000969231 /* Collection+Extensions.swift in Sources */,
+				792AD10E272224B2005AC7A8 /* KeyedDecodingContainer+Extensions.swift in Sources */,
 				79A12FD226B22FAC0068CFDF /* OrderBookTicker.swift in Sources */,
 				790A1E7026B1FC9B00969231 /* ImageLoader.swift in Sources */,
 				79A12FCB26B22A070068CFDF /* Price.swift in Sources */,
