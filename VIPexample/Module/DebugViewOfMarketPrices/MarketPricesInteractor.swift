@@ -5,7 +5,8 @@
 import Foundation
 import Combine
 
-final class MarketPricesInteractor: InteractorType, BinanceServiceProvidable {
+final class MarketPricesInteractor: InputOutputable, BinanceServiceProvidable {
+    typealias Failure = Never
     
     enum Response {
         case socketResponseModel(AllStreamTickerTypes?)
@@ -14,10 +15,13 @@ final class MarketPricesInteractor: InteractorType, BinanceServiceProvidable {
         case openMarvelScene
     }
     
-    let inputFromController = PassthroughSubject<MarketPricesViewController.Action, Never>()
-    let outputToPresenter = PassthroughSubject<Response, Never>()
+    let input = PassthroughSubject<MarketPricesViewController.Action, Never>()
+    var output: AnyPublisher<MarketPricesInteractor.Response, Never> {
+        _output.eraseToAnyPublisher()
+    }
     
     private var bag = Set<AnyCancellable>()
+    private let _output = PassthroughSubject<MarketPricesInteractor.Response, Never>()
     
     init() {
         handleInput()
@@ -32,8 +36,7 @@ final class MarketPricesInteractor: InteractorType, BinanceServiceProvidable {
 
 private extension MarketPricesInteractor {
     func handleInput() {
-        inputFromController
-            .sink { [unowned self] action in
+        input.sink { [unowned self] action in
             switch action {
             case .configureSockets(let initialStreams): binanceService.configure(withSingleOrMultipleStreams: initialStreams)
             case .connect: binanceService.connect()
@@ -42,7 +45,7 @@ private extension MarketPricesInteractor {
             case .removeStream(let streamNames): binanceService.updateStreams(updateType: .unsubscribe, forStreams: streamNames)
             case .reconnect: binanceService.reconnect()
             case .openMarvelScene:
-                outputToPresenter.send(.openMarvelScene)
+                _output.send(.openMarvelScene)
             }
         }
         .store(in: &bag)
@@ -60,12 +63,11 @@ private extension MarketPricesInteractor {
                     return Response.socketResponseModel(decoded)
                 }
             }
-            .sink(receiveValue: { [unowned self] in outputToPresenter.send($0) })
+            .sink(receiveValue: { [unowned self] in _output.send($0) })
             .store(in: &bag)
     }
     
     func decodeSocketResponse(_ response: String) -> AllStreamTickerTypes? {
-        //Logger.log(response, type: .responses)
         let data = Data(response.utf8)
         do {
             let model = try JSONDecoder().decode(AllStreamTickerTypes.self, from: data)

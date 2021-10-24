@@ -10,11 +10,15 @@
 import Combine
 import Foundation
 
-final class MarketPricesPresenter: PresenterType {
-
-    let inputFromInteractor = PassthroughSubject<MarketPricesInteractor.Response, Never>()
-    let outputToViewController = PassthroughSubject<MarketPricesViewController.State, Never>()
+final class MarketPricesPresenter: InputOutputable {
+    typealias Failure = Never
     
+    let input = PassthroughSubject<MarketPricesInteractor.Response, Never>()
+    var output: AnyPublisher<MarketPricesViewController.State, Never> {
+        _output.eraseToAnyPublisher()
+    }
+    
+    private let _output = PassthroughSubject<MarketPricesViewController.State, Never>()
     private let coordinator: MarketPricesCoordinatorType
     private let formatter = BinanceResponseModelsFormatter()
     private var bag = Set<AnyCancellable>()
@@ -33,17 +37,16 @@ final class MarketPricesPresenter: PresenterType {
 private extension MarketPricesPresenter {
     
     func handleInput() {
-        inputFromInteractor
-            .sink(receiveValue: { [unowned self] interactorResponse in
+        input.sink(receiveValue: { [unowned self] interactorResponse in
                 switch interactorResponse {
                 case .socketResponseModel(let model):
                     let preparedDataForView = prepareDataForViewController(model)
                     guard let preparedData = preparedDataForView else { return }
-                    outputToViewController.send(.recievedPreparedTextData(text: preparedData))
+                    _output.send(.recievedPreparedTextData(text: preparedData))
                 case .socketResponseStatusMessage(let status, let shouldClean):
-                    outputToViewController.send(.updateSocketStatus(newStatus: status, shouldCleanView: shouldClean))
+                    _output.send(.updateSocketStatus(newStatus: status, shouldCleanView: shouldClean))
                 case .socketResponseFail(let error):
-                    outputToViewController.send(.failure(errorDescription: extractErrorMessage(fromError: error), shouldCleanView: false))
+                    _output.send(.failure(errorDescription: extractErrorMessage(fromError: error), shouldCleanView: false))
                 case .openMarvelScene:
                     coordinator.openMarvelScene()
                 }

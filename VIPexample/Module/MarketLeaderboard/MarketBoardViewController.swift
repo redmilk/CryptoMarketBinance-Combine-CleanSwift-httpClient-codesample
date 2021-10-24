@@ -24,14 +24,16 @@ extension MarketBoardViewController {
 
 // MARK: - MarketBoardViewController
 
-final class MarketBoardViewController: UIViewController, ViewControllerType {
+final class MarketBoardViewController: UIViewController, InputOutputable {
+    typealias Failure = Never
     
     @IBOutlet private weak var collectionView: UICollectionView!
     
-    let inputFromPresenter = PassthroughSubject<State, Never>()
-    let outputToInteractor = PassthroughSubject<Action, Never>()
-
-    var bag = Set<AnyCancellable>()
+    let input = PassthroughSubject<State, Never>()
+    var output: AnyPublisher<Action, Never> { _output.eraseToAnyPublisher() }
+    
+    private let _output = PassthroughSubject<Action, Never>()
+    private var bag = Set<AnyCancellable>()
     private lazy var dataManager = MarketBoardDisplayManager(collectionView: collectionView)
 
     init() {
@@ -56,37 +58,31 @@ final class MarketBoardViewController: UIViewController, ViewControllerType {
         self.bag = bag
     }
     
-    private func configureView() {
-        let debugScene = UIBarButtonItem(title: "Debug", style: .plain, target: nil, action: nil)
-        debugScene.publisher()
-            .sink(receiveValue: { [unowned self] sender in
-                outputToInteractor.send(.openDebug)
-        })
-        .store(in: &bag)
-        navigationItem.rightBarButtonItem  = debugScene
-    }
-}
-
-// MARK: - Internal
-
-private extension MarketBoardViewController {
-    
     /// VC OUTPUT
     func dispatchActionsForInteractor() {
         /// Sending actions to Interactor
-        outputToInteractor.send(.streamStart)
+        _output.send(.streamStart)
     }
     
     /// VC INPUT
     func subscribePresenterOutput() {
         /// Recieve Presenter's output
-        inputFromPresenter
-            .sink(receiveValue: { [unowned self] state in
+        input.sink(receiveValue: { [unowned self] state in
             switch state {
             case .newData(let sections):
                 dataManager.update(withSections: sections)
             }
         })
         .store(in: &bag)
+    }
+    
+    private func configureView() {
+        let debugScene = UIBarButtonItem(title: "Debug", style: .plain, target: nil, action: nil)
+        debugScene.publisher()
+            .sink(receiveValue: { [unowned self] sender in
+                _output.send(.openDebug)
+        })
+        .store(in: &bag)
+        navigationItem.rightBarButtonItem  = debugScene
     }
 }

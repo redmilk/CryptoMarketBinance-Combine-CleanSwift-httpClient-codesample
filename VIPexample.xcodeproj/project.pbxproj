@@ -127,6 +127,7 @@
 		79A1309726B25F6D0068CFDF /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A1309626B25F6D0068CFDF /* HelperFunctions.swift */; };
 		79A1309826B25F6D0068CFDF /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A1309626B25F6D0068CFDF /* HelperFunctions.swift */; };
 		79A1309926B25F6D0068CFDF /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A1309626B25F6D0068CFDF /* HelperFunctions.swift */; };
+		79C04ED52725D138009486F3 /* InputOutputable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C04ED42725D138009486F3 /* InputOutputable.swift */; };
 		79DFA9322714A993002EA664 /* BinanceResponseModelsFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DFA9312714A993002EA664 /* BinanceResponseModelsFormatter.swift */; };
 		79DFA9402714B8DB002EA664 /* SymbolTickerMini.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DFA93F2714B8DB002EA664 /* SymbolTickerMini.swift */; };
 		79E89F952711FF6D00BF800B /* SymbolTicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E89F942711FF6D00BF800B /* SymbolTicker.swift */; };
@@ -139,13 +140,10 @@
 		840D68062648D63700F8C01A /* ContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 840D68042648D63700F8C01A /* ContentViewController.xib */; };
 		840D68082648D6C200F8C01A /* ContentCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D68072648D6C200F8C01A /* ContentCoordinator.swift */; };
 		840D680A2648D71E00F8C01A /* ContentConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D68092648D71E00F8C01A /* ContentConfigurator.swift */; };
-		840D680D2648D97300F8C01A /* ModuleLayersBinderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D680C2648D97300F8C01A /* ModuleLayersBinderType.swift */; };
+		840D680D2648D97300F8C01A /* ModuleLayersBindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D680C2648D97300F8C01A /* ModuleLayersBindable.swift */; };
 		840D680F2648D98600F8C01A /* CoordinatorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D680E2648D98600F8C01A /* CoordinatorType.swift */; };
 		840D68112648DA6B00F8C01A /* ContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D68102648DA6B00F8C01A /* ContentInteractor.swift */; };
 		840D68132648DA8400F8C01A /* ContentPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D68122648DA8400F8C01A /* ContentPresenter.swift */; };
-		840D68152648DBC500F8C01A /* PresenterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D68142648DBC500F8C01A /* PresenterType.swift */; };
-		840D68172648DCAC00F8C01A /* InteractorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D68162648DCAC00F8C01A /* InteractorType.swift */; };
-		840D68192648E33500F8C01A /* ViewControllerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D68182648E33500F8C01A /* ViewControllerType.swift */; };
 		840D681E26491E9300F8C01A /* AuthViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 840D681C26491E9300F8C01A /* AuthViewController.xib */; };
 		84C3B2F3264894120080FFB0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C3B2F2264894120080FFB0 /* AppDelegate.swift */; };
 		84C3B2F5264894120080FFB0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C3B2F4264894120080FFB0 /* SceneDelegate.swift */; };
@@ -247,6 +245,7 @@
 		79A12FCA26B22A070068CFDF /* Price.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Price.swift; sourceTree = "<group>"; };
 		79A12FD126B22FAC0068CFDF /* OrderBookTicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderBookTicker.swift; sourceTree = "<group>"; };
 		79A1309626B25F6D0068CFDF /* HelperFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFunctions.swift; sourceTree = "<group>"; };
+		79C04ED42725D138009486F3 /* InputOutputable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputOutputable.swift; sourceTree = "<group>"; };
 		79DFA9312714A993002EA664 /* BinanceResponseModelsFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinanceResponseModelsFormatter.swift; sourceTree = "<group>"; };
 		79DFA93F2714B8DB002EA664 /* SymbolTickerMini.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolTickerMini.swift; sourceTree = "<group>"; };
 		79E89F942711FF6D00BF800B /* SymbolTicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolTicker.swift; sourceTree = "<group>"; };
@@ -257,13 +256,10 @@
 		840D68042648D63700F8C01A /* ContentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContentViewController.xib; sourceTree = "<group>"; };
 		840D68072648D6C200F8C01A /* ContentCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentCoordinator.swift; sourceTree = "<group>"; };
 		840D68092648D71E00F8C01A /* ContentConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentConfigurator.swift; sourceTree = "<group>"; };
-		840D680C2648D97300F8C01A /* ModuleLayersBinderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleLayersBinderType.swift; sourceTree = "<group>"; };
+		840D680C2648D97300F8C01A /* ModuleLayersBindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleLayersBindable.swift; sourceTree = "<group>"; };
 		840D680E2648D98600F8C01A /* CoordinatorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorType.swift; sourceTree = "<group>"; };
 		840D68102648DA6B00F8C01A /* ContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentInteractor.swift; sourceTree = "<group>"; };
 		840D68122648DA8400F8C01A /* ContentPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentPresenter.swift; sourceTree = "<group>"; };
-		840D68142648DBC500F8C01A /* PresenterType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenterType.swift; sourceTree = "<group>"; };
-		840D68162648DCAC00F8C01A /* InteractorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractorType.swift; sourceTree = "<group>"; };
-		840D68182648E33500F8C01A /* ViewControllerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerType.swift; sourceTree = "<group>"; };
 		840D681C26491E9300F8C01A /* AuthViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AuthViewController.xib; sourceTree = "<group>"; };
 		84C3B2EF264894120080FFB0 /* VIPexample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VIPexample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84C3B2F2264894120080FFB0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -557,7 +553,7 @@
 			path = Content;
 			sourceTree = "<group>";
 		};
-		840D68022648D5F600F8C01A /* Scenes */ = {
+		840D68022648D5F600F8C01A /* Module */ = {
 			isa = PBXGroup;
 			children = (
 				794643452714EE260055C84C /* MarketLeaderboard */,
@@ -565,17 +561,15 @@
 				840D68012648D5C000F8C01A /* Content */,
 				84C3B322264894350080FFB0 /* Authorization */,
 			);
-			path = Scenes;
+			path = Module;
 			sourceTree = "<group>";
 		};
 		840D680B2648D94500F8C01A /* CleanSwiftComponents */ = {
 			isa = PBXGroup;
 			children = (
-				840D680C2648D97300F8C01A /* ModuleLayersBinderType.swift */,
-				840D68182648E33500F8C01A /* ViewControllerType.swift */,
-				840D68142648DBC500F8C01A /* PresenterType.swift */,
-				840D68162648DCAC00F8C01A /* InteractorType.swift */,
+				840D680C2648D97300F8C01A /* ModuleLayersBindable.swift */,
 				840D680E2648D98600F8C01A /* CoordinatorType.swift */,
+				79C04ED42725D138009486F3 /* InputOutputable.swift */,
 			);
 			path = CleanSwiftComponents;
 			sourceTree = "<group>";
@@ -604,7 +598,7 @@
 			isa = PBXGroup;
 			children = (
 				790A1E4626B1F99A00969231 /* Core */,
-				840D68022648D5F600F8C01A /* Scenes */,
+				840D68022648D5F600F8C01A /* Module */,
 				84C3B323264894470080FFB0 /* Application */,
 				84C3B300264894130080FFB0 /* Info.plist */,
 			);
@@ -815,12 +809,10 @@
 				793B6320271509CB004B8BEB /* UICollectionView+Extensions.swift in Sources */,
 				79653A98271252E7006B3B7C /* QuoteAssets.swift in Sources */,
 				7951B8A32711207900C321B7 /* StreamQuery.swift in Sources */,
-				840D68152648DBC500F8C01A /* PresenterType.swift in Sources */,
 				7951B8F3271134E900C321B7 /* BinancSocketAPI.swift in Sources */,
 				793B632627150D73004B8BEB /* MarketBoardSectionModel.swift in Sources */,
 				79653A8C27125231006B3B7C /* BaseAssets.swift in Sources */,
 				790A1F0226B2070C00969231 /* Ping.swift in Sources */,
-				840D68172648DCAC00F8C01A /* InteractorType.swift in Sources */,
 				7951B88927110B0B00C321B7 /* MarketPricesCoordinator.swift in Sources */,
 				793B6313271507EC004B8BEB /* MarketBoardViewController.swift in Sources */,
 				84CDFC452649722C00BDB150 /* ContentCollectionCell.swift in Sources */,
@@ -836,7 +828,6 @@
 				84C3B2F7264894120080FFB0 /* AuthViewController.swift in Sources */,
 				79768A2727151AE400D18DE4 /* MarketBoardSectionBuilder.swift in Sources */,
 				790A1E8826B1FC9B00969231 /* RequestHeaderAdapter.swift in Sources */,
-				840D68192648E33500F8C01A /* ViewControllerType.swift in Sources */,
 				790A1E8226B1FC9B00969231 /* Authenticator.swift in Sources */,
 				790A1EC926B1FF5500969231 /* ApplicationFlowCoordinator.swift in Sources */,
 				7951B88D27110B0B00C321B7 /* MarketPricesConfigurator.swift in Sources */,
@@ -860,7 +851,7 @@
 				79A12FD226B22FAC0068CFDF /* OrderBookTicker.swift in Sources */,
 				790A1E7026B1FC9B00969231 /* ImageLoader.swift in Sources */,
 				79A12FCB26B22A070068CFDF /* Price.swift in Sources */,
-				840D680D2648D97300F8C01A /* ModuleLayersBinderType.swift in Sources */,
+				840D680D2648D97300F8C01A /* ModuleLayersBindable.swift in Sources */,
 				790A1E8526B1FC9B00969231 /* HTTPClient.swift in Sources */,
 				793B6311271507EC004B8BEB /* MarketBoardCoordinator.swift in Sources */,
 				7951B8AD27112A0500C321B7 /* DateTimeHelper.swift in Sources */,
@@ -880,6 +871,7 @@
 				790A1E7626B1FC9B00969231 /* AuthTokens.swift in Sources */,
 				79E89F952711FF6D00BF800B /* SymbolTicker.swift in Sources */,
 				790A1E6A26B1FC9B00969231 /* RequestError.swift in Sources */,
+				79C04ED52725D138009486F3 /* InputOutputable.swift in Sources */,
 				79E89F9A271207F600BF800B /* String+Extensions.swift in Sources */,
 				840D680A2648D71E00F8C01A /* ContentConfigurator.swift in Sources */,
 				790A1E7326B1FC9B00969231 /* ImageCacher.swift in Sources */,

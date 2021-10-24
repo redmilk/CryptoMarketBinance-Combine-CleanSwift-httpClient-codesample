@@ -7,35 +7,36 @@
 
 import Combine
 
-final class ContentInteractor: InteractorType {
+final class ContentInteractor: InputOutputable {
+    typealias Failure = Never
+    
     enum Response {
         case showAuth
         case character(MurvelResult?)
     }
     
-    let inputFromController = PassthroughSubject<ContentViewController.Action, Never>()
-    let outputToPresenter = PassthroughSubject<Response, Never>()
+    let input = PassthroughSubject<ContentViewController.Action, Never>()
+    var output: AnyPublisher<Response, Never> { _output.eraseToAnyPublisher() }
     
+    private let _output = PassthroughSubject<Response, Never>()
     private let marvelService = MarvelService()
     private var bag = Set<AnyCancellable>()
     
     init() {
-        inputFromController
-            .sink(receiveValue: { [unowned self] action in
+        input.sink(receiveValue: { [unowned self] action in
             switch action {
             case .willDisplayCellAtIndex(let index, let maxCount):
                 if maxCount - 5 == index {
                     marvelService.requestMurvel()
                 }
             case .showAuth:
-                outputToPresenter.send(.showAuth)
+                _output.send(.showAuth)
             case _: break
             }
         })
         .store(in: &bag)
         
-        inputFromController
-            .filter { $0 == .loadCharacters }
+        input.filter { $0 == .loadCharacters }
             .handleEvents(receiveOutput: { [unowned self] _ in marvelService.requestMurvel() })
             .flatMap({ [unowned self] action -> AnyPublisher<Response, Never> in
                 marvelService.murvels.flatMap({ chars -> AnyPublisher<MurvelResult, Never> in
@@ -46,7 +47,7 @@ final class ContentInteractor: InteractorType {
                     .map { Response.character($0) }
                     .eraseToAnyPublisher()
             })
-            .subscribe(outputToPresenter)
+            .subscribe(_output)
             .store(in: &bag)
     }
     deinit {

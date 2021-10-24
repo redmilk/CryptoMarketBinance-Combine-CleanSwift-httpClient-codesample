@@ -10,13 +10,15 @@
 import Combine
 import Foundation
 
-final class MarketBoardPresenter: PresenterType {
-
-    let inputFromInteractor = PassthroughSubject<MarketBoardInteractor.Response, Never>()
-    let outputToViewController = PassthroughSubject<MarketBoardViewController.State, Never>()
+final class MarketBoardPresenter: InputOutputable {
+    typealias Failure = Never
+    
+    let input = PassthroughSubject<MarketBoardInteractor.Response, Never>()
+    var output: AnyPublisher<MarketBoardViewController.State, Never> { _output.eraseToAnyPublisher() }
     
     private let coordinator: MarketBoardCoordinatorType
     private var bag: Set<AnyCancellable>
+    private let _output = PassthroughSubject<MarketBoardViewController.State, Never>()
     
     init(coordinator: MarketBoardCoordinatorType, bag: inout Set<AnyCancellable>) {
         self.bag = bag
@@ -31,12 +33,12 @@ final class MarketBoardPresenter: PresenterType {
 // MARK: Internal
 
 private extension MarketBoardPresenter {
-    
+
     func handleInput() {
-        inputFromInteractor.sink(receiveValue: { [unowned self] interactorResponse in
+        input.sink(receiveValue: { [unowned self] interactorResponse in
             switch interactorResponse {
             case .marketSymbolsTick(let marketData):
-                outputToViewController.send(.newData(marketData))
+                _output.send(.newData(marketData))
             case .loading: break
             case .openDebug: coordinator.openDebugScene()
             }

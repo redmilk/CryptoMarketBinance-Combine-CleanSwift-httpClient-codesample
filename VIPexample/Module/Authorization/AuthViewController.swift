@@ -24,25 +24,26 @@ extension AuthViewController {
 
 // MARK: - AuthViewController
 
-final class AuthViewController: UIViewController, ViewControllerType {
-    
-    // MARK: - ViewInputableOutputable implementation
-    
-    let inputFromPresenter = PassthroughSubject<State, Never>()
-    let outputToInteractor = PassthroughSubject<Action, Never>()
-    
-    // MARK: - IBOutlets
-    
+final class AuthViewController: UIViewController, InputOutputable {
+    typealias Failure = Never
+        
     @IBOutlet private weak var usernameTextfield: UITextField!
     @IBOutlet private weak var passwordTextfield: UITextField!
     @IBOutlet private weak var loginButton: UIButton!
     @IBOutlet private weak var messageLabel: UILabel!
     @IBOutlet private weak var removeRootButton: UIButton!
     
-    //private var bag: Set<AnyCancellable>!
-    var bag = Set<AnyCancellable>()
+    private let interactor: AuthInteractor
+    private var bag: Set<AnyCancellable>!
+    private let _output = PassthroughSubject<Action, Never>()
     
-    init() {
+    let input = PassthroughSubject<State, Never>()
+    var output: AnyPublisher<Action, Never> {
+        _output.eraseToAnyPublisher()
+    }
+    
+    init(interactor: AuthInteractor) {
+        self.interactor = interactor
         super.init(nibName: String(describing: AuthViewController.self), bundle: nil)
     }
     required init?(coder: NSCoder) {
@@ -52,14 +53,14 @@ final class AuthViewController: UIViewController, ViewControllerType {
         Logger.log(String(describing: self), type: .deinited)
     }
     
+    func setupWithDisposableBag(_ bag: Set<AnyCancellable>) {
+        self.bag = bag
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         subscribePresenterOutput()
         dispatchActionsForInteractor()
-    }
-    
-    func storeSubscriptions(_ bag: inout Set<AnyCancellable>) {
-        self.bag = bag
     }
 }
 
@@ -73,36 +74,33 @@ private extension AuthViewController {
             passwordTextfield.publisher(for: .editingChanged).compactMap { $0.text }
         )
         .map { .validateCredentials($0.0, $0.1) }
-        .prepend(Action.validateCredentials("", ""))
+        .prepend(Action.validateCredentials("askdhfksjdhf", "mojhkbvmh"))
         
         let removeRootAction = removeRootButton.publisher(for: .touchUpInside)
-            .map {  _ in  Action.removeRoot }
-        
+            .map {  _ in Action.removeRoot }
         let loginPressedAction = loginButton.publisher(for: .touchUpInside)
             .map { _ in Action.loginPressed }
-        
+         
+        let outputToInteractor = _output
         Publishers.Merge3(credentialsAction, removeRootAction, loginPressedAction)
-            .sink(receiveValue: { [unowned self] action in
-                outputToInteractor.send(action)
+            .sink(receiveValue: { [weak outputToInteractor] action in
+                outputToInteractor?.send(action)
             })
             .store(in: &bag)
     }
     
     /// Presenter output handler
     func subscribePresenterOutput() {
-        inputFromPresenter
-            .sink(receiveValue: { [unowned self] viewModel in
+        input.eraseToAnyPublisher()
+            .sink(receiveValue: { [weak self] viewModel in
                 switch viewModel {
-                
                 case .signinResult(let nickname):
-                    messageLabel.text = nickname
-                    
+                    self?.messageLabel.text = nickname
                 case .signinResultFailure(let errorMessage):
-                    messageLabel.text = errorMessage
-                    
+                    self?.messageLabel.text = errorMessage
                 case .validationResult(let result, let validationResultMessage):
-                    messageLabel.text = validationResultMessage
-                    loginButton.isEnabled = result
+                    self?.messageLabel.text = validationResultMessage
+                    self?.loginButton.isEnabled = result
                 }
             })
             .store(in: &bag)

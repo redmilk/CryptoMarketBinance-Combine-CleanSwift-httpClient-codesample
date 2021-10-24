@@ -5,7 +5,8 @@
 import Foundation
 import Combine
 
-final class MarketBoardInteractor: InteractorType, BinanceServiceProvidable {
+final class MarketBoardInteractor: InputOutputable, BinanceServiceProvidable {
+    typealias Failure = Never
     
     enum Response {
         case marketSymbolsTick([MarketBoardSectionModel])
@@ -13,10 +14,11 @@ final class MarketBoardInteractor: InteractorType, BinanceServiceProvidable {
         case loading
     }
     
-    let inputFromController = PassthroughSubject<MarketBoardViewController.Action, Never>()
-    let outputToPresenter = PassthroughSubject<Response, Never>()
+    let input = PassthroughSubject<MarketBoardViewController.Action, Never>()
+    var output: AnyPublisher<Response, Never> { _output.eraseToAnyPublisher() }
     
     private var bag = Set<AnyCancellable>()
+    private let _output = PassthroughSubject<Response, Never>()
     
     init() {
         handleRequestFromController()
@@ -30,12 +32,12 @@ final class MarketBoardInteractor: InteractorType, BinanceServiceProvidable {
 
 private extension MarketBoardInteractor {
     func handleRequestFromController() {
-        inputFromController.sink(receiveValue: { [unowned self] action in
+        input.sink(receiveValue: { [unowned self] action in
             switch action {
             case .streamStart:
                 connectToMarketStreams()
             case .openDebug:
-                outputToPresenter.send(.openDebug)
+                _output.send(.openDebug)
             }
         })
         .store(in: &bag)
@@ -46,10 +48,9 @@ private extension MarketBoardInteractor {
             .components(separatedBy: [" "]).filter { !$0.isEmpty }
         binanceService.configure(withSingleOrMultipleStreams: ["!ticker@arr"])
         binanceService.connect()
-        outputToPresenter.send(.loading)
-        
+        _output.send(.loading)
+    
         let handleSocketsResponse = binanceService.subscribeSocketResponse().share()
-        
         handleSocketsResponse
             .map({ binanceApiSocketResponse -> Data? in
                 guard case .text(let socketTickData) = binanceApiSocketResponse else { return nil }
@@ -69,7 +70,7 @@ private extension MarketBoardInteractor {
                 switch result {
                 case .success(let symbolTickerModels):
                     let sections = self.binanceService.buildMarketTopBySections(allMarket: symbolTickerModels, prefix: 20)
-                    self.outputToPresenter.send(.marketSymbolsTick(sections))
+                    self._output.send(.marketSymbolsTick(sections))
                 case .failure(let error as NSError):
                     Logger.logError(error, descriptions: error.localizedDescription)
                 }

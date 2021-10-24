@@ -32,17 +32,17 @@ typealias DataSource = UICollectionViewDiffableDataSource<Section, MurvelResult>
 typealias Snapshot = NSDiffableDataSourceSnapshot<Section, MurvelResult>
 
 
-final class ContentViewController: UIViewController, ViewControllerType {
+final class ContentViewController: UIViewController, InputOutputable {
+    typealias Failure = Never
     
-    // MARK: - ViewInputableOutputable implementation
-    
-    let inputFromPresenter = PassthroughSubject<State, Never>()
-    let outputToInteractor = PassthroughSubject<Action, Never>()
+    let input = PassthroughSubject<State, Never>()
+    var output: AnyPublisher<Action, Never> { _output.eraseToAnyPublisher() }
     
     @IBOutlet private weak var collectionView: UICollectionView!
     
-    var bag = Set<AnyCancellable>()
+    private var bag = Set<AnyCancellable>()
     private lazy var dataSource = makeDataSource()
+    private let _output = PassthroughSubject<Action, Never>()
     private let searchController = UISearchController(searchResultsController: nil)
     
     init() {
@@ -60,7 +60,7 @@ final class ContentViewController: UIViewController, ViewControllerType {
         configureView()
         configureCollection()
         
-        inputFromPresenter.sink(receiveValue: { [unowned self] state in
+        input.sink(receiveValue: { [unowned self] state in
             switch state {
             case .character(let char):
                 applySnapshot(murvel: char)
@@ -69,7 +69,7 @@ final class ContentViewController: UIViewController, ViewControllerType {
         })
         .store(in: &bag)
         
-        outputToInteractor.send(.loadCharacters)
+        _output.send(.loadCharacters)
     }
     
     func storeSubscriptions(_ bag: inout Set<AnyCancellable>) {
@@ -80,7 +80,7 @@ final class ContentViewController: UIViewController, ViewControllerType {
         let showAuth = UIBarButtonItem(title: "Auth", style: .plain, target: nil, action: nil)
         showAuth.publisher()
             .sink(receiveValue: { [unowned self] sender in
-                outputToInteractor.send(.showAuth)
+                _output.send(.showAuth)
         })
         .store(in: &bag)
         navigationItem.rightBarButtonItem  = showAuth
@@ -103,7 +103,7 @@ extension ContentViewController: UICollectionViewDelegate {
         forItemAt indexPath: IndexPath
     ) {
         let action = Action.willDisplayCellAtIndex(index: indexPath.row, total: collectionView.numberOfItems(inSection: 0))
-        outputToInteractor.send(action)
+        _output.send(action)
     }
 }
 

@@ -12,7 +12,6 @@ import Combine
 final class ContentCoordinator: CoordinatorType {
     
     private var window: UIWindow
-    private var configurator: ContentConfigurator!
 
     init(window: UIWindow) {
         self.window = window
@@ -26,12 +25,8 @@ final class ContentCoordinator: CoordinatorType {
         let controller = ContentViewController()
         let interactor = ContentInteractor()
         let presenter = ContentPresenter(coordinator: self)
-        configurator = ContentConfigurator(
-            controller: controller,
-            interactor: interactor,
-            presenter: presenter
-        )
-        configurator?.bindModuleLayers(controller: controller, bag: &bag)
+        let configurator = ContentConfigurator()
+        configurator.bindModuleLayers(controller: controller, interactor: interactor, presenter: presenter)
         
         let navigation = UINavigationController(rootViewController: controller)
         navigation.hidesBarsOnSwipe = true
@@ -41,8 +36,7 @@ final class ContentCoordinator: CoordinatorType {
     }
     
     func end() {
-        /// nil the configurator to avoid memory leak
-        configurator = nil
+        #warning("for debug")
         let authCoordinator = AuthCoordinator(window: window)
         authCoordinator.start()
     }
