@@ -53,14 +53,14 @@ final class AuthViewController: UIViewController, InputOutputable {
         Logger.log(String(describing: self), type: .deinited)
     }
     
-    func setupWithDisposableBag(_ bag: Set<AnyCancellable>) {
-        self.bag = bag
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         subscribePresenterOutput()
         dispatchActionsForInteractor()
+    }
+    
+    func setupWithDisposableBag(_ bag: Set<AnyCancellable>) {
+        self.bag = bag
     }
 }
 
@@ -74,7 +74,7 @@ private extension AuthViewController {
             passwordTextfield.publisher(for: .editingChanged).compactMap { $0.text }
         )
         .map { .validateCredentials($0.0, $0.1) }
-        .prepend(Action.validateCredentials("askdhfksjdhf", "mojhkbvmh"))
+        .prepend(Action.validateCredentials("", ""))
         
         let removeRootAction = removeRootButton.publisher(for: .touchUpInside)
             .map {  _ in Action.removeRoot }
@@ -101,6 +101,7 @@ private extension AuthViewController {
                 case .validationResult(let result, let validationResultMessage):
                     self?.messageLabel.text = validationResultMessage
                     self?.loginButton.isEnabled = result
+                    self?.messageLabel.textColor = result ? .black : .red
                 }
             })
             .store(in: &bag)

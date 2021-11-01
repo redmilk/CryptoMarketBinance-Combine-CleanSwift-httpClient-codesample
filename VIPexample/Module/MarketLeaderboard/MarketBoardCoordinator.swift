@@ -7,12 +7,13 @@ import UIKit.UINavigationController
 import Combine
 
 protocol MarketBoardCoordinatorType {
-    func openDebugScene()
+    func displayDebug()
+    func displayMarvel()
 }
 
 final class MarketBoardCoordinator: CoordinatorType, MarketBoardCoordinatorType {
-    private let window: UIWindow
-    private var navigationController: UINavigationController!
+    private unowned let window: UIWindow
+    private var navigation: UINavigationController!
     
     init(window: UIWindow) {
         self.window = window
@@ -22,22 +23,29 @@ final class MarketBoardCoordinator: CoordinatorType, MarketBoardCoordinatorType 
     }
     
     func start() {
-        var bag = Set<AnyCancellable>()
-        let controller = MarketBoardViewController()
-        let interactor = MarketBoardInteractor()
-        let presenter = MarketBoardPresenter(coordinator: self, bag: &bag)
+        let presenter = MarketBoardPresenter(coordinator: self)
+        let interactor = MarketBoardInteractor(presenter: presenter)
+        let controller = MarketBoardViewController(interactor: interactor)
         let configurator = MarketBoardConfigurator()
-        configurator.bindModuleLayers(controller: controller, interactor: interactor, presenter: presenter)
-
-        navigationController = UINavigationController(rootViewController: controller)
-        window.rootViewController = navigationController
+        let bag = configurator.bindModuleLayers(controller: controller, interactor: interactor, presenter: presenter)
+        controller.setupWithDisposableBag(bag)
+        navigation = DarkNavigationController(rootViewController: controller)
+        window.rootViewController = navigation
         window.makeKeyAndVisible()
     }
     
-    func openDebugScene() {
-        end()
-        let coordinator = MarketPricesCoordinator(window: window)
+    func displayDebug() {
+        let coordinator = MarketPricesCoordinator(navigation: navigation)
         coordinator.start()
+    }
+    
+    func displayMarvel() {
+        let coordinator = ContentCoordinator(navigation: navigation)
+        coordinator.start()
+    }
+    
+    func openAuthAsRoot() {
+        
     }
     
     func end() {

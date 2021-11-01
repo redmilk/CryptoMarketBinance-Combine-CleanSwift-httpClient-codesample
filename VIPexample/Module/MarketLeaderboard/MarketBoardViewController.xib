@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MarketBoardViewController" customModule="VIPexample" customModuleProvider="target">
             <connections>
+                <outlet property="activityIndicator" destination="SfS-mg-z71" id="RQx-CG-MrK"/>
                 <outlet property="collectionView" destination="EfI-aq-mkw" id="Xrr-Sd-bdG"/>
                 <outlet property="view" destination="iN0-l3-epB" id="abY-5o-lAz"/>
             </connections>
@@ -33,10 +35,20 @@
                         </collectionView>
                     </subviews>
                 </stackView>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="SfS-mg-z71">
+                    <rect key="frame" x="197" y="393" width="20" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="SfS-mg-z71" secondAttribute="height" multiplier="1:1" id="6Wo-aR-VDc"/>
+                        <constraint firstAttribute="height" constant="20" id="yYf-1R-v4g"/>
+                    </constraints>
+                    <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </activityIndicatorView>
             </subviews>
             <constraints>
+                <constraint firstItem="SfS-mg-z71" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="EAg-pq-cMp"/>
                 <constraint firstItem="E0Z-Ds-K3o" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="O9b-F1-nYI"/>
                 <constraint firstAttribute="bottom" secondItem="E0Z-Ds-K3o" secondAttribute="bottom" id="VQL-kQ-yOL"/>
+                <constraint firstItem="SfS-mg-z71" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" multiplier="0.9" id="eyH-ks-So2"/>
                 <constraint firstItem="E0Z-Ds-K3o" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="m5W-ls-g4S"/>
                 <constraint firstAttribute="trailing" secondItem="E0Z-Ds-K3o" secondAttribute="trailing" id="xiu-cS-e9q"/>
             </constraints>

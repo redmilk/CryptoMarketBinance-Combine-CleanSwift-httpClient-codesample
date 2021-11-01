@@ -5,7 +5,7 @@
 import Foundation
 import Combine
 
-final class MarketPricesInteractor: InputOutputable, BinanceServiceProvidable {
+final class MarketPricesInteractor: InputOutputable {
     typealias Failure = Never
     
     enum Response {
@@ -20,10 +20,14 @@ final class MarketPricesInteractor: InputOutputable, BinanceServiceProvidable {
         _output.eraseToAnyPublisher()
     }
     
+    private let binanceWebSocketService: BinanceServiceWebSocketType
+    private let presenter: MarketPricesPresenter
     private var bag = Set<AnyCancellable>()
     private let _output = PassthroughSubject<MarketPricesInteractor.Response, Never>()
     
-    init() {
+    init(presenter: MarketPricesPresenter, binanceWebSocketService: BinanceServiceWebSocketType) {
+        self.binanceWebSocketService = binanceWebSocketService
+        self.presenter = presenter
         handleInput()
         listenToSocketClientResponse()
     }
@@ -38,12 +42,17 @@ private extension MarketPricesInteractor {
     func handleInput() {
         input.sink { [unowned self] action in
             switch action {
-            case .configureSockets(let initialStreams): binanceService.configure(withSingleOrMultipleStreams: initialStreams)
-            case .connect: binanceService.connect()
-            case .disconnect: binanceService.disconnect()
-            case .addStream(let streamNames): binanceService.updateStreams(updateType: .subscribe, forStreams: streamNames)
-            case .removeStream(let streamNames): binanceService.updateStreams(updateType: .unsubscribe, forStreams: streamNames)
-            case .reconnect: binanceService.reconnect()
+            case .connectStreams(let initialStreams):
+                binanceWebSocketService.configure(withSingleOrMultipleStreams: initialStreams)
+                binanceWebSocketService.connect()
+            case .disconnect:
+                binanceWebSocketService.disconnect()
+            case .addStream(let streamNames):
+                binanceWebSocketService.updateStreams(updateType: .subscribe, forStreams: streamNames)
+            case .removeStream(let streamNames):
+                binanceWebSocketService.updateStreams(updateType: .unsubscribe, forStreams: streamNames)
+            case .reconnect:
+                binanceWebSocketService.reconnect()
             case .openMarvelScene:
                 _output.send(.openMarvelScene)
             }
@@ -52,7 +61,7 @@ private extension MarketPricesInteractor {
     }
     
     func listenToSocketClientResponse() {
-        binanceService.subscribeSocketResponse()
+        binanceWebSocketService.subscribeSocketResponse()
             .map { [unowned self] socketResult in
                 switch socketResult {
                 case .connected: return Response.socketResponseStatusMessage("Connected", shouldClean: false)

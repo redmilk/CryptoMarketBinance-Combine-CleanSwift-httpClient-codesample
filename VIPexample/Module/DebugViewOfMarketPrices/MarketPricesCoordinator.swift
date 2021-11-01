@@ -11,36 +11,36 @@ protocol MarketPricesCoordinatorType {
 }
 
 final class MarketPricesCoordinator: CoordinatorType, MarketPricesCoordinatorType {
-    private let window: UIWindow
-    private var navigationController: UINavigationController!
+    private unowned let navigation: UINavigationController
     
-    init(window: UIWindow) {
-        self.window = window
+    init(navigation: UINavigationController) {
+        self.navigation = navigation
     }
     deinit {
         Logger.log(String(describing: self), type: .deinited)
     }
     
     func start() {
-        var bag = Set<AnyCancellable>()
-        let controller = MarketPricesViewController()
-        let interactor = MarketPricesInteractor()
+        let httpClient = HTTPClient(isAuthorizationRequired: false)
+        let binanceRequestApi = BinanceApi(httpClient: httpClient)
+        let binanceSocketsApi = BinanceSocketApi()
+        let binanceService = BinanceService(binanceRequestApi: binanceRequestApi, binanceSocketApi: binanceSocketsApi)
         let presenter = MarketPricesPresenter(coordinator: self)
+        let interactor = MarketPricesInteractor(presenter: presenter, binanceWebSocketService: binanceService)
+        let controller = MarketPricesViewController(interactor: interactor)
         let configurator = MarketPricesConfigurator()
-        configurator.bindModuleLayers(controller: controller, interactor: interactor, presenter: presenter)
-
-        navigationController = UINavigationController(rootViewController: controller)
-        window.rootViewController = navigationController
-        window.makeKeyAndVisible()
+        let bag = configurator.bindModuleLayers(controller: controller, interactor: interactor, presenter: presenter)
+        controller.setupWithDisposableBag(bag)
+        navigation.pushViewController(controller, animated: true)
     }
     
     func openMarvelScene() {
-        end()
-        let coordinator = ContentCoordinator(window: window)
-        coordinator.start()
+//        end()
+//        let coordinator = ContentCoordinator(navigation: navigationController)
+//        coordinator.start()
     }
     
     func end() {
-        window.rootViewController = nil
+        //window.rootViewController = nil
     }
 }

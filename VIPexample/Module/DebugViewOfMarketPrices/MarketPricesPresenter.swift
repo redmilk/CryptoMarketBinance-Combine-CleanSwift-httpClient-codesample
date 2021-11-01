@@ -59,10 +59,6 @@ private extension MarketPricesPresenter {
     func prepareDataForViewController(_ model: AllStreamTickerTypes?) -> String? {
         guard let model = model else { return nil }
         switch model {
-        case .singleSymbolMini(_):
-            return ""
-        case .multipleSymbolsMini(_):
-            return ""
         case .singleSymbol(let singleSymbolModel):
             return formatter.formatSingleSymbolTickerElement(singleSymbolModel)
         case .multipleSymbols(let multipleSymbolModel):
@@ -71,6 +67,8 @@ private extension MarketPricesPresenter {
             return formatter.formatAllMarketMiniTickerElements(allMarketMiniTicker)
         case .allMarketTicker(let allMarket):
             return allMarket.count.description
+        case .singleSymbolMini(_): return ""
+        case .multipleSymbolsMini(_): return ""
         }
     }
     

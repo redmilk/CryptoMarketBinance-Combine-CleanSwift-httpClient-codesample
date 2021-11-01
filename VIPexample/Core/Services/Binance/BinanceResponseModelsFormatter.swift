@@ -22,10 +22,14 @@ struct BinanceResponseModelsFormatter {
     }
     
     func formatMultipleSymbolsResponse(_ symbolTicker: SymbolTicker) -> String {
-        "\t\(symbolTicker.data.symbol) \(symbolTicker.data.lastPrice)"
+        "\t\(resolveChangePercentSymbol(symbolTicker.data.priceChangePercent)) \(symbolTicker.data.symbol) \(symbolTicker.data.lastPrice)"
     }
     
     func formatAllMarketMiniTickerElements(_ elements: [AllMarketMiniTickerElement]) -> String {
         elements.map { "\($0.symbol) \($0.closePrice)" }.joined(separator: "\n")
+    }
+    
+    private func resolveChangePercentSymbol(_ changePercent: Float) -> String {
+        changePercent > 0 ? "+\(changePercent)%" : "\(changePercent)%"
     }
 }

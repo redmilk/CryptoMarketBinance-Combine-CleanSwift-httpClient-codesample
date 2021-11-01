@@ -17,11 +17,10 @@ final class MarketBoardPresenter: InputOutputable {
     var output: AnyPublisher<MarketBoardViewController.State, Never> { _output.eraseToAnyPublisher() }
     
     private let coordinator: MarketBoardCoordinatorType
-    private var bag: Set<AnyCancellable>
+    private var bag = Set<AnyCancellable>()
     private let _output = PassthroughSubject<MarketBoardViewController.State, Never>()
     
-    init(coordinator: MarketBoardCoordinatorType, bag: inout Set<AnyCancellable>) {
-        self.bag = bag
+    init(coordinator: MarketBoardCoordinatorType) {
         self.coordinator = coordinator
         handleInput()
     }
@@ -37,10 +36,12 @@ private extension MarketBoardPresenter {
     func handleInput() {
         input.sink(receiveValue: { [unowned self] interactorResponse in
             switch interactorResponse {
+            case .loading:
+                _output.send(.loading)
             case .marketSymbolsTick(let marketData):
                 _output.send(.newData(marketData))
-            case .loading: break
-            case .openDebug: coordinator.openDebugScene()
+            case .openDebug: coordinator.displayDebug()
+            case .openMarvel: coordinator.displayMarvel()
             }
         })
         .store(in: &bag)

@@ -9,8 +9,8 @@ import Foundation
 import CryptoKit
 import Combine
 import UIKit.UIImage
-// public 3a1e3fc927630d93c59119f347c5bd2e
-// private 81ce12839574a4ca97c41a2cb119083ad101f1e5
+/// public 3a1e3fc927630d93c59119f347c5bd2e
+/// private 81ce12839574a4ca97c41a2cb119083ad101f1e5
 
 fileprivate func MD5(ts: String) -> String {
     let hash = "\(ts)81ce12839574a4ca97c41a2cb119083ad101f1e53a1e3fc927630d93c59119f347c5bd2e"
@@ -73,7 +73,7 @@ final class MarvelService {
             })
             .compactMap { $0 }
             .sink(receiveCompletion: { [weak self] completion in
-                //requestMurvel()
+                self?.requestMurvel()
             }, receiveValue: { [weak self] char in
                 self?.murvels.send([char])
                 self?.offset += 1

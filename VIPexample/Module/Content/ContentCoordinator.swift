@@ -11,33 +11,30 @@ import Combine
 
 final class ContentCoordinator: CoordinatorType {
     
-    private var window: UIWindow
+    private var navigation: UINavigationController
 
-    init(window: UIWindow) {
-        self.window = window
+    init(navigation: UINavigationController) {
+        self.navigation = navigation
     }
     deinit {
         Logger.log(String(describing: self), type: .deinited)
     }
     
     func start() {
-        var bag = Set<AnyCancellable>()
-        let controller = ContentViewController()
-        let interactor = ContentInteractor()
         let presenter = ContentPresenter(coordinator: self)
+        let interactor = ContentInteractor(presenter: presenter)
+        let controller = ContentViewController(interactor: interactor)
         let configurator = ContentConfigurator()
-        configurator.bindModuleLayers(controller: controller, interactor: interactor, presenter: presenter)
-        
-        let navigation = UINavigationController(rootViewController: controller)
-        navigation.hidesBarsOnSwipe = true
-        navigation.modalPresentationStyle = .fullScreen
-        window.rootViewController = navigation
-        window.makeKeyAndVisible()
+        let bag = configurator.bindModuleLayers(controller: controller, interactor: interactor, presenter: presenter)
+        controller.setupWithDisposableBag(bag)
+        navigation.pushViewController(controller, animated: true)
+        //navigation.hidesBarsOnSwipe = true
+        //navigation.modalPresentationStyle = .fullScreen
     }
     
     func end() {
         #warning("for debug")
-        let authCoordinator = AuthCoordinator(window: window)
-        authCoordinator.start()
+//        let authCoordinator = AuthCoordinator(window: window)
+//        authCoordinator.start()
     }
 }

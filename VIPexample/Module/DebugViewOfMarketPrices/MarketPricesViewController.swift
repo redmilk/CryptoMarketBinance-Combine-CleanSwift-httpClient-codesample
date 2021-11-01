@@ -19,8 +19,7 @@ extension MarketPricesViewController {
         case failure(errorDescription: String, shouldCleanView: Bool)
     }
     enum Action {
-        case configureSockets([String])
-        case connect
+        case connectStreams([String])
         case disconnect
         case addStream([String])
         case removeStream([String])
@@ -37,7 +36,6 @@ final class MarketPricesViewController: UIViewController, InputOutputable {
     @IBOutlet private weak var mainTextView: UITextView!
     @IBOutlet private weak var debugTextView: UITextView!
     @IBOutlet private weak var updateStreamTextField: UITextField!
-    @IBOutlet private weak var configureButton: UIButton!
     @IBOutlet private weak var connectButton: UIButton!
     @IBOutlet private weak var disconnectButton: UIButton!
     @IBOutlet private weak var newStreamButton: UIButton!
@@ -49,10 +47,12 @@ final class MarketPricesViewController: UIViewController, InputOutputable {
         _output.eraseToAnyPublisher()
     }
 
-    private var bag = Set<AnyCancellable>()
+    private let interactor: MarketPricesInteractor
+    private var bag: Set<AnyCancellable>!
     private let _output = PassthroughSubject<Action, Never>()
     
-    init() {
+    init(interactor: MarketPricesInteractor) {
+        self.interactor = interactor
         super.init(nibName: String(describing: MarketPricesViewController.self), bundle: nil)
     }
     deinit {
@@ -69,8 +69,11 @@ final class MarketPricesViewController: UIViewController, InputOutputable {
         subscribePresenterOutput()
     }
     
+    func setupWithDisposableBag(_ bag: Set<AnyCancellable>) {
+        self.bag = bag
+    }
+    
     func subscribePresenterOutput() {
-        /// Recieve Presenter's output
         input.receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] state in
                 switch state {
@@ -86,11 +89,15 @@ final class MarketPricesViewController: UIViewController, InputOutputable {
     }
     
     func dispatchActionsForInteractor() {
-        /// Sending actions to Interactor
-        let configure = configureButton.publisher(for: .touchUpInside)
-            .compactMap { [weak self] _ in self?.updateStreamTextField.text?.components(separatedBy: [" "]).filter { !$0.isEmpty } }
-            .map { Action.configureSockets($0) }
-        let connect = connectButton.publisher(for: .touchUpInside).map { _ in Action.connect }
+//        let symbols = "btcusdt@ticker ethusdt@ticker adausdt@ticker shibusdt@ticker xrpusdt@ticker avaxusdt@ticker dogeusdt@ticker dotusdt@ticker bnbusdt@ticker atomusdt@ticker ftmusdt@ticker ltcusdt@ticker omgusdt@ticker linkusdt@ticker neousdt@ticker iotausdt@ticker kncusdt@ticker"
+//            .components(separatedBy: [" "]).filter { !$0.isEmpty }
+            //.prepend(symbols)
+            // .map { Action.configureSockets($0) }
+        let connect = connectButton.publisher(for: .touchUpInside)
+            .compactMap { [weak updateStreamTextField] _ in
+                updateStreamTextField?.text?.components(separatedBy: [" "]).filter { !$0.isEmpty }
+            }
+            .map { streams in Action.connectStreams(streams) }
         let disconnect = disconnectButton.publisher(for: .touchUpInside).map { _ in Action.disconnect }
         let reconnect = reconnectButton.publisher(for: .touchUpInside).map { _ in Action.reconnect }
         let textFieldValues = updateStreamTextField.publisher(for: .editingChanged)
@@ -103,7 +110,7 @@ final class MarketPricesViewController: UIViewController, InputOutputable {
             .combineLatest(textFieldValues)
             .map { Action.removeStream($0.1) }
         
-        Publishers.Merge6(configure, connect, disconnect, reconnect, newStreamAdd, removeStream)
+        Publishers.Merge5(connect, disconnect, reconnect, newStreamAdd, removeStream)
             .sink(receiveValue: { [weak self] in self?._output.send($0) })
             .store(in: &bag)
     }

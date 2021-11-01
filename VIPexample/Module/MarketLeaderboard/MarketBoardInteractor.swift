@@ -9,18 +9,21 @@ final class MarketBoardInteractor: InputOutputable, BinanceServiceProvidable {
     typealias Failure = Never
     
     enum Response {
+        case loading
         case marketSymbolsTick([MarketBoardSectionModel])
         case openDebug
-        case loading
+        case openMarvel
     }
     
     let input = PassthroughSubject<MarketBoardViewController.Action, Never>()
     var output: AnyPublisher<Response, Never> { _output.eraseToAnyPublisher() }
     
+    private let presenter: MarketBoardPresenter
     private var bag = Set<AnyCancellable>()
     private let _output = PassthroughSubject<Response, Never>()
     
-    init() {
+    init(presenter: MarketBoardPresenter) {
+        self.presenter = presenter
         handleRequestFromController()
     }
     deinit {
@@ -34,18 +37,21 @@ private extension MarketBoardInteractor {
     func handleRequestFromController() {
         input.sink(receiveValue: { [unowned self] action in
             switch action {
-            case .streamStart:
+            case .shouldStartStream:
                 connectToMarketStreams()
+                _output.send(.loading)
+            case .shouldDisconnect:
+                binanceService.disconnect()
             case .openDebug:
                 _output.send(.openDebug)
+            case .openMarvel:
+                _output.send(.openMarvel)
             }
         })
         .store(in: &bag)
     }
     
     func connectToMarketStreams() {
-        let symbols = "btcusdt@ticker ethusdt@ticker adausdt@ticker shibusdt@ticker xrpusdt@ticker avaxusdt@ticker dogeusdt@ticker dotusdt@ticker bnbusdt@ticker atomusdt@ticker ftmusdt@ticker ltcusdt@ticker omgusdt@ticker linkusdt@ticker neousdt@ticker iotausdt@ticker kncusdt@ticker"
-            .components(separatedBy: [" "]).filter { !$0.isEmpty }
         binanceService.configure(withSingleOrMultipleStreams: ["!ticker@arr"])
         binanceService.connect()
         _output.send(.loading)

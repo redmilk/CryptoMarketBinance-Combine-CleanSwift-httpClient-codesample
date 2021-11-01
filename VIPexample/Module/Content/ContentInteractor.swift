@@ -18,11 +18,13 @@ final class ContentInteractor: InputOutputable {
     let input = PassthroughSubject<ContentViewController.Action, Never>()
     var output: AnyPublisher<Response, Never> { _output.eraseToAnyPublisher() }
     
+    private let presenter: ContentPresenter
     private let _output = PassthroughSubject<Response, Never>()
     private let marvelService = MarvelService()
     private var bag = Set<AnyCancellable>()
     
-    init() {
+    init(presenter: ContentPresenter) {
+        self.presenter = presenter
         input.sink(receiveValue: { [unowned self] action in
             switch action {
             case .willDisplayCellAtIndex(let index, let maxCount):

@@ -7,6 +7,7 @@
 
 import Combine
 import UIKit
+import CoreFoundation
 
 final class MarketBoardDisplayManager {
     
@@ -42,9 +43,11 @@ private extension MarketBoardDisplayManager {
         var newSnapshot = Snapshot()
         newSnapshot.appendSections(sections)
         sections.forEach { newSnapshot.appendItems($0.items, toSection: $0) }
-        DispatchQueue.main.async {
-            self.dataSource.apply(newSnapshot, animatingDifferences: false)
+        let runLoopMode = CFRunLoopMode.defaultMode.rawValue
+        CFRunLoopPerformBlock(CFRunLoopGetMain(), runLoopMode) { [unowned(unsafe) self] in
+            dataSource.apply(newSnapshot, animatingDifferences: false)
         }
+        CFRunLoopWakeUp(CFRunLoopGetMain())
     }
     
     func buildDataSource() -> DataSource {

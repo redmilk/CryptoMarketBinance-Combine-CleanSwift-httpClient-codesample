@@ -14,8 +14,8 @@ protocol AuthCoordinatorType {
 }
 
 final class AuthCoordinator: CoordinatorType, AuthCoordinatorType {
-    private unowned let window: UIWindow
-    //private var navigationController: UINavigationController!
+    private let window: UIWindow
+    private unowned var navigationController: UINavigationController!
     
     init(window: UIWindow) {
         self.window = window
@@ -31,23 +31,18 @@ final class AuthCoordinator: CoordinatorType, AuthCoordinatorType {
         let configurator = AuthConfigurator()
         let bag = configurator.bindModuleLayers(controller: controller, interactor: interactor, presenter: presenter)
         controller.setupWithDisposableBag(bag)
-        
-        window.rootViewController = controller//configurator.controller//navigationController
+        navigationController = DarkNavigationController(rootViewController: controller)
+        window.rootViewController = navigationController
         window.makeKeyAndVisible()
-        //navigationController = UINavigationController(rootViewController: configurator.controller)
     }
     
     func showContent() {
         end()
-        let window = self.window
-        let coordinator = AuthCoordinator(window: window)//ContentCoordinator(window: window)//MarketBoardCoordinator(window: window)//
+        let coordinator = MarketBoardCoordinator(window: window)
         coordinator.start()
     }
     
     func end() {
         window.rootViewController = nil
-        print()
-        print()
-        print()
     }
 }
