@@ -69,6 +69,11 @@ final class MarketPricesViewController: UIViewController, InputOutputable {
         subscribePresenterOutput()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        _output.send(.disconnect)
+    }
+    
     func setupWithDisposableBag(_ bag: Set<AnyCancellable>) {
         self.bag = bag
     }
@@ -89,10 +94,6 @@ final class MarketPricesViewController: UIViewController, InputOutputable {
     }
     
     func dispatchActionsForInteractor() {
-//        let symbols = "btcusdt@ticker ethusdt@ticker adausdt@ticker shibusdt@ticker xrpusdt@ticker avaxusdt@ticker dogeusdt@ticker dotusdt@ticker bnbusdt@ticker atomusdt@ticker ftmusdt@ticker ltcusdt@ticker omgusdt@ticker linkusdt@ticker neousdt@ticker iotausdt@ticker kncusdt@ticker"
-//            .components(separatedBy: [" "]).filter { !$0.isEmpty }
-            //.prepend(symbols)
-            // .map { Action.configureSockets($0) }
         let connect = connectButton.publisher(for: .touchUpInside)
             .compactMap { [weak updateStreamTextField] _ in
                 updateStreamTextField?.text?.components(separatedBy: [" "]).filter { !$0.isEmpty }

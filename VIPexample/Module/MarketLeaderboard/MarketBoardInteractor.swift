@@ -5,24 +5,29 @@
 import Foundation
 import Combine
 
-final class MarketBoardInteractor: InputOutputable, BinanceServiceProvidable {
+final class MarketBoardInteractor: InputOutputable {
     typealias Failure = Never
     
     enum Response {
         case loading
         case marketSymbolsTick([MarketBoardSectionModel])
-        case openDebug
-        case openMarvel
+        case displayDebug
+        case displayMarvel
+        case displayAuth
     }
     
     let input = PassthroughSubject<MarketBoardViewController.Action, Never>()
     var output: AnyPublisher<Response, Never> { _output.eraseToAnyPublisher() }
     
     private let presenter: MarketBoardPresenter
+    private let binanceWebSocketService: BinanceServiceWebSocketType
     private var bag = Set<AnyCancellable>()
     private let _output = PassthroughSubject<Response, Never>()
     
-    init(presenter: MarketBoardPresenter) {
+    init(presenter: MarketBoardPresenter,
+         binanceWebSocketService: BinanceServiceWebSocketType
+    ) {
+        self.binanceWebSocketService = binanceWebSocketService
         self.presenter = presenter
         handleRequestFromController()
     }
@@ -40,23 +45,21 @@ private extension MarketBoardInteractor {
             case .shouldStartStream:
                 connectToMarketStreams()
                 _output.send(.loading)
-            case .shouldDisconnect:
-                binanceService.disconnect()
-            case .openDebug:
-                _output.send(.openDebug)
-            case .openMarvel:
-                _output.send(.openMarvel)
+            case .shouldDisconnect: binanceWebSocketService.disconnect()
+            case .displayDebug: _output.send(.displayDebug)
+            case .displayMarvel: _output.send(.displayMarvel)
+            case .displayAuth: _output.send(.displayAuth)
             }
         })
         .store(in: &bag)
     }
     
     func connectToMarketStreams() {
-        binanceService.configure(withSingleOrMultipleStreams: ["!ticker@arr"])
-        binanceService.connect()
+        binanceWebSocketService.configure(withSingleOrMultipleStreams: ["!ticker@arr"])
+        binanceWebSocketService.connect()
         _output.send(.loading)
-    
-        let handleSocketsResponse = binanceService.subscribeSocketResponse().share()
+        
+        let handleSocketsResponse = binanceWebSocketService.subscribeSocketResponse().share()
         handleSocketsResponse
             .map({ binanceApiSocketResponse -> Data? in
                 guard case .text(let socketTickData) = binanceApiSocketResponse else { return nil }
@@ -75,7 +78,10 @@ private extension MarketBoardInteractor {
                 guard let self = self else { return }
                 switch result {
                 case .success(let symbolTickerModels):
-                    let sections = self.binanceService.buildMarketTopBySections(allMarket: symbolTickerModels, prefix: 20)
+                    let sections = self.binanceWebSocketService.buildMarketTopBySections(
+                        allMarket: symbolTickerModels,
+                        prefix: 20
+                    )
                     self._output.send(.marketSymbolsTick(sections))
                 case .failure(let error as NSError):
                     Logger.logError(error, descriptions: error.localizedDescription)

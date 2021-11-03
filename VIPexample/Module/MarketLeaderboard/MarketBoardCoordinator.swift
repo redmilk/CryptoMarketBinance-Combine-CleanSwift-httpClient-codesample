@@ -9,6 +9,7 @@ import Combine
 protocol MarketBoardCoordinatorType {
     func displayDebug()
     func displayMarvel()
+    func displayAuthAsRoot()
 }
 
 final class MarketBoardCoordinator: CoordinatorType, MarketBoardCoordinatorType {
@@ -23,8 +24,12 @@ final class MarketBoardCoordinator: CoordinatorType, MarketBoardCoordinatorType 
     }
     
     func start() {
+        let httpClient = HTTPClient(isAuthorizationRequired: false)
+        let binanceRequestApi = BinanceApi(httpClient: httpClient)
+        let binanceSocketsApi = BinanceSocketApi()
+        let binanceService = BinanceService(binanceRequestApi: binanceRequestApi, binanceSocketApi: binanceSocketsApi)
         let presenter = MarketBoardPresenter(coordinator: self)
-        let interactor = MarketBoardInteractor(presenter: presenter)
+        let interactor = MarketBoardInteractor(presenter: presenter, binanceWebSocketService: binanceService)
         let controller = MarketBoardViewController(interactor: interactor)
         let configurator = MarketBoardConfigurator()
         let bag = configurator.bindModuleLayers(controller: controller, interactor: interactor, presenter: presenter)
@@ -44,8 +49,9 @@ final class MarketBoardCoordinator: CoordinatorType, MarketBoardCoordinatorType 
         coordinator.start()
     }
     
-    func openAuthAsRoot() {
-        
+    func displayAuthAsRoot() {
+        //let coordinator = AuthCoordinator(window: <#T##UIWindow#>)
+        //coordinator.start()
     }
     
     func end() {

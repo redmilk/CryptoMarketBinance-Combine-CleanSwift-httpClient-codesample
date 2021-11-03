@@ -42,7 +42,6 @@ extension ModuleLayersBindable where
             })
             .store(in: &bag)
         presenter.output
-            .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak controller] presenterResponse in
                 controller?.input.send(presenterResponse)
             })

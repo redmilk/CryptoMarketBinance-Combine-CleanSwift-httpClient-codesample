@@ -101,7 +101,7 @@ private extension AuthViewController {
                 case .validationResult(let result, let validationResultMessage):
                     self?.messageLabel.text = validationResultMessage
                     self?.loginButton.isEnabled = result
-                    self?.messageLabel.textColor = result ? .black : .red
+                    self?.messageLabel.textColor = result ? .green : .red
                 }
             })
             .store(in: &bag)

@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -118,7 +119,7 @@
                             <color key="backgroundColor" red="0.032090216297704206" green="0.085552506676029233" blue="0.43942279815673824" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </stackView>
                     </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="tG3-Nh-BuO" firstAttribute="top" secondItem="pKs-Cu-beI" secondAttribute="top" id="EiZ-9R-cyW"/>
                         <constraint firstAttribute="trailing" secondItem="tG3-Nh-BuO" secondAttribute="trailing" id="FKQ-uC-82O"/>

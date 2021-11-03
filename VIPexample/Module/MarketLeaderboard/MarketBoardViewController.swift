@@ -20,12 +20,14 @@ extension MarketBoardViewController {
     enum Action {
         case shouldStartStream
         case shouldDisconnect
-        case openDebug
-        case openMarvel
+        case displayDebug
+        case displayMarvel
+        case displayAuth
     }
     enum BarButton: String {
         case debug = "Debug"
         case marvel = "Marvel"
+        case auth = "Auth as Root"
     }
 }
 
@@ -60,8 +62,7 @@ final class MarketBoardViewController: UIViewController, InputOutputable {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
-        subscribePresenterOutput()
-        dispatchActionsForInteractor()
+        handleInput()
         dataManager.configure()
     }
     
@@ -79,14 +80,10 @@ final class MarketBoardViewController: UIViewController, InputOutputable {
         self.bag = bag
     }
     
-    /// OUTPUT
-    func dispatchActionsForInteractor() {
-        _output.send(.shouldStartStream)
-    }
-    
-    /// INPUT
-    func subscribePresenterOutput() {
-        input.sink(receiveValue: { [unowned self] state in
+    /// handleInput
+    func handleInput() {
+        input.receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [unowned self] state in
             switch state {
             case .loading:
                 activityIndicator.startAnimating()
@@ -101,15 +98,28 @@ final class MarketBoardViewController: UIViewController, InputOutputable {
     private func configureView() {
         let debugScene = UIBarButtonItem(title: BarButton.debug.rawValue, style: .plain, target: nil, action: nil)
         let marvelScene = UIBarButtonItem(title: BarButton.marvel.rawValue, style: .plain, target: nil, action: nil)
-        Publishers.Merge(debugScene.publisher(), marvelScene.publisher())
-            .sink(receiveValue: { [unowned self] sender in
-                switch BarButton(rawValue: sender.title!)! {
-                case .debug: _output.send(.openDebug)
-                case .marvel: _output.send(.openMarvel)
-                }
+        let authScene = UIBarButtonItem(title: BarButton.auth.rawValue, style: .plain, target: nil, action: nil)
+
+        Publishers.Merge3(debugScene.publisher(),
+                          marvelScene.publisher(),
+                          authScene.publisher()
+        )
+        .sink(receiveValue: { [unowned _output] sender in
+            switch BarButton(rawValue: sender.title!)! {
+            case .debug: _output.send(.displayDebug)
+            case .marvel: _output.send(.displayMarvel)
+            case .auth: _output.send(.displayAuth)
+            }
         })
         .store(in: &bag)
+                
+        let toolbar = DarkToolBar()
+        let rightSpacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let leftSpacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        toolbar.setItems([leftSpacer, authScene, rightSpacer], animated: false)
+        
         navigationItem.rightBarButtonItem = debugScene
         navigationItem.leftBarButtonItem = marvelScene
+        navigationItem.titleView = toolbar
     }
 }

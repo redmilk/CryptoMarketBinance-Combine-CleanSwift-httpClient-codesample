@@ -40,8 +40,9 @@ private extension MarketBoardPresenter {
                 _output.send(.loading)
             case .marketSymbolsTick(let marketData):
                 _output.send(.newData(marketData))
-            case .openDebug: coordinator.displayDebug()
-            case .openMarvel: coordinator.displayMarvel()
+            case .displayDebug: coordinator.displayDebug()
+            case .displayMarvel: coordinator.displayMarvel()
+            case .displayAuth: coordinator.displayAuthAsRoot()
             }
         })
         .store(in: &bag)

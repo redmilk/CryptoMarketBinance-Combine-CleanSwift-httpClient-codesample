@@ -79,7 +79,7 @@ private extension ContentDisplayDataManager {
     func applySnapshot(murvel: MurvelResult, shouldAnimate: Bool = true) {
         var snapshot = dataSource.snapshot()
         snapshot.appendItems([murvel])
-        let runLoopMode = CFRunLoopMode.commonModes.rawValue
+        let runLoopMode = CFRunLoopMode.defaultMode.rawValue /// CFRunLoopMode.commonMode.rawValue for scrolling without collection updates
         CFRunLoopPerformBlock(CFRunLoopGetMain(), runLoopMode) { [weak dataSource] in
             dataSource?.apply(snapshot, animatingDifferences: shouldAnimate)
         }
