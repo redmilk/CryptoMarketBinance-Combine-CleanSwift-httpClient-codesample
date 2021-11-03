@@ -18,7 +18,6 @@ extension AuthViewController {
     enum Action {
         case loginPressed
         case validateCredentials(String, String)
-        case removeRoot
     }
 }
 
@@ -31,7 +30,6 @@ final class AuthViewController: UIViewController, InputOutputable {
     @IBOutlet private weak var passwordTextfield: UITextField!
     @IBOutlet private weak var loginButton: UIButton!
     @IBOutlet private weak var messageLabel: UILabel!
-    @IBOutlet private weak var removeRootButton: UIButton!
     
     private let interactor: AuthInteractor
     private var bag: Set<AnyCancellable>!
@@ -55,6 +53,7 @@ final class AuthViewController: UIViewController, InputOutputable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Login"
         subscribePresenterOutput()
         dispatchActionsForInteractor()
     }
@@ -76,13 +75,11 @@ private extension AuthViewController {
         .map { .validateCredentials($0.0, $0.1) }
         .prepend(Action.validateCredentials("", ""))
         
-        let removeRootAction = removeRootButton.publisher(for: .touchUpInside)
-            .map {  _ in Action.removeRoot }
         let loginPressedAction = loginButton.publisher(for: .touchUpInside)
             .map { _ in Action.loginPressed }
          
         let outputToInteractor = _output
-        Publishers.Merge3(credentialsAction, removeRootAction, loginPressedAction)
+        Publishers.Merge(credentialsAction, loginPressedAction)
             .sink(receiveValue: { [weak outputToInteractor] action in
                 outputToInteractor?.send(action)
             })

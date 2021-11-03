@@ -53,7 +53,7 @@ private extension MarketBoardDisplayManager {
     func buildDataSource() -> DataSource {
         let dataSource = DataSource(
             collectionView: collectionView,
-            cellProvider: { [unowned self] (collectionView, indexPath, item) -> UICollectionViewCell? in
+            cellProvider: { (collectionView, indexPath, item) -> UICollectionViewCell? in
                 let cell = collectionView.dequeueReusableCell(
                     withReuseIdentifier: String(describing: MarketBoardMainCell.self),
                     for: indexPath) as! MarketBoardMainCell
@@ -61,9 +61,9 @@ private extension MarketBoardDisplayManager {
                 cell.backgroundColor = indexPath.row % 2 == 0 ? .black : #colorLiteral(red: 0.1298420429, green: 0.1298461258, blue: 0.1298439503, alpha: 1)
                 return cell
             })
-        dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
-            guard kind == UICollectionView.elementKindSectionHeader else { return nil }
-            let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
+        dataSource.supplementaryViewProvider = { [weak dataSource] collectionView, kind, indexPath in
+            guard kind == UICollectionView.elementKindSectionHeader, let dataSource = dataSource else { return nil }
+            let section = dataSource.snapshot().sectionIdentifiers[indexPath.section]
             let view = collectionView.dequeueReusableSupplementaryView(
                 ofKind: kind,
                 withReuseIdentifier: String(describing: MarketBoardMainHeader.self),

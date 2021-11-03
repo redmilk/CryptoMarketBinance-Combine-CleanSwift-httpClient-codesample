@@ -37,8 +37,6 @@ final class AuthPresenter: InputOutputable {
                     self?._output.send(.validationResult(result: result, message: message))
                 case .showContent:
                     (coordinator as! AuthCoordinatorType).showContent()
-                case .removeRoot:
-                    coordinator.end()
                 }
             }
         .store(in: &self.bag)

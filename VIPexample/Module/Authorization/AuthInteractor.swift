@@ -14,7 +14,6 @@ final class AuthInteractor: InputOutputable {
     enum Response {
         case validatationResult(Bool)
         case signInRequestResult(Swift.Result<String, Error>)
-        case removeRoot
         case showContent
     }
     
@@ -37,8 +36,6 @@ final class AuthInteractor: InputOutputable {
             case .validateCredentials(let username, let password):
                 let result = self?.validateCredentials(username: username, password: password)
                 self?._output.send(.validatationResult(result ?? false))
-            case .removeRoot:
-                self?._output.send(.removeRoot)
             }
         }
         .store(in: &self.bag)

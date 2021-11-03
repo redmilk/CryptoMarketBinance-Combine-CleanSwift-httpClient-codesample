@@ -114,16 +114,16 @@ private extension BinanceSocketApi {
     func dispatchSocketResponse() {
         socketClient.transmitter
             .receive(on: serialQueue)
-            .sink(receiveValue: { [weak self] result in
+            .sink(receiveValue: { [weak streamResponsePipe] result in
                 switch result {
                 case .onConnected:
-                    self?.streamResponsePipe.send(.connected)
+                    streamResponsePipe?.send(.connected)
                 case .onDisconnected:
-                    self?.streamResponsePipe.send(.disconnected)
+                    streamResponsePipe?.send(.disconnected)
                 case .onError(let error):
-                    self?.streamResponsePipe.send(.error(BinanceServiceError.websocketClient(error: error)))
+                    streamResponsePipe?.send(.error(BinanceServiceError.websocketClient(error: error)))
                 case .onTextMessage(let text):
-                    self?.streamResponsePipe.send(.text(text))
+                    streamResponsePipe?.send(.text(text))
                 case .onDataMessage(_):
                     fatalError("did not expect to recieve Data")
                 }

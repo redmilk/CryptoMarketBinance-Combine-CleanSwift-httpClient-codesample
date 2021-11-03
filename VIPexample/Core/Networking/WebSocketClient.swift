@@ -34,7 +34,7 @@ final class WebSocketClient: NSObject, WebSocketConnectionType { /// NSObject fo
     }
     
     private let transmitterPipe = PassthroughSubject<WebSocketResult, Never>()
-    private var webSocketTask: URLSessionWebSocketTask!
+    private var webSocketTask: URLSessionWebSocketTask?
     private lazy var urlSession = URLSession(configuration: .ephemeral, delegate: self, delegateQueue: sessionDelegateQueue)
     private lazy var sessionDelegateQueue: OperationQueue = {
         let queue = OperationQueue()
@@ -53,29 +53,29 @@ final class WebSocketClient: NSObject, WebSocketConnectionType { /// NSObject fo
     }
     
     func connect() {
-        webSocketTask.resume()
+        webSocketTask?.resume()
     }
     
     func disconnect() {
-        webSocketTask.cancel(with: .goingAway, reason: nil)
+        webSocketTask?.cancel(with: .goingAway, reason: nil)
     }
     
     func send(text: String) {
-        webSocketTask.send(URLSessionWebSocketTask.Message.string(text)) { [weak self] error in
+        webSocketTask?.send(URLSessionWebSocketTask.Message.string(text)) { [weak self] error in
             guard let error = error else { return }
             self?.transmitterPipe.send(.onError(error: error))
         }
     }
     
     func send(data: Data) {
-        webSocketTask.send(URLSessionWebSocketTask.Message.data(data)) { [weak self] error in
+        webSocketTask?.send(URLSessionWebSocketTask.Message.data(data)) { [weak self] error in
             guard let error = error else { return }
             self?.transmitterPipe.send(.onError(error: error))
         }
     }
     
     private func listen()  {
-        webSocketTask.receive { [weak self] result in
+        webSocketTask?.receive { [weak self] result in
             switch result {
             case .failure(let error):
                 self?.transmitterPipe.send(.onError(error: error))

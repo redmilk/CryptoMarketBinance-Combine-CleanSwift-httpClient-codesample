@@ -14,7 +14,7 @@ protocol MarketBoardCoordinatorType {
 
 final class MarketBoardCoordinator: CoordinatorType, MarketBoardCoordinatorType {
     private unowned let window: UIWindow
-    private var navigation: UINavigationController!
+    private weak var navigation: UINavigationController!
     
     init(window: UIWindow) {
         self.window = window
@@ -50,8 +50,8 @@ final class MarketBoardCoordinator: CoordinatorType, MarketBoardCoordinatorType 
     }
     
     func displayAuthAsRoot() {
-        //let coordinator = AuthCoordinator(window: <#T##UIWindow#>)
-        //coordinator.start()
+        let coordinator = AuthCoordinator(window: window)
+        coordinator.start()
     }
     
     func end() {

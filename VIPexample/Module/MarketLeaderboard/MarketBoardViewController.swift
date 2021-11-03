@@ -113,7 +113,8 @@ final class MarketBoardViewController: UIViewController, InputOutputable {
         })
         .store(in: &bag)
                 
-        let toolbar = DarkToolBar()
+        let toolbar = DarkToolBar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 35))
+        toolbar.widthAnchor.constraint(equalToConstant: 150).isActive = true
         let rightSpacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let leftSpacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         toolbar.setItems([leftSpacer, authScene, rightSpacer], animated: false)
